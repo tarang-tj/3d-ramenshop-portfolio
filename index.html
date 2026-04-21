@@ -98,12 +98,12 @@
   .lc:nth-child(3) { color: #cc3333; animation-delay: 0.65s; text-shadow: 0 0 20px #cc3333aa; }
   @keyframes cin { to { opacity: 1; } }
   .loader-tagline {
-    font-size: 0.58rem; color: #5a4020; letter-spacing: 0.5em; text-transform: uppercase;
+    font-size: 0.58rem; color: #5a4020; letter-spacing: 0.32em; text-transform: uppercase;
     opacity: 0; animation: cin 0.5s ease 1.1s forwards;
     margin-bottom: 2.8rem;
   }
   .loader-neon {
-    font-size: 1rem; letter-spacing: 0.3em; text-transform: uppercase;
+    font-size: 1rem; letter-spacing: 0.32em; text-transform: uppercase;
     color: #cc3333; opacity: 0;
     animation: neonOn 0.15s ease 1.5s forwards, neonFlicker 0.5s ease 1.65s;
     text-shadow: 0 0 12px #cc3333, 0 0 28px #cc333366;
@@ -118,7 +118,7 @@
   .loader-fill { height: 100%; background: linear-gradient(90deg, #e8922a, #f0c060); animation: lf 1.6s ease 0.9s forwards; width: 0; }
   @keyframes lf { to { width: 100%; } }
   .loader-status {
-    font-size: 0.52rem; color: #7a5830; letter-spacing: 0.35em; text-transform: uppercase;
+    font-size: 0.52rem; color: #7a5830; letter-spacing: 0.32em; text-transform: uppercase;
     margin-top: 0.9rem; opacity: 0; animation: cin 0.4s ease 1s forwards;
     transition: opacity 0.3s ease;
   }
@@ -176,7 +176,7 @@
     text-shadow: 0 0 12px rgba(232,146,42,0.4), 0 1px 4px rgba(0,0,0,0.8);
     font-variant-numeric: tabular-nums;
   }
-  #time-disp .s { font-size: 0.55rem; color: #6a4a22; letter-spacing: 0.24em; text-transform: uppercase; }
+  #time-disp .s { font-size: 0.55rem; color: #6a4a22; letter-spacing: 0.22em; text-transform: uppercase; }
 
   /* ── About strip ── */
   @keyframes fadeUpSimple { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -184,7 +184,7 @@
     display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem;
     justify-content: center; align-items: center;
     margin-top: 0.65rem; font-size: 0.54rem; color: #8a7040;
-    letter-spacing: 0.26em; text-transform: uppercase;
+    letter-spacing: 0.22em; text-transform: uppercase;
     animation: fadeUpSimple 1s ease 3.4s both;
     text-shadow: 0 1px 6px rgba(0,0,0,0.95);
     max-width: 100%;
@@ -192,13 +192,13 @@
   .about-sep { color: #4a3018; opacity: 0.7; }
 
   #outside-ui .tagline {
-    font-size: 0.64rem; color: #9a8050; letter-spacing: 0.34em;
+    font-size: 0.64rem; color: #9a8050; letter-spacing: 0.32em;
     text-transform: uppercase; margin-top: 0.7rem;
     text-shadow: 0 1px 6px rgba(0,0,0,0.95);
   }
   #outside-ui .hint {
     margin-top: 1.2rem; font-size: 0.62rem; color: #8a7045;
-    letter-spacing: 0.35em; text-transform: uppercase;
+    letter-spacing: 0.32em; text-transform: uppercase;
     animation: pulse 2.5s ease-in-out infinite;
     text-shadow: 0 1px 6px rgba(0,0,0,0.9);
   }
@@ -208,7 +208,7 @@
     display: inline-flex; align-items: center; gap: 0.6rem;
     margin-top: 1.1rem; padding: 0.7rem 2.2rem;
     background: rgba(232,146,42,0.12); border: 1.5px solid rgba(232,146,42,0.6);
-    color: #f0c060; font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: #f0c060; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
     font-family: 'Noto Serif JP', Georgia, serif; cursor: none; pointer-events: all;
     transition: all 0.25s ease; text-shadow: 0 0 10px rgba(232,146,42,0.4);
     animation: fadeUpSimple 1s ease 3.8s both;
@@ -370,8 +370,10 @@
   .panel-card::-webkit-scrollbar-track { background: #f0e8d0; }
   .panel-card::-webkit-scrollbar-thumb { background: #8b1a1a44; border-radius: 2px; }
   .panel-header { border-bottom:1px solid #8b1a1a2a; padding-bottom:1rem; margin-bottom:1.5rem; }
-  .panel-kanji { font-size:2.2rem; color:#8b1a1a; animation: clipReveal 0.5s cubic-bezier(0.16,1,0.3,1) both; }
-  .panel-title { font-size:0.95rem; color:#3a2a1a; letter-spacing:0.18em; text-transform:uppercase; margin-top:0.25rem; animation: clipReveal 0.4s cubic-bezier(0.16,1,0.3,1) 0.07s both; }
+  .panel-kanji { font-size:2.2rem; color:#8b1a1a; animation: clipReveal 0.72s cubic-bezier(0.22, 1, 0.28, 1) both; }
+  .panel-title { font-size:0.95rem; color:#3a2a1a; letter-spacing:0.22em; text-transform:uppercase; margin-top:0.25rem; animation: clipReveal 0.58s cubic-bezier(0.22, 1, 0.28, 1) 0.12s both; }
+  /* Softer ease-out — ink bleeds in, not a hard wipe. Cubic (0.22, 1, 0.28, 1)
+     decelerates gradually over ~70% of the duration, giving that calligraphic feel. */
   @keyframes clipReveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0% 0 0); } }
 
   /* ── Current-role badge ── */
@@ -610,11 +612,13 @@
   /* (removed — element not in DOM) */
   #sound-btn {
     position: fixed; bottom: 1.5rem; left: 1.8rem; z-index: 15;
-    width: 36px; height: 36px; border-radius: 50%;
+    width: 44px; height: 44px; min-width: 44px; min-height: 44px;
+    border-radius: 50%;
     background: rgba(8,4,1,0.82); border: 1px solid #e8922a33;
-    color: #e8922a88; font-size: 0.9rem; cursor: none;
+    color: #e8922a88; font-size: 0.95rem; cursor: none;
     display: flex; align-items: center; justify-content: center;
     transition: all 0.22s; pointer-events: all;
+    font-family: 'Noto Serif JP', Georgia, serif;
   }
   #sound-btn:hover { background: rgba(232,146,42,0.12); border-color: #e8922a66; color: #e8922a; }
   #sound-btn.muted { color: #5a4020; border-color: #2a1808; }
@@ -3852,68 +3856,115 @@ const elOutsideUI = document.getElementById('outside-ui');
 const _antBlinkCache = [];
 scene.traverse(o=>{ if(o.userData.antBlink) _antBlinkCache.push(o); });
 
-// ── Lo-fi music generator ─────────────────────────────────────────────────
+// ── Lo-fi music generator — warm café jazz ────────────────────────────────
+// Previous version sounded creepy because: (1) 1200Hz lowpass cut all warmth,
+// (2) pure sine oscillators with no detuning felt sterile/ethereal, (3) no sub
+// bass to ground the pads, (4) master gain too loud (0.7). This rewrite uses
+// paired detuned triangles per chord note for analog chorus warmth, a sub-bass
+// that tracks the chord root, a soft-knee compressor on the master bus for
+// mastering-like glue, and a warmer midrange crackle.
 let lofiPlaying = false, lofiNodes = null;
 function createLofi(){
   if(!audioCtx) initAudio();
+
+  // Master bus: gain → compressor → warmth lowpass → output
   const master = audioCtx.createGain(); master.gain.value = 0;
-  master.connect(audioCtx.destination);
-  // Warm café jazz pad — major/jazzy chords
-  const pad1 = audioCtx.createOscillator(); pad1.type = 'sine'; pad1.frequency.value = 261.63; // C4
-  const pad2 = audioCtx.createOscillator(); pad2.type = 'sine'; pad2.frequency.value = 329.63; // E4
-  const pad3 = audioCtx.createOscillator(); pad3.type = 'triangle'; pad3.frequency.value = 392.00; // G4
-  const pad4 = audioCtx.createOscillator(); pad4.type = 'sine'; pad4.frequency.value = 493.88; // B4 (maj7)
-  const padGain = audioCtx.createGain(); padGain.gain.value = 0.018;
-  const padFilter = audioCtx.createBiquadFilter(); padFilter.type = 'lowpass'; padFilter.frequency.value = 1200; padFilter.Q.value = 0.7;
-  [pad1,pad2,pad3,pad4].forEach(p => { p.connect(padFilter); p.start(); });
+  const comp = audioCtx.createDynamicsCompressor();
+  comp.threshold.value = -20; comp.ratio.value = 3;
+  comp.attack.value = 0.05;   comp.release.value = 0.25;
+  comp.knee.value = 18;
+  const masterLP = audioCtx.createBiquadFilter();
+  masterLP.type = 'lowpass'; masterLP.frequency.value = 3600; masterLP.Q.value = 0.55;
+  master.connect(comp); comp.connect(masterLP); masterLP.connect(audioCtx.destination);
+
+  // Pad bus: shared lowpass for the dreamy roll-off
+  const padGain = audioCtx.createGain(); padGain.gain.value = 0.028;
+  const padFilter = audioCtx.createBiquadFilter();
+  padFilter.type = 'lowpass'; padFilter.frequency.value = 2400; padFilter.Q.value = 0.8;
   padFilter.connect(padGain); padGain.connect(master);
-  // Warm major/jazzy chord progression — Cmaj7 → Fmaj7 → Dm7 → G7
+
+  // Paired detuned triangle oscillators per chord tone — analog-chorus warmth
+  const makeVoice = (freq, detuneCents) => {
+    const a = audioCtx.createOscillator();
+    a.type = 'triangle'; a.frequency.value = freq; a.detune.value = -detuneCents;
+    const b = audioCtx.createOscillator();
+    b.type = 'triangle'; b.frequency.value = freq; b.detune.value =  detuneCents;
+    a.connect(padFilter); b.connect(padFilter); a.start(); b.start();
+    return [a, b];
+  };
+  // Seed with Cmaj7. Each entry is a voice pair; updated in the chord loop below.
+  const voices = [
+    makeVoice(261.63, 6),  // root
+    makeVoice(329.63, 7),  // third
+    makeVoice(392.00, 5),  // fifth
+    makeVoice(493.88, 8),  // maj7
+  ];
+
+  // Sub-bass — grounds the chord so pads don't float unmoored
+  const bass = audioCtx.createOscillator();
+  bass.type = 'sine'; bass.frequency.value = 130.81; // C3
+  const bassGain = audioCtx.createGain(); bassGain.gain.value = 0.045;
+  const bassLP = audioCtx.createBiquadFilter();
+  bassLP.type = 'lowpass'; bassLP.frequency.value = 320; bassLP.Q.value = 0.7;
+  bass.connect(bassLP); bassLP.connect(bassGain); bassGain.connect(master);
+  bass.start();
+
+  // Warm jazz progression: Cmaj7 → Fmaj7 → Dm7 → G7 (ii–V–I in disguise)
   const chords = [
-    [261.63, 329.63, 392.00, 493.88],  // Cmaj7  — bright, open
-    [349.23, 440.00, 523.25, 659.25],  // Fmaj7  — warm, floating
-    [293.66, 349.23, 440.00, 523.25],  // Dm7    — gentle tension
-    [392.00, 493.88, 587.33, 349.23],  // G7     — resolve back
+    { freqs:[261.63, 329.63, 392.00, 493.88], bass:130.81 }, // Cmaj7
+    { freqs:[349.23, 440.00, 523.25, 659.25], bass:174.61 }, // Fmaj7
+    { freqs:[293.66, 349.23, 440.00, 523.25], bass:146.83 }, // Dm7
+    { freqs:[392.00, 493.88, 587.33, 349.23], bass:196.00 }, // G7
   ];
   let chordIdx = 0;
-  const chordInterval = setInterval(()=>{
+  const chordInterval = setInterval(() => {
     if(!lofiPlaying) return;
     chordIdx = (chordIdx + 1) % chords.length;
     const c = chords[chordIdx];
     const t = audioCtx.currentTime;
-    pad1.frequency.exponentialRampToValueAtTime(c[0], t+1.8);
-    pad2.frequency.exponentialRampToValueAtTime(c[1], t+1.8);
-    pad3.frequency.exponentialRampToValueAtTime(c[2], t+1.8);
-    pad4.frequency.exponentialRampToValueAtTime(c[3], t+1.8);
-  }, 3200);
-  // Gentle rhythmic pluck — soft piano-like notes
-  const pluckInterval = setInterval(()=>{
+    for(let i = 0; i < 4; i++){
+      voices[i][0].frequency.exponentialRampToValueAtTime(c.freqs[i], t + 2.2);
+      voices[i][1].frequency.exponentialRampToValueAtTime(c.freqs[i], t + 2.2);
+    }
+    bass.frequency.exponentialRampToValueAtTime(c.bass, t + 1.6);
+  }, 3800);
+
+  // Rhodes-ish pluck — triangle waveform, softer attack, longer release
+  const pluckInterval = setInterval(() => {
     if(!lofiPlaying || !audioCtx) return;
-    const notes = [523.25, 587.33, 659.25, 784.00, 659.25, 523.25]; // pentatonic melody
-    const note = notes[Math.floor(Math.random()*notes.length)];
+    const notes = [523.25, 587.33, 659.25, 784.00, 659.25, 587.33];
+    const note = notes[Math.floor(Math.random() * notes.length)];
+    const freq = note * (Math.random() > 0.25 ? 1 : 0.5); // bias toward higher octave
     const osc = audioCtx.createOscillator();
     const g = audioCtx.createGain();
     const f = audioCtx.createBiquadFilter();
-    f.type = 'lowpass'; f.frequency.value = 2000; f.Q.value = 0.5;
+    f.type = 'lowpass'; f.frequency.value = 1900; f.Q.value = 0.7;
     osc.connect(f); f.connect(g); g.connect(master);
-    osc.type = 'sine';
-    osc.frequency.value = note * (Math.random()>0.5 ? 1 : 0.5); // octave variation
+    osc.type = 'triangle';
+    osc.frequency.value = freq;
     const now = audioCtx.currentTime;
     g.gain.setValueAtTime(0, now);
-    g.gain.linearRampToValueAtTime(0.04, now+0.01);
-    g.gain.exponentialRampToValueAtTime(0.001, now+0.8);
-    osc.start(now); osc.stop(now+0.85);
-  }, 800 + Math.random()*400);
-  // Vinyl warmth — very subtle crackle
+    g.gain.linearRampToValueAtTime(0.024, now + 0.055); // softer attack (was 0.01s)
+    g.gain.exponentialRampToValueAtTime(0.001, now + 1.3); // longer release
+    osc.start(now); osc.stop(now + 1.35);
+  }, 1100 + Math.random() * 500);
+
+  // Vinyl crackle — warmer midrange instead of sharp highs
   const crackle = audioCtx.createBufferSource();
-  const cBuf = audioCtx.createBuffer(1, audioCtx.sampleRate*2, audioCtx.sampleRate);
+  const cBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
   const cData = cBuf.getChannelData(0);
-  for(let i=0;i<cData.length;i++) cData[i] = (Math.random()*2-1) * (Math.random()>0.98?0.6:0.008);
+  for(let i = 0; i < cData.length; i++){
+    cData[i] = (Math.random() * 2 - 1) * (Math.random() > 0.985 ? 0.45 : 0.005);
+  }
   crackle.buffer = cBuf; crackle.loop = true;
-  const crackleGain = audioCtx.createGain(); crackleGain.gain.value = 0.012;
-  const crackleFilter = audioCtx.createBiquadFilter(); crackleFilter.type = 'bandpass'; crackleFilter.frequency.value = 4000; crackleFilter.Q.value = 0.3;
+  const crackleGain = audioCtx.createGain(); crackleGain.gain.value = 0.009;
+  const crackleFilter = audioCtx.createBiquadFilter();
+  crackleFilter.type = 'bandpass'; crackleFilter.frequency.value = 1400; // was 4000 (too sharp)
+  crackleFilter.Q.value = 0.4;
   crackle.connect(crackleFilter); crackleFilter.connect(crackleGain); crackleGain.connect(master);
   crackle.start();
-  return { master, chordInterval, pluckInterval, pads:[pad1,pad2,pad3,pad4], crackle };
+
+  return { master, chordInterval, pluckInterval, voices, bass, crackle };
 }
 function toggleLofi(){
   initAudio();
@@ -3923,7 +3974,7 @@ function toggleLofi(){
   btn.setAttribute('aria-pressed', lofiPlaying?'true':'false');
   if(lofiPlaying){
     if(!lofiNodes) lofiNodes = createLofi();
-    lofiNodes.master.gain.linearRampToValueAtTime(0.7, audioCtx.currentTime+1.5);
+    lofiNodes.master.gain.linearRampToValueAtTime(0.4, audioCtx.currentTime+2.2);
   } else if(lofiNodes){
     lofiNodes.master.gain.linearRampToValueAtTime(0, audioCtx.currentTime+1);
     if(lofiNodes.chordInterval) clearInterval(lofiNodes.chordInterval);
