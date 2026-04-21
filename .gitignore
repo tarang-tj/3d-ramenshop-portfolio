@@ -1,0 +1,19 @@
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Node / build artifacts (if you ever add tooling)
+node_modules/
+dist/
+.cache/
+.env
+.env.local
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
