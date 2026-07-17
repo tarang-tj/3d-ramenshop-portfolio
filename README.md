@@ -56,7 +56,7 @@ The classic Konami sequence (↑ ↑ ↓ ↓ ← → ← → B A) unlocks rainbo
 
 1. **Washington Homelessness & Housing Affordability Analysis** — 9 years of Zillow + HUD PIT data, R regression, interactive Tableau dashboard quantifying the affordability gap
 2. **E-Commerce SQL Analytics Engine** — normalized 6-table schema, cohort/RFM/window-function queries, surfaced that loyal buyers (22% of the base) generate 34% of revenue
-3. **Economic Pulse Dashboard** — Python + Streamlit pulling live FRED data (GDP, CPI, unemployment, yield curve) with recession probability indicators
+3. **Economic Pulse Dashboard** — Python + Streamlit pulling live FRED data (GDP, CPI, unemployment, fed funds, and more) with linear-regression trend detection and NBER recession shading
 4. **Operations & Forecasting Model** — 18-month Excel multivariate regression, 94% forecast accuracy, Power BI dashboard tracking 15+ KPIs
 5. **CED Financial Case Competition** — bottom-up financial model projecting $15.3M in revenue and 81.5% operating income improvement; Team Cartier finalist
 6. **[AutoAppli](https://autoappli.com)** — AI-assisted job application platform: tailors resumes, drafts outreach, tracks applications on a Kanban board. Full-stack Next.js + TypeScript + FastAPI + Supabase + Claude API, public demo included
