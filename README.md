@@ -55,7 +55,7 @@ The classic Konami sequence (↑ ↑ ↓ ↓ ← → ← → B A) unlocks rainbo
 ## Projects showcased
 
 1. **Washington Homelessness & Housing Affordability Analysis** — 9 years of Zillow + HUD PIT data, R regression, interactive Tableau dashboard quantifying the affordability gap
-2. **E-Commerce SQL Analytics Engine** — normalized 8-table schema, cohort/RFM/window-function queries, surfaced 58% revenue concentration in top 12% of customers
+2. **E-Commerce SQL Analytics Engine** — normalized 6-table schema, cohort/RFM/window-function queries, surfaced that loyal buyers (22% of the base) generate 34% of revenue
 3. **Economic Pulse Dashboard** — Python + Streamlit pulling live FRED data (GDP, CPI, unemployment, yield curve) with recession probability indicators
 4. **Operations & Forecasting Model** — 18-month Excel multivariate regression, 94% forecast accuracy, Power BI dashboard tracking 15+ KPIs
 5. **CED Financial Case Competition** — bottom-up financial model projecting $15.3M in revenue and 81.5% operating income improvement; Team Cartier finalist
