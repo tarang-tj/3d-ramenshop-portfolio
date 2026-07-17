@@ -2,9 +2,11 @@
 
 > Step into a hand-built 3D ramen shop. Sit at the bar. Browse my work.
 
-**Live site:** [tarang-tj.github.io](https://tarang-tj.github.io)
+**Live site:** [tarang-tj.github.io/3d-ramenshop-portfolio](https://tarang-tj.github.io/3d-ramenshop-portfolio/)
 
-An interactive portfolio built as a single HTML file. No frameworks, no build tools, no package manager — just Three.js r128, vanilla JavaScript, and every mesh written by hand.
+![The ramen shop at night, click the door to step inside](docs/ramenshop.png)
+
+An interactive portfolio built as a single HTML file. No frameworks, no build tools, no package manager, just Three.js r128, vanilla JavaScript, and every mesh written by hand.
 
 ## What's in the scene
 
