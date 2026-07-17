@@ -54,22 +54,22 @@ The classic Konami sequence (↑ ↑ ↓ ↓ ← → ← → B A) unlocks rainbo
 
 ## Projects showcased
 
-1. **Washington Homelessness & Housing Affordability Analysis** — 9 years of Zillow + HUD PIT data, R regression, interactive Tableau dashboard quantifying the affordability gap
-2. **E-Commerce SQL Analytics Engine** — normalized 6-table schema, cohort/RFM/window-function queries, surfaced that loyal buyers (22% of the base) generate 34% of revenue
-3. **Economic Pulse Dashboard** — Python + Streamlit pulling live FRED data (GDP, CPI, unemployment, fed funds, and more) with linear-regression trend detection and NBER recession shading
-4. **Operations & Forecasting Model** — 18-month Excel multivariate regression, 94% forecast accuracy, Power BI dashboard tracking 15+ KPIs
-5. **CED Financial Case Competition** — bottom-up financial model projecting $15.3M in revenue and 81.5% operating income improvement; Team Cartier finalist
-6. **[AutoAppli](https://autoappli.com)** — AI-assisted job application platform: tailors resumes, drafts outreach, tracks applications on a Kanban board. Full-stack Next.js + TypeScript + FastAPI + Supabase + Claude API, public demo included
-7. **[SyllabusAI](https://syllabusai.net)** — AI-parsed syllabus → Google Calendar sync. Paste or upload a PDF, Claude extracts deadlines and pushes them to your calendar. Node.js + Supabase backend, Google Calendar API, PWA for mobile. Shipped to production with real users
-8. **This portfolio** — the thing you're reading about right now
+1. **[ragproof](https://github.com/tarang-tj/ragproof)**: open-source RAG evaluation harness built from scratch. Scores retrieval and generation with hit@k, MRR, NDCG, recall, answer faithfulness, per-query cost, and embedding-drift detection. BEIR-benchmarked (dense bge-small hits NDCG@10 0.720 vs 0.56 for BM25). 54 tests + CI. Python, CLI, Docker
+2. **[SyllabusAI](https://syllabusai.net)**: upload a syllabus, get every deadline in your calendar in seconds. 500+ active users, 2,500+ syllabi processed at 95%+ accuracy. Claude API, Node.js, Supabase, Vercel, real-time SSE, Google Calendar OAuth, PWA
+3. **[AutoAppli](https://autoappli.com)**: AI job-application platform. Resume tailoring, outreach drafts, and Kanban tracking. Next.js, TypeScript, FastAPI, Supabase, Claude API
+4. **Jacobs' Pharmacy 3D Recreation**: procedural recreation of the 1886 pharmacy where Coca-Cola was first served, with Blender driven through Python so the space is generated from code. Ongoing Coca-Cola internship capstone, full build under wraps
+5. **Economic Pulse Dashboard**: Python + Streamlit pulling live FRED data with regression trend detection
+6. **E-Commerce SQL Analytics**: PostgreSQL, 6-table schema, cohort and window-function analysis
+7. **WA Rising Rent & Homelessness**: 9 years of Zillow data, R + Tableau
+8. **This portfolio**: the thing you're reading about right now
 
 ## About me
 
-**Tarang (TJ) Jammalamadaka** — Data & Business Analyst
+**Tarang (TJ) Jammalamadaka** · Applied AI & Full-Stack Engineer
 
-- University of Washington Bothell · BMIS · Class of 2027 · GPA 3.7 · Dean's List
-- Currently: Operations Improvement Analyst at Quadcore Innovations
-- Open to Summer 2026 internships in Finance, Data Analytics, and Product
+- University of Washington Bothell · MIS · Class of 2027 · GPA 3.7 · Dean's List
+- Currently: Global Human Insights Intern @ The Coca-Cola Company (Ignite Program, Atlanta)
+- Open to Applied-AI and forward-deployed engineering roles starting June 2027
 
 [Resume (PDF)](TJ_Resume.pdf) · [LinkedIn](https://linkedin.com/in/tarang-tj) · [GitHub](https://github.com/tarang-tj) · tarangjammalamadaka9@gmail.com
 
