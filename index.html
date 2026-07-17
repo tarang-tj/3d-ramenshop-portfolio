@@ -168,12 +168,15 @@
       0 2px 12px rgba(0,0,0,0.9);
     margin-bottom: 0.2rem; line-height: 1;
     animation: nameBreath 5s ease-in-out 4s infinite;
+    /* Ghost watermark: sits over the shopfront on the landing screen, so it
+       reads as faint texture rather than colliding type (kept <=0.12 opacity). */
+    opacity: 0.1;
   }
   #outside-ui .name-last {
     font-size: clamp(0.72rem, 1.4vw, 0.95rem); color: #c8a86a;
     letter-spacing: 0.32em; text-transform: uppercase;
     text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-    opacity: 0.85;
+    opacity: 0.1;
   }
   @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
@@ -1763,10 +1766,10 @@ skyDome.position.y = -5; scene.add(skyDome);
 // Moon glow point light
 const moonGlow = new THREE.PointLight(0xc8d8ff, 0.5, 200);
 moonGlow.position.set(-40, 80, -100); scene.add(moonGlow);
-// Visible moon disk
+// Visible moon disk - warm-white and near-opaque so bloom catches it gently
 const moonDisk = new THREE.Mesh(
   new THREE.CircleGeometry(3.5, 24),
-  new THREE.MeshBasicMaterial({color:0xe8f0ff, transparent:true, opacity:0.72, side:THREE.FrontSide})
+  new THREE.MeshBasicMaterial({color:0xfff4e0, transparent:true, opacity:0.96, side:THREE.FrontSide})
 );
 moonDisk.position.set(-42, 82, -102);
 moonDisk.lookAt(0, 0, 0);
@@ -1779,6 +1782,23 @@ const moonHalo = new THREE.Mesh(
 moonHalo.position.set(-42, 82, -101.5);
 moonHalo.lookAt(0, 0, 0);
 scene.add(moonHalo);
+// Soft additive radial glow behind the moon (~2.5x diameter) so it reads as a
+// glowing moon instead of a flat disc. Sprite + additive blend, kept subtle.
+const _moonGlowTex = (()=>{
+  const c=document.createElement('canvas'); c.width=c.height=128;
+  const g=c.getContext('2d'), gr=g.createRadialGradient(64,64,0,64,64,64);
+  gr.addColorStop(0,'rgba(255,246,224,0.55)');
+  gr.addColorStop(0.4,'rgba(228,236,255,0.18)');
+  gr.addColorStop(1,'rgba(200,215,255,0)');
+  g.fillStyle=gr; g.fillRect(0,0,128,128);
+  return new THREE.CanvasTexture(c);
+})();
+const moonGlowSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+  map:_moonGlowTex, transparent:true, blending:THREE.AdditiveBlending, depthWrite:false, opacity:0.9
+}));
+moonGlowSprite.position.set(-42, 82, -102.5);
+moonGlowSprite.scale.set(17.5, 17.5, 1);
+scene.add(moonGlowSprite);
 
 // ── Star field ────────────────────────────────────────────────────────────
 const STAR_COUNT = 380;
@@ -2811,9 +2831,6 @@ for(let z=-6;z>=-37;z-=10)B(24,0.6,0.5,M(0x2a1e08),0,11.7,z);
 [-9,-3,3,9].forEach(bx=>{
   B(0.25,12,0.22,M(0x2a1a08,0,0,0.7),bx,6,-1.9);
 });
-// Amber neon accent strip along right wall wainscot rail
-B(12,0.08,0.06,new THREE.MeshStandardMaterial({color:0xe8922a,emissive:0xe8922a,emissiveIntensity:1.6}),6,3.6,-20);
-// amber strip lit by pillar lights
 
 // ── Pendant ceiling fixtures above counter ────────────────────────────────
 [-8,-3.5,2,7].forEach((px,i)=>{
@@ -2900,6 +2917,34 @@ const steamPtcls=[];
   }
 });
 
+// ── Interior seasoning - contact shadows + one cool wash ───────────────────
+// Sprites/meshes only. NO new lights (the scene already runs at its documented
+// point-light budget); these just add temperature contrast and grounding.
+const _shadowTex=(()=>{
+  const c=document.createElement('canvas'); c.width=c.height=64;
+  const g=c.getContext('2d'), gr=g.createRadialGradient(32,32,0,32,32,32);
+  gr.addColorStop(0,'rgba(0,0,0,0.5)'); gr.addColorStop(0.6,'rgba(0,0,0,0.2)'); gr.addColorStop(1,'rgba(0,0,0,0)');
+  g.fillStyle=gr; g.fillRect(0,0,64,64);
+  return new THREE.CanvasTexture(c);
+})();
+function contactShadow(x,y,z,r){
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(r,r),
+    new THREE.MeshBasicMaterial({map:_shadowTex,transparent:true,depthWrite:false,opacity:0.85}));
+  m.rotation.x=-Math.PI/2; m.position.set(x,y,z); scene.add(m); return m;
+}
+[-8,-4.5,-1,2.5,6,9.5].forEach(sx=>contactShadow(sx,0.06,-19,2.3)); // under stools
+[-6,0,6].forEach(bx=>contactShadow(bx,5.41,-22.5,1.7));             // under bowls
+// Cool wash near the entrance side to break the warm sepia monotone
+const _coolTex=(()=>{
+  const c=document.createElement('canvas'); c.width=c.height=128;
+  const g=c.getContext('2d'), gr=g.createRadialGradient(64,64,0,64,64,64);
+  gr.addColorStop(0,'rgba(106,134,184,0.55)'); gr.addColorStop(1,'rgba(106,134,184,0)');
+  g.fillStyle=gr; g.fillRect(0,0,128,128);
+  return new THREE.CanvasTexture(c);
+})();
+const coolWash=new THREE.Sprite(new THREE.SpriteMaterial({map:_coolTex,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:0.32}));
+coolWash.position.set(-8,3.4,-11); coolWash.scale.set(17,14,1); scene.add(coolWash);
+
 // ── Counter items — all grounded to counter top surface (y:5.375) ─────────
 // Sake bottle: height 0.9, center = 5.375 + 0.45
 const sake=new THREE.Mesh(new THREE.CylinderGeometry(0.18,0.2,0.9,10),M(0x0a1a2a,0x0a0f15,0.35,0.25,0.35));
@@ -2953,7 +2998,7 @@ const menuCardTex=(()=>{
   return new THREE.CanvasTexture(c);
 })();
 
-const menuCard=new THREE.Mesh(new THREE.PlaneGeometry(1.14,1.56),new THREE.MeshStandardMaterial({map:menuCardTex,roughness:0.9}));
+const menuCard=new THREE.Mesh(new THREE.PlaneGeometry(1.14,1.56),new THREE.MeshStandardMaterial({map:menuCardTex,color:0x8a8a8a,roughness:0.9}));
 menuCard.position.set(0,0.05,0.042); menuCard.userData.menuCard=true; MSG.add(menuCard);
 
 // Glowing "MENU" sign above stand
@@ -3066,9 +3111,9 @@ const bottleColors=[0x0a1a2a,0x1a0a08,0x0a180a,0x1a1008];
   cap.position.set(bx,9.38,-30); scene.add(cap);
 });
 // Sake shelf lit by iAmb already
-const dM=new THREE.Mesh(new THREE.PlaneGeometry(5,0.9),new THREE.MeshBasicMaterial({map:mkSS('[ DATA ]','#22ccee',480,90,38),transparent:true}));
+const dM=new THREE.Mesh(new THREE.PlaneGeometry(5,0.9),new THREE.MeshBasicMaterial({map:mkSS('[ RAG ]','#22ccee',480,90,38),transparent:true}));
 dM.position.set(-8,10,-40.72); scene.add(dM);
-const aM=new THREE.Mesh(new THREE.PlaneGeometry(5,0.9),new THREE.MeshBasicMaterial({map:mkSS('ANALYST','#e8922a',480,90,38),transparent:true}));
+const aM=new THREE.Mesh(new THREE.PlaneGeometry(5,0.9),new THREE.MeshBasicMaterial({map:mkSS('SHIP IT','#e8922a',480,90,38),transparent:true}));
 aM.position.set(8,10,-40.72); scene.add(aM);
 
 // Specials board
@@ -4176,22 +4221,18 @@ function showToast(kanji, html, sub){
 }
 window.showToast = showToast;
 
-// ── Omikuji — press F anywhere to pull a fortune (14 handcrafted) ──────
+// ── Omikuji - press F anywhere to pull a fortune (10 handcrafted) ──────
 const _omikuji = [
-  { k:'大吉', en:'Great blessing',   m:"Today's work compounds. Ship the thing." },
-  { k:'吉',   en:'Good fortune',     m:'A recruiter is about to open this tab in a new window.' },
-  { k:'中吉', en:'Middle fortune',   m:'The bowl you haven\u2019t ordered yet will surprise you.' },
-  { k:'小吉', en:'Small fortune',    m:'A tiny insight hides inside a spreadsheet you\u2019ll open at 3pm.' },
-  { k:'末吉', en:'Future fortune',   m:'Patience. The recruiter inbox is still brewing.' },
-  { k:'凶',   en:'Misfortune',       m:'Refactor before shipping. The bug is in the line you skimmed.' },
-  { k:'大凶', en:'Great misfortune', m:'Do not open that PR before lunch. Trust me.' },
-  { k:'麺',   en:'Noodle',           m:'Eat within three minutes of serving, always.' },
-  { k:'運',   en:'Luck',             m:'Mention the JMT dashboards project in your next interview.' },
-  { k:'集中', en:'Focus',            m:'Close seven tabs. You know which ones.' },
-  { k:'感謝', en:'Gratitude',        m:'Thank the mentor who taught you SQL today.' },
-  { k:'夢',   en:'Dream',            m:'The portfolio role is real. Keep building.' },
-  { k:'勤',   en:'Diligence',        m:'Ship something tangible before midnight.' },
-  { k:'道',   en:'The way',          m:'The shortest path is through the boring part.' },
+  { k:'大吉', en:'Great blessing',   m:"ragproof is watching. Your retrieval scores climb when you least expect it." },
+  { k:'吉',   en:'Good fortune',     m:"A syllabus surrenders its deadlines to SyllabusAI. Someone gets their evening back." },
+  { k:'中吉', en:'Middle fortune',   m:"AutoAppli drafts the outreach you were too tired to write. A reply arrives by dawn." },
+  { k:'小吉', en:'Small fortune',    m:"Tonight the bug hides in the line you were sure was fine. Read it twice." },
+  { k:'末吉', en:'Future fortune',   m:"The thing you ship at midnight meets its first real user by morning." },
+  { k:'凶',   en:'Misfortune',       m:"Do not deploy on an empty stomach. Eat first, push second." },
+  { k:'麺',   en:'Noodle',           m:"Eat the ramen within three minutes. Some deadlines are not negotiable." },
+  { k:'運',   en:'Luck',             m:"Let the Coca-Cola capstone come up on its own. The work can speak for itself." },
+  { k:'集中', en:'Focus',            m:"Close the seven tabs you know about. The late-night focus returns." },
+  { k:'夢',   en:'Dream',            m:"The applied-AI role is real. Keep shipping things people can actually use." },
 ];
 const _omikujiOverlay = document.getElementById('omikuji-overlay');
 let _omikujiOpen = false;
