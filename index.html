@@ -27,6 +27,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- UnrealBloom post-processing (r128 example globals). Load AFTER three.min.js.
+     If any of these fail to load (CDN blocked), the scene falls back to plain
+     renderer.render() via the canPost guard in the inline script below. -->
+<script src="https://unpkg.com/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   /* Global font rendering polish — crisper serif strokes on retina displays,
@@ -500,14 +509,15 @@
     text-shadow: 0 1px 8px rgba(0,0,0,0.95);
   }
   .inside-nav-btn sup {
-    font-size: 0.32rem; opacity: 0.4; margin-left: 0.2em; letter-spacing: 0; vertical-align: super;
+    font-size: 0.72rem; color: #e8c078; opacity: 0.85; margin-left: 0.25em; letter-spacing: 0; vertical-align: super;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.95);
   }
   .inside-nav-btn:hover, .inside-nav-btn.active {
     color: #f0c060; border-bottom-color: #f0c060;
     background: rgba(232,146,42,0.06);
     text-shadow: 0 0 14px rgba(232,146,42,0.7), 0 1px 6px rgba(0,0,0,0.95);
   }
-  .inside-nav-btn.active sup { opacity: 0.6; }
+  .inside-nav-btn.active sup { opacity: 1; }
   .inside-nav-resume {
     text-decoration: none; margin-left: 0.5rem;
     border-left: 1px solid rgba(200,168,112,0.15); padding-left: 1.4rem;
@@ -889,6 +899,25 @@
   .kb-section { grid-column: 1/-1; font-size: 0.55rem; color: #8b1a1a; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px solid #8b1a1a15; }
   .kb-close { text-align: center; margin-top: 1.2rem; padding-top: 0.9rem; border-top: 1px solid #8b1a1a15; font-size: 0.6rem; color: #8a6a3a88; letter-spacing: 0.2em; text-transform: uppercase; cursor: none; transition: color 0.2s; }
   .kb-close:hover { color: #8b1a1a; }
+  /* Omikuji fortune card. Centered washi slip, reuses the paper look */
+  #omikuji-overlay {
+    position: fixed; inset: 0; background: rgba(4,2,1,0.82); backdrop-filter: blur(3px);
+    display: none; align-items: center; justify-content: center; z-index: 72;
+    pointer-events: all; cursor: none;
+  }
+  #omikuji-overlay.active { display: flex; }
+  .omikuji-card {
+    background: #faf5e8; border: 2px solid #8b1a1a; max-width: 340px; width: 86%;
+    padding: 2.2rem 2rem 2rem; text-align: center; position: relative;
+    box-shadow: 0 28px 70px rgba(0,0,0,0.9); animation: slideUp 0.24s ease;
+  }
+  .omikuji-card::before { content:''; position:absolute; inset:7px; border:1px solid #c8a06028; pointer-events:none; }
+  .omikuji-head { font-size: 0.55rem; color: #8b1a1a; letter-spacing: 0.34em; text-transform: uppercase; margin-bottom: 1rem; }
+  .omikuji-kanji { font-size: 2.6rem; color: #8b1a1a; line-height: 1; margin-bottom: 0.5rem; font-family: 'Noto Serif JP', Georgia, serif; }
+  .omikuji-en { font-size: 0.72rem; color: #6a4a2a; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1rem; }
+  .omikuji-msg { font-size: 0.82rem; color: #4a3a2a; line-height: 1.6; margin-bottom: 1.3rem; }
+  .omikuji-hint { font-size: 0.55rem; color: #8a6a3a88; letter-spacing: 0.2em; text-transform: uppercase; padding-top: 0.9rem; border-top: 1px solid #8b1a1a15; }
+  @media (prefers-reduced-motion: reduce) { .omikuji-card { animation: none; } }
   #music-btn {
     position: fixed; bottom: 1.5rem; left: 8.2rem; z-index: 15;
     width: 44px; height: 44px; border-radius: 50%;
@@ -1078,9 +1107,21 @@
       <span class="kb-key">S</span><span class="kb-desc">Toggle ambient sound</span>
       <span class="kb-key">L</span><span class="kb-desc">Toggle lo-fi music</span>
       <span class="kb-key">M</span><span class="kb-desc">Open menu</span>
+      <span class="kb-key">N</span><span class="kb-desc">Toggle day / night</span>
+      <span class="kb-key">F</span><span class="kb-desc">Pull a fortune (omikuji)</span>
       <span class="kb-key">?</span><span class="kb-desc">Show this panel</span>
     </div>
     <button class="kb-close" onclick="toggleKb()" aria-label="Close keyboard shortcuts">閉じる ✕</button>
+  </div>
+</div>
+
+<div id="omikuji-overlay" role="dialog" aria-modal="true" aria-label="Omikuji fortune" aria-live="polite">
+  <div class="omikuji-card">
+    <div class="omikuji-head">おみくじ · Omikuji</div>
+    <div class="omikuji-kanji" id="omikuji-kanji"></div>
+    <div class="omikuji-en" id="omikuji-en"></div>
+    <div class="omikuji-msg" id="omikuji-msg"></div>
+    <div class="omikuji-hint">Press any key or click to dismiss</div>
   </div>
 </div>
 
@@ -1240,7 +1281,13 @@ renderer.setSize(innerWidth, innerHeight);
 // and reapplies, so the scene recovers gracefully instead of going blank.
 const _coarsePtr = matchMedia('(pointer:coarse)').matches;
 const _lowCore = (navigator.hardwareConcurrency || 4) <= 4;
-let _dprCap = (_coarsePtr || _lowCore) ? 0.85 : 1.0;
+// Quality-degradation ladder. Start crisp: desktop caps at 2x (retina sharp),
+// mobile/low-core at 1.5x. Each GPU context loss steps DOWN one rung (see the
+// contextlost handler), so a stressed GPU trades resolution for stability
+// instead of going blank. applyDPR() always clamps to the device's real DPR.
+const _dprLadder = (_coarsePtr || _lowCore) ? [1.5, 1.25, 1.0, 0.85] : [2, 1.5, 1.25, 1.0];
+let _dprStep = 0;
+let _dprCap = _dprLadder[_dprStep];
 let _contextLossCount = 0;
 function applyDPR(){ renderer.setPixelRatio(Math.min(devicePixelRatio, _dprCap)); }
 applyDPR();
@@ -1258,7 +1305,11 @@ document.body.insertBefore(renderer.domElement, document.getElementById('cursor'
 renderer.domElement.addEventListener('webglcontextlost', (e) => {
   e.preventDefault();                                  // Tell the browser we'll handle restore
   _contextLossCount++;
-  try { console.warn('[WebGL] Context lost (' + _contextLossCount + ') — will recover on restore.'); } catch(_) {}
+  // Step down the DPR ladder so the restored context renders lighter and is
+  // less likely to lose context again.
+  _dprStep = Math.min(_dprStep + 1, _dprLadder.length - 1);
+  _dprCap = _dprLadder[_dprStep];
+  try { console.warn('[WebGL] Context lost (' + _contextLossCount + '). Will recover on restore at DPR cap ' + _dprCap + '.'); } catch(_) {}
   // After 3 losses, the GPU clearly can't sustain this scene. Give up on 3D
   // and show the text fallback so the user sees their resume + links, not a
   // black screen they can't use.
@@ -1280,10 +1331,53 @@ renderer.domElement.addEventListener('webglcontextrestored', () => {
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
+    // Post-processing render targets are tied to the old GL context, so rebuild.
+    buildComposer();
   } catch (restoreErr) {
     try { console.warn('[WebGL] Restore handler threw:', restoreErr); } catch(_) {}
   }
 }, false);
+
+// ── Bloom post-processing (UnrealBloom) ──────────────────────────────────
+// The scene is mostly emissive light sources (neon, lanterns, shop windows).
+// A tasteful bloom makes them glow instead of reading as flat colored planes.
+// canPost is false if the example CDN scripts were blocked; in that case the
+// render path below falls straight through to renderer.render(). No glow, but
+// the scene still works exactly as before.
+const canPost = !!(THREE.EffectComposer && THREE.RenderPass && THREE.UnrealBloomPass && THREE.ShaderPass && THREE.CopyShader);
+// Tunable bloom look. Kept as named consts so the glow is one edit away.
+// strength = how bright the glow, radius = how far it spreads, threshold =
+// how bright a pixel must be before it blooms (high, so only emissives catch).
+const BLOOM_STRENGTH = 0.55;
+const BLOOM_RADIUS   = 0.4;
+const BLOOM_THRESHOLD = 0.82;
+let composer = null, bloomPass = null;
+let _bloomStrengthTarget = BLOOM_STRENGTH;
+function buildComposer(){
+  if(!canPost){ composer = null; bloomPass = null; return; }
+  try {
+    composer = new THREE.EffectComposer(renderer);
+    composer.addPass(new THREE.RenderPass(scene, camera));
+    // Bloom runs at HALF resolution. Cheaper, and the blur hides the low res.
+    bloomPass = new THREE.UnrealBloomPass(
+      new THREE.Vector2(innerWidth/2, innerHeight/2),
+      _bloomStrengthTarget, BLOOM_RADIUS, BLOOM_THRESHOLD
+    );
+    composer.addPass(bloomPass);
+    composer.setSize(innerWidth, innerHeight);      // picks up renderer's effective DPR
+    bloomPass.setSize(innerWidth/2, innerHeight/2); // re-force half-res after setSize
+  } catch(err){
+    try { console.warn('[Bloom] Composer build failed, falling back to plain render:', err); } catch(_) {}
+    composer = null; bloomPass = null;
+  }
+}
+buildComposer();
+// Single render entry point. Uses the composer when bloom is available,
+// otherwise the plain renderer. Both paths are exercised.
+function renderScene(){
+  if(composer){ composer.render(); }
+  else { renderer.render(scene, camera); }
+}
 
 // ── Cursor ────────────────────────────────────────────────────────────────
 const cursorEl = document.getElementById('cursor');
@@ -1646,10 +1740,24 @@ scene.add(hemi);
 // CanvasTexture, and 15 of them pushed GPU memory past the driver's comfort
 // zone on reload, triggering "Error creating WebGL context". A future
 // revival would use a single shared atlas texture and THREE.Points instead.
-// Sky dome — dark night behind buildings
+// Sky dome. Vertical gradient instead of a flat fill so the horizon glows and
+// the zenith fades to near-black. Two textures (night / dawn) let the N toggle
+// change the sky, not just the fog.
+function mkSkyTex(horizonRGB, zenithRGB){
+  const c=document.createElement('canvas'); c.width=4; c.height=256;
+  const ctx=c.getContext('2d');
+  const g=ctx.createLinearGradient(0,0,0,256); // top of canvas = zenith
+  g.addColorStop(0,zenithRGB);
+  g.addColorStop(0.55,'rgba('+Math.round(horizonRGB[0]*0.5)+','+Math.round(horizonRGB[1]*0.5)+','+Math.round(horizonRGB[2]*0.5)+',1)');
+  g.addColorStop(1,'rgb('+horizonRGB[0]+','+horizonRGB[1]+','+horizonRGB[2]+')');
+  ctx.fillStyle=g; ctx.fillRect(0,0,4,256);
+  return new THREE.CanvasTexture(c);
+}
+const _skyTexNight = mkSkyTex([10,14,26],'rgb(4,3,8)');   // navy horizon glow to near-black zenith
+const _skyTexDay   = mkSkyTex([58,42,32],'rgb(18,32,58)'); // warm dawn horizon to deep blue zenith
 const skyDome = new THREE.Mesh(
   new THREE.SphereGeometry(180,16,8,0,Math.PI*2,0,Math.PI*0.5),
-  new THREE.MeshBasicMaterial({color:0x04060e,side:THREE.BackSide})
+  new THREE.MeshBasicMaterial({map:_skyTexNight,side:THREE.BackSide})
 );
 skyDome.position.y = -5; scene.add(skyDome);
 // Moon glow point light
@@ -1673,10 +1781,13 @@ moonHalo.lookAt(0, 0, 0);
 scene.add(moonHalo);
 
 // ── Star field ────────────────────────────────────────────────────────────
-const STAR_COUNT = 80;
+const STAR_COUNT = 380;
 const starGeo = new THREE.BufferGeometry();
 const starPos = new Float32Array(STAR_COUNT * 3);
+const starCol = new Float32Array(STAR_COUNT * 3);
 const starData = [];
+// Three brightness tiers so the field has depth instead of a uniform dust.
+const _starTiers = [0.35, 0.6, 1.0];
 for(let i=0;i<STAR_COUNT;i++){
   const theta = Math.random()*Math.PI*2;
   const phi = Math.random()*Math.PI*0.48; // upper hemisphere only
@@ -1684,12 +1795,15 @@ for(let i=0;i<STAR_COUNT;i++){
   starPos[i*3]   = r*Math.sin(phi)*Math.cos(theta);
   starPos[i*3+1] = r*Math.cos(phi) + 10;
   starPos[i*3+2] = r*Math.sin(phi)*Math.sin(theta);
+  const tier = _starTiers[Math.random()<0.12 ? 2 : (Math.random()<0.4 ? 1 : 0)];
+  starCol[i*3] = 0.85*tier; starCol[i*3+1] = 0.93*tier; starCol[i*3+2] = tier; // faint cool-white
   starData.push({ph: Math.random()*Math.PI*2, sp: 0.4+Math.random()*1.2, base: 0.3+Math.random()*0.7});
 }
 starGeo.setAttribute('position', new THREE.BufferAttribute(starPos,3));
+starGeo.setAttribute('color', new THREE.BufferAttribute(starCol,3));
 const starMat = new THREE.PointsMaterial({
-  color:0xddeeff, size:0.9, transparent:true, opacity:0.7,
-  sizeAttenuation:true
+  size:1.6, transparent:true, opacity:0.7,
+  vertexColors:true, sizeAttenuation:false // constant pixel size, tiers via color
 });
 const stars = new THREE.Points(starGeo, starMat);
 scene.add(stars);
@@ -1868,11 +1982,20 @@ function mkSign(){
 function mkSub(){
   const c=document.createElement('canvas'); c.width=2048; c.height=108;
   const ctx=c.getContext('2d'); ctx.clearRect(0,0,2048,108);
+  const txt='Applied AI & Full-Stack Engineer  ·  UW Bothell  ·  MIS 2027';
+  const pad=24;
+  // Fit guard: shrink the font until the text fits inside the canvas width.
+  // Deterministic, so an edited tagline never overflows the sub-sign plane.
+  ctx.textAlign='center';
+  let fs=43;
+  ctx.font=fs+'px Georgia,serif';
+  while(fs>10 && ctx.measureText(txt).width > c.width - 2*pad){
+    fs--; ctx.font=fs+'px Georgia,serif';
+  }
   ctx.shadowBlur=14; ctx.shadowColor='#22aacc'; ctx.fillStyle='#38b8d8';
-  ctx.font='43px Georgia,serif'; ctx.textAlign='center';
-  ctx.fillText('Applied AI & Full-Stack Engineer  ·  UW Bothell  ·  MIS 2027',1024,60);
+  ctx.fillText(txt,1024,60);
   ctx.shadowBlur=0; ctx.fillStyle='#55d0ee';
-  ctx.fillText('Applied AI & Full-Stack Engineer  ·  UW Bothell  ·  MIS 2027',1024,60);
+  ctx.fillText(txt,1024,60);
   return new THREE.CanvasTexture(c);
 }
 const signMesh=new THREE.Mesh(new THREE.PlaneGeometry(18,3.8),new THREE.MeshBasicMaterial({map:mkSign(),transparent:true}));
@@ -1908,7 +2031,7 @@ const extLanterns=[];
   const g=new THREE.Group();
   const str=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.03,1.5,6),M(0x4a3010));
   str.position.y=0.75; g.add(str);
-  const body=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,1.2,12),new THREE.MeshStandardMaterial({color:0xcc1111,emissive:0xee2222,emissiveIntensity:0.65,roughness:0.7}));
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,1.2,12),new THREE.MeshStandardMaterial({color:0xcc1111,emissive:0xee2222,emissiveIntensity:1.5,roughness:0.7})); // raised past bloom threshold so lantern shades glow
   body.position.y=-0.4; g.add(body);
   for(let r=0;r<5;r++){const rib=new THREE.Mesh(new THREE.TorusGeometry(0.5,0.025,6,12),M(0x8b0000));rib.position.y=-0.1+r*0.25;rib.rotation.x=Math.PI/2;g.add(rib);}
   const tass=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.01,0.5,6),M(0xf0c040));
@@ -1982,7 +2105,7 @@ karaMesh.position.set(-26,8,-2); scene.add(karaMesh);
 const flickerWindows = [];
 function sideBld(x,w,h,z,depth,wc){
   B(w,h,depth,M(0x12100a),x,h/2,z);
-  const mats=[0.75,0.45,0.2].map(a=>new THREE.MeshStandardMaterial({color:wc,emissive:wc,emissiveIntensity:a,roughness:0.3,transparent:true,opacity:0.88}));
+  const mats=[1.3,0.6,0.25].map(a=>new THREE.MeshStandardMaterial({color:wc,emissive:wc,emissiveIntensity:a,roughness:0.3,transparent:true,opacity:0.88})); // brightest tier crosses bloom threshold
   for(let r=0;r<Math.floor(h/4);r++)for(let c=0;c<Math.floor(w/3.5);c++){
     if(Math.random()<0.45)continue;
     const wm=new THREE.Mesh(new THREE.BoxGeometry(1.4,1.8,0.05),mats[Math.floor(Math.random()*3)].clone());
@@ -3668,6 +3791,13 @@ window.addEventListener('resize',()=>{
     camera.aspect=innerWidth/innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth,innerHeight);
+    applyDPR();
+    // Keep the bloom composer sized to the same effective DPR as the renderer.
+    if(composer){
+      composer.setPixelRatio(renderer.getPixelRatio());
+      composer.setSize(innerWidth,innerHeight);
+      if(bloomPass) bloomPass.setSize(innerWidth/2,innerHeight/2);
+    }
   },120);
 });
 // Pause rendering when tab is hidden so the scene isn't fighting the user's other work for GPU
@@ -4006,14 +4136,27 @@ window.toggleDayNight = function(){
   if(_nightMode){
     if(scene.fog) scene.fog.color.setHex(0x070402);
     renderer.setClearColor(0x060402);
+    // Full glow at night. Neon is the whole point after dark.
+    _bloomStrengthTarget = BLOOM_STRENGTH;
+    // Night sky: gradient dome, stars and moon visible.
+    skyDome.material.map = _skyTexNight; skyDome.material.needsUpdate = true;
+    stars.visible = true;
+    moonDisk.visible = moonHalo.visible = true; moonGlow.visible = true;
     if(btn){ btn.textContent = '☾'; btn.classList.remove('day'); }
     showToast('夜', 'Night mode engaged. Neon rises.', 'Yoru \u00b7 Night');
   } else {
     if(scene.fog) scene.fog.color.setHex(0x1a1410);
     renderer.setClearColor(0x2a1f15);
+    // Softer glow by day. Ambient light washes the neon out anyway.
+    _bloomStrengthTarget = BLOOM_STRENGTH * 0.7;
+    // Dawn sky: warmer dome, stars and moon hidden.
+    skyDome.material.map = _skyTexDay; skyDome.material.needsUpdate = true;
+    stars.visible = false;
+    moonDisk.visible = moonHalo.visible = false; moonGlow.visible = false;
     if(btn){ btn.textContent = '\u2600'; btn.classList.add('day'); }
     showToast('朝', 'Dawn breaks over the shop.', 'Asa \u00b7 Day');
   }
+  if(bloomPass) bloomPass.strength = _bloomStrengthTarget;
 };
 
 // ── Toast notification system ──────────────────────────────────────────
@@ -4050,11 +4193,38 @@ const _omikuji = [
   { k:'勤',   en:'Diligence',        m:'Ship something tangible before midnight.' },
   { k:'道',   en:'The way',          m:'The shortest path is through the boring part.' },
 ];
+const _omikujiOverlay = document.getElementById('omikuji-overlay');
+let _omikujiOpen = false;
+function _closeOmikuji(){
+  if(!_omikujiOpen) return;
+  _omikujiOpen = false;
+  _omikujiOverlay.classList.remove('active');
+}
+function _pullOmikuji(){
+  const f = _omikuji[Math.floor(Math.random() * _omikuji.length)];
+  document.getElementById('omikuji-kanji').textContent = f.k;
+  document.getElementById('omikuji-en').textContent = f.en;
+  document.getElementById('omikuji-msg').textContent = f.m;
+  _omikujiOpen = true;
+  _omikujiOverlay.classList.add('active'); // CSS drops the slide-in under reduced-motion
+}
+// Click anywhere on the fortune overlay dismisses it.
+_omikujiOverlay.addEventListener('click', _closeOmikuji);
 document.addEventListener('keydown', (e) => {
+  // While a fortune is showing, any key dismisses it (Esc included).
+  // Leave browser/OS shortcuts (Ctrl+R, Cmd+L, ...) alone.
+  if(_omikujiOpen){
+    if(!e.ctrlKey && !e.metaKey && !e.altKey) e.preventDefault();
+    _closeOmikuji();
+    return;
+  }
   if(e.key !== 'f' && e.key !== 'F') return;
   if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)) return;
-  const f = _omikuji[Math.floor(Math.random() * _omikuji.length)];
-  showToast(f.k, '<strong>'+f.en+'</strong> \u2014 '+f.m, 'Omikuji');
+  // Don't fire over an open panel/menu/keyboard overlay \u2014 those own the screen.
+  if(document.getElementById('panel-overlay').classList.contains('active')) return;
+  if(document.getElementById('menu-overlay').classList.contains('active')) return;
+  if(document.getElementById('kb-overlay').classList.contains('active')) return;
+  _pullOmikuji();
 });
 
 // ── Time-aware opening greeting ─────────────────────────────────────────
@@ -4112,7 +4282,7 @@ function animate(){
   const _menuOpen = document.getElementById('menu-overlay').classList.contains('active');
   if((_panelOpen || _menuOpen) && !transitioning){
     // Still render at low rate for background visibility, but skip particle/light updates
-    if(_frame % 8 === 0) { try { renderer.render(scene,camera); } catch(_){} }
+    if(_frame % 8 === 0) { try { renderScene(); } catch(_){} }
     _frame++;
     return;
   }
@@ -4419,7 +4589,7 @@ function animate(){
 
   // Wrap main render in try/catch — a single render failure (mid context-loss,
   // shader recompile, etc.) shouldn't stop the animate loop from trying next frame.
-  try { renderer.render(scene,camera); } catch(_) {}
+  try { renderScene(); } catch(_) {}
 }
 animate();
 

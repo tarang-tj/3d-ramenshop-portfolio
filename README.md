@@ -10,14 +10,16 @@ An interactive portfolio built as a single HTML file. No frameworks, no build to
 
 ## What's in the scene
 
-- Real-time 3D ramen shop with PBR-style materials, hemisphere + point lighting, and a night-sky dome
-- 350-streak rain system with wind modulation and a CRT scanline overlay
+- Real-time 3D ramen shop with PBR-style materials, hemisphere + point lighting, and a gradient night-sky dome (navy horizon glow fading to near-black zenith)
+- UnrealBloom post-processing so the neon, lanterns, and shop windows actually glow. Runs at half resolution and falls back to a plain render if the effect CDN is blocked
+- Rain system with wind modulation and a CRT scanline overlay
 - Particle steam rising from the bowls
 - Six lantern glows + a flickering red neon sign
+- Wet asphalt: a low-roughness, high-metalness street plane throws specular highlights from every neon and lantern, and glow pools sit under the lantern line. Bloom makes those highlights bleed like a rained-on road
+- Roughly 380 stars in three brightness tiers, plus a moon and drifting clouds
 - Interactive zones: sit at any of six stools, inspect three different bowls, open four portfolio panels
-- Cursor-follow warm PointLight that pools illumination on whatever you point at
-- Periodic lightning storm (every 18–35s — three-pulse flash with scene illumination boost)
-- Day/night toggle that swaps the entire lighting scheme
+- Periodic lightning storm (every 18 to 35s, three-pulse flash with scene illumination boost)
+- Day/night toggle (`N`) that swaps the sky dome, hides the stars and moon, warms the fog, and softens the bloom
 - Camera parallax that drifts the scene toward your mouse
 - Japanese omikuji fortunes (press `F` for a random blessing)
 - Konami code easter egg — rainbow neon mode for 15 seconds + ramen emoji rain
@@ -44,13 +46,14 @@ The classic Konami sequence (↑ ↑ ↓ ↓ ← → ← → B A) unlocks rainbo
 
 ## Technical notes
 
-- **Single file, zero build** — `index.html` loads Three.js r128 from a CDN and a Google Fonts stylesheet, then everything else is inline CSS + JS
-- **Device-adaptive pixel ratio** — caps at 1.25 on desktop, 1.0 on mobile or low-core (≤4 threads) devices. Auto-degrades a quarter-step on WebGL context loss so the scene self-heals instead of going blank
-- **WebGL context loss recovery** — `webglcontextlost` / `webglcontextrestored` handlers reapply renderer state and shed GPU pressure if the driver resets
-- **Graceful fallback** — if `WebGLRenderer` construction fails entirely (disabled hardware acceleration, corporate-locked laptop, context exhaustion), the page swaps in a clean text-only portfolio so visitors can always reach the resume + links
-- **Animation throttling** — non-critical particle and light updates skip every other frame. Heavy work pauses when a panel is open (render every 8th frame for background visibility). The whole animation loop fully pauses when the tab is hidden (`visibilitychange`)
-- **Resize debouncing** — 120ms debounce on window resize to avoid layout thrash during drag-resize
-- **Reduced-motion support** — `prefers-reduced-motion: reduce` disables film grain, vignette breathing, and lightning flashes
+- **Single file, zero build**: `index.html` loads Three.js r128 plus the r128 UnrealBloom example scripts from a CDN and a Google Fonts stylesheet, then everything else is inline CSS + JS
+- **Bloom pipeline with fallback**: an `EffectComposer` runs a `RenderPass` then a half-resolution `UnrealBloomPass` (strength 0.55, radius 0.4, threshold 0.82) so only bright emissives glow. A `canPost` guard checks the effect globals loaded; if the CDN is blocked it renders straight through `renderer.render()` with no glow and no errors. The composer is rebuilt on resize and after context restore
+- **Device-adaptive pixel ratio**: caps at 2x on desktop, 1.5x on mobile or low-core (four threads or fewer) devices, clamped to the real device DPR. Each WebGL context loss steps one rung down a degradation ladder so a stressed GPU trades resolution for stability instead of going blank
+- **WebGL context loss recovery**: `webglcontextlost` / `webglcontextrestored` handlers reapply renderer state, rebuild the bloom composer, and shed GPU pressure if the driver resets
+- **Graceful fallback**: if `WebGLRenderer` construction fails entirely (disabled hardware acceleration, corporate-locked laptop, context exhaustion), the page swaps in a clean text-only portfolio so visitors can always reach the resume + links
+- **Animation throttling**: non-critical particle and light updates skip every other frame. Heavy work pauses when a panel is open (render every 8th frame for background visibility). The whole animation loop fully pauses when the tab is hidden (`visibilitychange`)
+- **Resize debouncing**: 120ms debounce on window resize to avoid layout thrash during drag-resize, re-sizing the renderer and the bloom composer together
+- **Reduced-motion support**: `prefers-reduced-motion: reduce` disables film grain, vignette breathing, lightning flashes, and the fortune card's slide-in. Bloom stays on but never pulses
 
 ## Projects showcased
 
