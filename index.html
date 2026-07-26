@@ -1157,8 +1157,6 @@
     <button id="enter-cta" onclick="enterShop()">Enter My Portfolio <span class="arrow">→</span></button>
     <div class="hint">↑ or click the door above</div>
     <div class="recruiter-quick">
-      <a href="TJ_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-      <span class="sep">·</span>
       <a href="https://linkedin.com/in/tarang-tj/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <span class="sep">·</span>
       <a href="https://github.com/tarang-tj" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -1178,7 +1176,6 @@
       <button class="inside-nav-btn" data-panel="experience" aria-label="View Experience panel" onclick="openPanel('experience')">Experience<sup aria-hidden="true">2</sup></button>
       <button class="inside-nav-btn" data-panel="skills"     aria-label="View Skills panel"     onclick="openPanel('skills')">Skills<sup aria-hidden="true">3</sup></button>
       <button class="inside-nav-btn" data-panel="contact"    aria-label="View Contact panel"    onclick="openPanel('contact')">Contact<sup aria-hidden="true">4</sup></button>
-      <a class="inside-nav-btn inside-nav-resume" href="TJ_Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="View Resume PDF">📄 Resume</a>
     </nav>
     <button id="step-outside" onclick="exitShop()" aria-label="Exit the shop and return outside">Step Outside</button>
     <div id="inside-hint">Use the tabs above or click the menu on the counter ↓</div>
@@ -1258,7 +1255,6 @@ function _showWebGLFallback(errMsg){
     '<p>The interactive 3D ramen shop couldn\u2019t start on this device \u2014 usually WebGL is disabled or the GPU is busy.</p>'+
     '<p>Here are the direct links you\u2019re probably looking for:</p>'+
     '<div class="fb-links">'+
-      '<a href="TJ_Resume.pdf">Resume (PDF)</a>'+
       '<a href="https://github.com/tarang-tj">GitHub</a>'+
       '<a href="https://linkedin.com/in/tarang-tj">LinkedIn</a>'+
       '<a href="https://autoappli.com">AutoAppli \u2014 live</a>'+
@@ -1482,7 +1478,7 @@ mkZone(0.5,0.5,0.5,-9,5.7,-21.5,{
 // Bulletin board — shows side projects
 mkZone(0.4,2.8,2.4,-11.5,5.8,-8,{
   type:'fact',hoverLabel:'Side projects',emoji:'📌',kanji:'小作品',sub:'Side Projects · Smaller Work',
-  body:'<strong>ragproof</strong> <span style="font-size:0.65rem;color:#8a6a3a">Python · CLI · Docker</span><br>Open-source RAG evaluation harness built from scratch. Scores retrieval and generation: hit@k, MRR, NDCG, faithfulness, cost, embedding drift.<br><br><strong>SyllabusAI</strong> <span style="font-size:0.65rem;color:#8a6a3a">Claude API · Node.js · Supabase</span><br>Upload a syllabus, get every deadline in your calendar in seconds. 500+ active users, 2,500+ syllabi processed.<br><br><strong>AutoAppli</strong> <span style="font-size:0.65rem;color:#8a6a3a">Next.js · FastAPI · Claude API</span><br>AI job-application platform: resume tailoring, outreach drafts, and Kanban tracking.<br><br><strong>Jacobs\' Pharmacy 3D Recreation</strong> <span style="font-size:0.65rem;color:#8a6a3a">Blender · Python</span><br>Procedural recreation of the 1886 pharmacy where Coca-Cola was first served, generated from code. Coca-Cola internship capstone.',
+  body:'<strong>ragproof</strong> <span style="font-size:0.65rem;color:#8a6a3a">Python · CLI · Docker</span><br>Open-source RAG evaluation harness built from scratch. Scores retrieval and generation: hit@k, MRR, NDCG, faithfulness, cost, embedding drift.<br><br><strong>SyllabusAI</strong> <span style="font-size:0.65rem;color:#8a6a3a">Claude API · Node.js · Supabase</span><br>Upload a syllabus, get every deadline in your calendar in seconds.<br><br><strong>AutoAppli</strong> <span style="font-size:0.65rem;color:#8a6a3a">Next.js · FastAPI · Claude API</span><br>AI job-application platform: resume tailoring, outreach drafts, and Kanban tracking.<br><br><strong>Jacobs\' Pharmacy 3D Recreation</strong> <span style="font-size:0.65rem;color:#8a6a3a">Blender · Python</span><br>Procedural recreation of the 1886 pharmacy where Coca-Cola was first served, generated from code. Coca-Cola internship capstone.',
 });
 mkZone(4.5,3.5,0.4,-11.6,7.2,-25,{type:'fact',hoverLabel:'View painting',emoji:'🎨',kanji:'夜景',sub:'Night Landscape · Ink & Woodblock',body:'A woodblock-inspired print in the style of <strong>Hiroshige\'s 53 Stations of the Tōkaidō</strong>. The crescent moon is a recurring motif in Edo-period landscapes — it represents transition, impermanence, and <em>mono no aware</em>. The mountains are loosely based on <strong>Mount Rainier</strong> reimagined as Mount Fuji. TJ picked it up at a Capitol Hill art market in 2022. The red stamp reads 印 — "seal."'});
 mkZone(5,3,1.5,-8.5,7,-29.5,{type:'fact',hoverLabel:'Read sake shelf',emoji:'🍶',kanji:'純米大吟醸',sub:'Top-Grade Sake · Junmai Daiginjo',body:'These bottles are <strong>junmai daiginjo</strong> (純米大吟醸) — the highest classification of sake. To qualify, rice must be polished to <strong>50% or less</strong> of its original size, removing proteins and oils to reveal a clean, floral flavor. Served chilled at 8–10°C. The blue bottle is brewed in Niigata; the green in Kyoto. The red lacquer cap on the left indicates it\'s unpasteurized — <em>namazake</em>.'});
@@ -3396,9 +3392,9 @@ const panels={
   <div class="project-num">No. 02</div>
   <div class="project-name">SyllabusAI · Syllabus to Calendar</div>
   <div class="tool-pills"><span class="tool-pill tp-other">Claude API</span><span class="tool-pill tp-js">Node.js</span><span class="tool-pill tp-sql">Supabase</span><span class="tool-pill tp-js">Vercel</span><span class="tool-pill tp-js">PWA</span></div>
-  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">500+</div><div class="proj-stat-label">Active Users</div></div><div class="proj-stat"><div class="proj-stat-num">2,500+</div><div class="proj-stat-label">Syllabi Processed</div></div><div class="proj-stat"><div class="proj-stat-num">95%+</div><div class="proj-stat-label">Accuracy</div></div></div>
+  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">PWA</div><div class="proj-stat-label">Mobile Ready</div></div><div class="proj-stat"><div class="proj-stat-num">SSE</div><div class="proj-stat-label">Live Progress</div></div><div class="proj-stat"><div class="proj-stat-num">OAuth</div><div class="proj-stat-label">Calendar Sync</div></div></div>
   <div class="project-impact">Upload a syllabus, get every deadline in your calendar in seconds.</div>
-  <div class="project-desc">In production with 500+ active users and 2,500+ syllabi processed at 95%+ accuracy. Claude API parses the document, Node.js and Supabase handle auth and storage, real-time SSE streams progress, Google Calendar OAuth pushes events, and a PWA makes it work on mobile. Deployed on Vercel.</div>
+  <div class="project-desc">In production. Claude API parses the document, Node.js and Supabase handle auth and storage, real-time SSE streams progress, Google Calendar OAuth pushes events, and a PWA makes it work on mobile. Deployed on Vercel.</div>
   <div class="proj-btn-row"><a class="proj-btn-live" href="https://syllabusai.net" target="_blank" rel="noopener noreferrer">↗ Live Site</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/syllabus-ai" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 <div class="project-entry">
@@ -3464,7 +3460,7 @@ const panels={
   <div class="exp-date">May 2026 – Present</div>
   <ul class="exp-bullets">
     <li>Build agentic AI workflows that automate MarTech and reporting tasks across the insights team</li>
-    <li>Building an internal consumer-analysis tool with a DuckDB backend and Streamlit front end, now migrating to Next.js on Azure, that lets analysts query millions of NielsenIQ rows in natural language</li>
+    <li>Building internal agentic tooling that lets analysts query large consumer datasets in natural language</li>
     <li>Analyze five years of global consumer data across 200 markets with SQL and DAX, including Fanta brand analysis across the top 40 markets and TDP distribution analytics</li>
     <li>Ship AI-assisted reporting in Copilot and Power BI with documentation non-technical analysts can run on their own</li>
   </ul>
@@ -3476,7 +3472,7 @@ const panels={
   <div class="exp-date">Mar 2026 – Present</div>
   <ul class="exp-bullets">
     <li>Built and shipped an AI tool that turns a syllabus into calendar deadlines in seconds, now serving 500+ active users</li>
-    <li>Processed 2,500+ syllabi at 95%+ accuracy using the Claude API, Node.js, Supabase, and Google Calendar OAuth</li>
+    <li>Built syllabus-to-calendar parsing on the Claude API with Node.js, Supabase, and Google Calendar OAuth</li>
   </ul>
 </div>
 
@@ -3554,9 +3550,8 @@ Delta Sigma Pi, Collegiate Member of the Year 2026
 <div class="contact-row"><div class="contact-label">Portfolio</div><div class="contact-val"><a href="https://tarang-tj.github.io" target="_blank" rel="noopener noreferrer">tarang-tj.github.io</a></div></div>
 <div class="contact-row"><div class="contact-label">SyllabusAI</div><div class="contact-val"><a href="https://syllabusai.net" target="_blank" rel="noopener noreferrer">syllabusai.net</a></div></div>
 <div class="contact-row"><div class="contact-label">AutoAppli</div><div class="contact-val"><a href="https://autoappli.com" target="_blank" rel="noopener noreferrer">autoappli.com</a></div></div>
-<div class="contact-row"><div class="contact-label">Location</div><div class="contact-val">Seattle · Bothell, WA</div></div>
+<div class="contact-row"><div class="contact-label">Location</div><div class="contact-val">Seattle, WA</div></div>
 <hr class="contact-divider">
-<a class="resume-link" href="TJ_Resume.pdf" target="_blank" rel="noopener noreferrer">📄 View Resume (PDF)</a>
 <div class="contact-note">GPA 3.7 · Dean's List · UW Bothell MIS · Graduating June 2027 · Open to Applied-AI and forward-deployed engineering roles starting June 2027.<br><br><em>"I build applied-AI systems that ship to real users, not demos that stall at the prototype."</em></div>
 <div class="contact-form">
   <div class="cf-row"><label class="cf-label" for="cf-name">Your Name</label><input class="cf-input" id="cf-name" type="text" placeholder="Jane Smith" autocomplete="name"></div>

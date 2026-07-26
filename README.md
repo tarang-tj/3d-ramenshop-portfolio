@@ -58,7 +58,7 @@ The classic Konami sequence (↑ ↑ ↓ ↓ ← → ← → B A) unlocks rainbo
 ## Projects showcased
 
 1. **[ragproof](https://github.com/tarang-tj/ragproof)**: open-source RAG evaluation harness built from scratch. Scores retrieval and generation with hit@k, MRR, NDCG, recall, answer faithfulness, per-query cost, and embedding-drift detection. BEIR-benchmarked (dense bge-small hits NDCG@10 0.720 vs 0.56 for BM25). 54 tests + CI. Python, CLI, Docker
-2. **[SyllabusAI](https://syllabusai.net)**: upload a syllabus, get every deadline in your calendar in seconds. 500+ active users, 2,500+ syllabi processed at 95%+ accuracy. Claude API, Node.js, Supabase, Vercel, real-time SSE, Google Calendar OAuth, PWA
+2. **SyllabusAI**: upload a syllabus, get every deadline in your calendar in seconds. Claude API, Node.js, Supabase, Vercel, real-time SSE, Google Calendar OAuth, PWA
 3. **[AutoAppli](https://autoappli.com)**: AI job-application platform. Resume tailoring, outreach drafts, and Kanban tracking. Next.js, TypeScript, FastAPI, Supabase, Claude API
 4. **Jacobs' Pharmacy 3D Recreation**: procedural recreation of the 1886 pharmacy where Coca-Cola was first served, with Blender driven through Python so the space is generated from code. Ongoing Coca-Cola internship capstone, full build under wraps
 5. **Economic Pulse Dashboard**: Python + Streamlit pulling live FRED data with regression trend detection
@@ -74,7 +74,7 @@ The classic Konami sequence (↑ ↑ ↓ ↓ ← → ← → B A) unlocks rainbo
 - Currently: Global Human Insights Intern @ The Coca-Cola Company (Ignite Program, Atlanta)
 - Open to Applied-AI and forward-deployed engineering roles starting June 2027
 
-[Resume (PDF)](TJ_Resume.pdf) · [LinkedIn](https://linkedin.com/in/tarang-tj) · [GitHub](https://github.com/tarang-tj) · tarangjammalamadaka9@gmail.com
+[LinkedIn](https://linkedin.com/in/tarang-tj) · [GitHub](https://github.com/tarang-tj) · tarangjammalamadaka9@gmail.com
 
 ## Running locally
 
