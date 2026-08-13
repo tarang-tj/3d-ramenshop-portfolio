@@ -1614,6 +1614,8 @@ mkZone(5,3.5,0.4,-8,5.8,-40.5,{type:'fact',hoverLabel:"Read today's specials",em
 // ── Interaction card UI ─────────────────────────────────────────────────────
 let _icTimer=null;
 function showInteractCard(data,dur=7500){
+  // Do not let ambient facts compete with a case-study reading state.
+  if(document.getElementById('panel-overlay')?.classList.contains('active')) return;
   clearTimeout(_icTimer);
   document.getElementById('ic-emoji').textContent=data.emoji||'';
   document.getElementById('ic-kanji').textContent=data.kanji||'';
