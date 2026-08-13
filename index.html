@@ -1070,6 +1070,72 @@
   body.rainbow-mode canvas { animation: rainbowHue 6s linear infinite; }
   body.rainbow-mode #outside-ui .name { animation: rainbowHue 3s linear infinite, nameBreath 5s ease-in-out infinite; }
   body.rainbow-mode .loader-neon { animation: rainbowHue 2.5s linear infinite, neonFlicker 0.5s ease infinite; }
+
+  /* ── Night Shift 2.0 — editorial wayfinding layered over the world ── */
+  #night-shift {
+    position: fixed; inset: 0; z-index: 12; pointer-events: none;
+    color: #f4e2ba; opacity: 0; animation: nightShiftIn .9s ease 2.9s forwards;
+  }
+  @keyframes nightShiftIn { to { opacity: 1; } }
+  .shift-mark {
+    position: absolute; top: 1.65rem; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: .75rem; font-size: .52rem;
+    letter-spacing: .34em; text-transform: uppercase; color: rgba(238,205,144,.82);
+    text-shadow: 0 2px 12px #000; white-space: nowrap;
+  }
+  .shift-mark::before, .shift-mark::after { content: ''; width: 3rem; height: 1px; background: linear-gradient(90deg, transparent, rgba(232,146,42,.7)); }
+  .shift-mark::after { transform: scaleX(-1); }
+  .signal-readout {
+    position: absolute; top: 1.5rem; right: 1.8rem; width: 12.5rem;
+    padding: .7rem 0 .75rem .85rem; border-left: 1px solid rgba(232,146,42,.55);
+    background: linear-gradient(90deg, rgba(5,3,1,.55), transparent);
+    text-shadow: 0 2px 10px #000;
+  }
+  .signal-readout .eyebrow, .story-card .eyebrow { color: #d88731; font-size: .48rem; letter-spacing: .28em; text-transform: uppercase; }
+  .signal-readout strong { display: block; margin: .3rem 0 .2rem; font-size: .7rem; letter-spacing: .11em; font-weight: 400; color: #f5d070; }
+  .signal-readout span { font-size: .48rem; letter-spacing: .14em; color: rgba(238,211,163,.7); }
+  .signal-pip { display: inline-block; width: .42rem; height: .42rem; margin-right: .35rem; border-radius: 50%; background: #e8922a; box-shadow: 0 0 0 0 rgba(232,146,42,.6); animation: signalPulse 2s infinite; }
+  @keyframes signalPulse { 70% { box-shadow: 0 0 0 .45rem rgba(232,146,42,0); } 100% { box-shadow: 0 0 0 0 rgba(232,146,42,0); } }
+  .story-card {
+    position: absolute; left: 1.8rem; bottom: 1.65rem; max-width: 16.5rem;
+    padding: 1.1rem 1.1rem 1rem; border: 1px solid rgba(239,191,103,.2);
+    background: linear-gradient(135deg, rgba(10,6,3,.86), rgba(10,6,3,.36));
+    backdrop-filter: blur(10px); box-shadow: 0 15px 40px rgba(0,0,0,.25);
+  }
+  .story-card h2 { margin: .35rem 0 .55rem; font-size: 1rem; line-height: 1.2; font-weight: 400; letter-spacing: .04em; color: #f5d070; }
+  .story-card p { font-family: Georgia, serif; color: rgba(245,227,190,.74); font-size: .72rem; line-height: 1.62; }
+  .story-actions { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .9rem; pointer-events: all; }
+  .story-action { appearance: none; background: transparent; border: 1px solid rgba(232,146,42,.45); color: #f1ce8b; padding: .48rem .65rem; font: inherit; font-size: .48rem; letter-spacing: .16em; text-transform: uppercase; cursor: none; transition: .22s ease; }
+  .story-action:hover, .story-action:focus-visible { background: #e8922a; color: #180c03; transform: translateY(-2px); outline: none; box-shadow: 0 7px 18px rgba(232,146,42,.24); }
+  .chapter-rail { position: absolute; right: 1.8rem; bottom: 1.7rem; display: flex; flex-direction: column; align-items: flex-end; gap: .38rem; }
+  .chapter-rail button { pointer-events: all; display: flex; align-items: center; gap: .55rem; border: 0; background: transparent; color: rgba(236,207,153,.48); font: inherit; font-size: .48rem; letter-spacing: .23em; text-transform: uppercase; cursor: none; transition: .2s ease; }
+  .chapter-rail button::after { content: ''; width: 2.5rem; height: 1px; background: rgba(232,146,42,.3); transition: .2s ease; }
+  .chapter-rail button:hover, .chapter-rail button:focus-visible { color: #f5d070; outline: none; }
+  .chapter-rail button:hover::after, .chapter-rail button:focus-visible::after { width: 4rem; background: #f0c060; }
+  .inside-desk { position: absolute; left: 1.8rem; bottom: 1.55rem; max-width: 18rem; opacity: 0; transform: translateY(10px); transition: .45s ease; }
+  body.in-shop .inside-desk { opacity: 1; transform: none; }
+  .inside-desk .desk-title { color: #f5d070; font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; }
+  .inside-desk .desk-caption { max-width: 15rem; margin-top: .42rem; color: rgba(245,227,190,.72); font: .7rem/1.55 Georgia, serif; }
+  .inside-desk .desk-actions { display: flex; gap: .45rem; margin-top: .75rem; }
+  .desk-actions button { pointer-events: all; border: 0; border-bottom: 1px solid rgba(232,146,42,.55); background: transparent; padding: .24rem 0; color: #f1ce8b; font: inherit; font-size: .48rem; letter-spacing: .18em; text-transform: uppercase; cursor: none; }
+  .desk-actions button:hover, .desk-actions button:focus-visible { color: #fff1cf; border-color: #fff1cf; outline: none; }
+  body.in-shop #night-shift > .signal-readout, body.in-shop #night-shift > .story-card, body.in-shop #night-shift > .chapter-rail, body.in-shop #night-shift > .shift-mark { opacity: 0; pointer-events: none; transform: translateY(-10px); }
+  body.in-shop .shift-mark { opacity: .8 !important; transform: translateX(-50%) !important; }
+  body.in-shop #outside-ui, body.in-shop #avail-badge { opacity: 0; }
+  body:not(.in-shop) #avail-badge { display: none !important; }
+  body.in-shop #inside-nav { top: 1.15rem; left: 50%; right: auto; width: max-content; transform: translateX(-50%); padding: .28rem; gap: .15rem; border: 1px solid rgba(232,146,42,.24); border-radius: 99px; background: rgba(8,4,1,.7); backdrop-filter: blur(12px); box-shadow: 0 10px 34px rgba(0,0,0,.34); }
+  body.in-shop .inside-nav-btn { min-width: auto; padding: .62rem .92rem; border: 1px solid transparent; border-radius: 99px; color: rgba(240,211,163,.7); }
+  body.in-shop .inside-nav-btn:hover, body.in-shop .inside-nav-btn.active { border-bottom-color: transparent; border-color: rgba(232,146,42,.52); background: rgba(232,146,42,.13); }
+  .panel-card .panel-header { position: sticky; top: 0; z-index: 3; padding-top: .3rem; background: linear-gradient(180deg, rgba(18,9,3,.98) 80%, rgba(18,9,3,0)); }
+  .project-entry { position: relative; overflow: hidden; }
+  .project-entry::after { content: ''; position: absolute; inset: 0 auto 0 -1px; width: 2px; background: #e8922a; transform: scaleY(0); transform-origin: bottom; transition: transform .35s ease; }
+  .project-entry:hover::after { transform: scaleY(1); }
+  @media (max-width: 760px) {
+    #night-shift { display: none; }
+    body { cursor: auto; }
+    .story-action, .chapter-rail button, .desk-actions button { cursor: pointer; }
+  }
+  @media (prefers-reduced-motion: reduce) { #night-shift, .signal-pip { animation: none; opacity: 1; } }
 </style>
 </head>
 <body>
@@ -1085,6 +1151,22 @@
 <div id="lightning-flash" aria-hidden="true"></div>
 <div id="toast-stack" aria-live="polite" aria-atomic="false"></div>
 <div id="scene-fade" aria-hidden="true"></div>
+
+<aside id="night-shift" aria-label="Portfolio wayfinding">
+  <div class="shift-mark">TJ 麺 · Night Shift Portfolio</div>
+  <div class="signal-readout"><div class="eyebrow"><i class="signal-pip"></i>Open for roles · 2027</div><strong>Seattle / Rain 01</strong><span>Applied AI · Product systems · Human signal</span></div>
+  <section class="story-card" aria-label="Portfolio introduction">
+    <div class="eyebrow">Tonight's special · 01</div>
+    <h2>Built with precision.<br>Served with a point of view.</h2>
+    <p>Step into a live notebook of applied AI, data products, and the choices that make technology useful to people.</p>
+    <div class="story-actions"><button class="story-action" onclick="startNightShift('projects')">Explore the menu <span aria-hidden="true">→</span></button><button class="story-action" onclick="startNightShift('contact')">Start a conversation</button></div>
+  </section>
+  <div class="chapter-rail" aria-label="Quick portfolio links"><button onclick="startNightShift('projects')">01 / Work</button><button onclick="startNightShift('experience')">02 / Story</button><button onclick="startNightShift('skills')">03 / Craft</button></div>
+  <section class="inside-desk" aria-label="Inside the ramen shop">
+    <div class="eyebrow">Chef's counter · Select a course</div><div class="desk-title">A small shop for big systems.</div><p class="desk-caption">Browse the work by outcome, then pull up a seat for the details.</p>
+    <div class="desk-actions"><button onclick="openPanel('projects')">Read case studies</button><button onclick="openPanel('contact')">Say hello</button></div>
+  </section>
+</aside>
 
 <button id="sound-btn" title="Toggle ambient sound (S)" aria-label="Toggle ambient sound" aria-pressed="false" onclick="toggleSound()">♪</button>
 <div id="sound-wave" aria-hidden="true">
@@ -3283,6 +3365,7 @@ function enterShop(){
     document.getElementById('avail-badge').style.display='none';
     document.getElementById('time-disp').style.display='none';
     document.getElementById('inside-ui').style.display='block';
+    updateExperienceMode(true);
     // Reset inside-hint animation by re-inserting the element
     const hint = document.getElementById('inside-hint');
     const p = hint.parentNode; const clone = hint.cloneNode(true); hint.remove(); p.appendChild(clone);
@@ -3336,6 +3419,7 @@ function exitShop(){
     if(elTimeDisp) elTimeDisp.style.transform='';
     if(elAvailBadge) elAvailBadge.style.transform='';
     document.getElementById('inside-ui').style.display='none';
+    updateExperienceMode(false);
     rain.visible=true; bokeh.visible=true; blocker.visible=true; cityGroup.visible=true;
     splashPool.forEach(r=>{r.visible=true;});
     dustMotes.forEach(d=>{d.visible=false;});
@@ -4639,6 +4723,35 @@ setTimeout(()=>{
   const l=document.getElementById('loader'); l.classList.add('hidden');
   setTimeout(()=>{if(l.parentNode)l.parentNode.removeChild(l);},1000);
 },2400);
+
+// ── Night Shift portfolio layer ──────────────────────────────────────────
+// This adds a guided editorial path without replacing the free-form 3D shop.
+function updateExperienceMode(isInside){
+  document.body.classList.toggle('in-shop', isInside);
+  const readout = document.querySelector('.signal-readout strong');
+  if(readout) readout.textContent = isInside ? 'Counter / Course 02' : 'Seattle / Rain 01';
+}
+function startNightShift(panel){
+  if(!inside){
+    enterShop();
+    setTimeout(()=>openPanel(panel), 780);
+  } else {
+    openPanel(panel);
+  }
+}
+window.startNightShift=startNightShift;
+
+// Micro-interaction: rotate the environmental readout as a quiet live signal.
+const _signalPhrases=['Seattle / Rain 01','Systems / Service 02','Signal / Story 03'];
+let _signalIndex=0;
+setInterval(()=>{
+  if(inside) return;
+  const readout=document.querySelector('.signal-readout strong');
+  if(!readout) return;
+  _signalIndex=(_signalIndex+1)%_signalPhrases.length;
+  readout.animate([{opacity:.2,transform:'translateY(3px)'},{opacity:1,transform:'translateY(0)'}],{duration:360,easing:'ease-out'});
+  readout.textContent=_signalPhrases[_signalIndex];
+},5200);
 </script>
 </body>
 </html>

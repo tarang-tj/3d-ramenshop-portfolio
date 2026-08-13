@@ -10,6 +10,12 @@ An interactive portfolio built as a single HTML file. No frameworks, no build to
 
 ## What's in the scene
 
+### Night Shift interface
+
+- A new editorial “night shift” layer turns the exterior into a guided entry point with a live environmental signal, concise portfolio thesis, and fast paths to work, story, craft, or contact.
+- Inside, navigation becomes a compact floating counter and a contextual desk introduces the next interaction without obscuring the 3D world.
+- The free-explore shop is unchanged; the added layer gives recruiters and collaborators a clearer path through it.
+
 - Real-time 3D ramen shop with PBR-style materials, hemisphere + point lighting, and a gradient night-sky dome (navy horizon glow fading to near-black zenith)
 - UnrealBloom post-processing so the neon, lanterns, and shop windows actually glow. Runs at half resolution and falls back to a plain render if the effect CDN is blocked
 - Rain system with wind modulation and a CRT scanline overlay
