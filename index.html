@@ -3708,6 +3708,7 @@ function openPanel(s, fromMenu=false){
   MSG.visible=false; // hide stand while reading full panel
   // A focused case study deserves an uncluttered reading surface.
   document.getElementById('interact-card')?.classList.remove('visible');
+  document.getElementById('toast-stack')?.replaceChildren();
   srAnnounce(PANEL_LABELS[s] + ' panel opened. Use arrow keys or Tab to navigate.');
   // Audio tick if sound enabled
   if(audioCtx && soundEnabled){
@@ -4344,6 +4345,8 @@ window.toggleDayNight = function(){
 // Lightweight DOM toasts for easter eggs, time-aware greetings, and achievement feedback.
 // Self-disposing after ~5.4s (animation: 0.38s in + 5s hold + 0.4s out).
 function showToast(kanji, html, sub){
+  // Case-study mode is deliberately quiet; notifications resume when it closes.
+  if(document.getElementById('panel-overlay')?.classList.contains('active')) return;
   const stack = document.getElementById('toast-stack');
   if(!stack) return;
   const el = document.createElement('div');
