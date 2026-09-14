@@ -13,7 +13,9 @@ function animate(){
   // Skip heavy work when overlays are fully covering the scene
   const _panelOpen = document.getElementById('panel-overlay').classList.contains('active');
   const _menuOpen = document.getElementById('menu-overlay').classList.contains('active');
-  if((_panelOpen || _menuOpen) && !transitioning){
+  // The arcade cabinet is an opaque overlay too, so it takes the same low-rate path as the panels.
+  const _arcadeOpen = document.body.classList.contains('arcade-open');
+  if((_panelOpen || _menuOpen || _arcadeOpen) && !transitioning){
     // Still render at low rate for background visibility, but skip particle/light updates
     if(_frame % 8 === 0) { try { renderScene(); } catch(_){} }
     _frame++;
