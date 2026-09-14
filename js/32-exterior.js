@@ -619,7 +619,10 @@ for(let i=0;i<8;i++){
 }
 
 // ── Rain ─────────────────────────────────────────────────────────────────
-const RC=60;
+// Streak count rides the same capability split as the DPR ladder in js/10-boot.js: the machines
+// that get a lower pixel ratio also get less rain, so the frame cost stays flat across devices.
+// The main loop scales its per-streak work to RC, so this is the only number that has to change.
+const RC=(typeof _coarsePtr!=='undefined' && (_coarsePtr||_lowCore)) ? 150 : 260;
 const rainGeo=new THREE.BufferGeometry();
 const rainPos=new Float32Array(RC*6);
 const rainSpeeds = new Float32Array(RC); // per-streak speed variation

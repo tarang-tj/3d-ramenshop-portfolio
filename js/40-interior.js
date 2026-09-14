@@ -317,15 +317,17 @@ for(let z=-6;z>=-37;z-=10)B(24,0.6,0.5,M(0x2a1e08),0,11.7,z);
     new THREE.MeshStandardMaterial({color:0xfff8d0,emissive:0xfff8d0,emissiveIntensity:3.2}));
   bulb.position.set(px,8.72,-21.8); scene.add(bulb);
   // Pendant light — only 2 actual lights for the 4 fixtures (performance)
-  if(i%2===0) P(0xf0d060,1.8,px,8.0,-21.5,14);
+  if(i%2===0) P(0xf0d060,1.1,px,8.0,-21.5,11);
 });
 
 // ── Interior lights ───────────────────────────────────────────────────────
-const iAmb=new THREE.PointLight(0xf0c060,1.3,55); iAmb.position.set(0,10,-20); scene.add(iAmb);
-P(0xf0a020,2.8,0,7,-20,35); // single strong interior fill
-P(0xff9944,3.5,0,5,-38,22); // kitchen glow
+// Warm key light for the room. The animate loop breathes its intensity around 1.28, so the
+// exposure lever here is the colour and the falloff distance, not the intensity number.
+const iAmb=new THREE.PointLight(0x7e5c22,1.3,40); iAmb.position.set(0,10,-20); scene.add(iAmb);
+P(0xf0a020,0.85,0,7,-20,28); // single interior fill, kept low so the walls stay dark wood
+P(0xff9944,1.5,0,5,-38,22); // kitchen glow
 // Entry cool sky bleed
-P(0x6688bb,0.3,0,5,-2,14);
+P(0x6688bb,0.5,0,5,-2,14);
 
 // ── Counter ───────────────────────────────────────────────────────────────
 // Canvas counter top — dark wood grain
@@ -517,7 +519,7 @@ kGlow.position.set(0,5,-40.72); scene.add(kGlow);
 const kfm=M(0x3a2810,0,0,0.75);
 B(6.4,0.22,0.5,kfm,0,6.85,-40.8); B(6.4,0.22,0.5,kfm,0,3.38,-40.8);
 B(0.22,3.5,0.5,kfm,-3.2,5,-40.8); B(0.22,3.5,0.5,kfm,3.2,5,-40.8);
-P(0xff7722,4.5,0,6.5,-39,16);
+P(0xff7722,2.2,0,6.5,-39,16);
 
 // ── Kitchen dust motes (floating in the orange beam) ──────────────────────
 const dustMotes = [];

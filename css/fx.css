@@ -1,1 +1,64 @@
-/* Lane-owned stylesheet: fx layer. */
+/* Visual FX layer: letterbox bars for the cinematic intro, and the retirement of the two
+   CSS overlays the shader grade now owns.
+
+   js/22-postfx.js adds .fx-shader-grade to <body> only when the grade pass actually compiled
+   and attached. If the CDN example scripts are blocked or the shader fails, the class is never
+   added and the original CSS vignette and grain keep doing their job. */
+
+body.fx-shader-grade #vignette,
+body.fx-shader-grade #grain-layer {
+  display: none;
+}
+
+/* ── Cinematic intro letterbox ─────────────────────────────────────────── */
+/* 2.39:1 bars. Height is set inline by js/26-cinematic.js from the viewport aspect so the
+   framing is a real 2.39:1 crop rather than a fixed guess. */
+#cine-bars {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+#cine-bars.active { opacity: 1; }
+
+#cine-bars .cine-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: #000;
+  transition: height 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+#cine-bars .cine-bar.top { top: 0; }
+#cine-bars .cine-bar.bottom { bottom: 0; }
+
+#cine-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 3.2rem;
+  transform: translateX(-50%);
+  z-index: 61;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(232, 200, 138, 0.62);
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+}
+#cine-hint.active { opacity: 1; }
+
+@media (max-width: 560px) {
+  #cine-hint { font-size: 0.5rem; letter-spacing: 0.22em; bottom: 2.2rem; }
+}
+
+/* The intro is skipped outright under reduced motion, but belt and braces: if the elements
+   are ever in the DOM under that setting, they do not animate. */
+@media (prefers-reduced-motion: reduce) {
+  #cine-bars, #cine-bars .cine-bar, #cine-hint { transition: none; }
+}

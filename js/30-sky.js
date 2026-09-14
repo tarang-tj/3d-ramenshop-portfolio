@@ -20,9 +20,9 @@ let ct={pos:COUT.pos.clone(),look:COUT.look.clone()};
 let cc={pos:COUT.pos.clone(),look:COUT.look.clone()};
 
 // ── Helpers ───────────────────────────────────────────────────────────────
-scene.add(new THREE.AmbientLight(0x1a1005,0.8));
+scene.add(new THREE.AmbientLight(0x1a1005,0.30));
 // Hemisphere sky — cool blue-purple zenith, warm amber ground
-const hemi = new THREE.HemisphereLight(0x1a2035, 0x2a1405, 0.6);
+const hemi = new THREE.HemisphereLight(0x1a2035, 0x2a1405, 0.34);
 scene.add(hemi);
 
 // ── Cursor-follow warm light: REMOVED ──────────────────────────────────
