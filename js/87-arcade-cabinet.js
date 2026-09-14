@@ -33,12 +33,12 @@
     new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(mq) }));
   plate.position.set(0, 3.28, 0.67); g.add(plate);
 
-  g.position.set(8.9, 0, -15.6);
-  g.rotation.y = -Math.PI / 2 + 0.42;
+  g.position.set(7.4, 0, -16.8);
+  g.rotation.y = -Math.PI / 2 + 0.72;
   scene.add(g);
 
   if (typeof mkZone === 'function') {
-    mkZone(2.0, 3.6, 2.2, 8.4, 1.8, -15.6, {
+    mkZone(2.2, 3.6, 2.2, 6.9, 1.8, -16.8, {
       type: 'fact', arcade: true, hoverLabel: 'Play Noodle Catch',
       emoji: '🕹️', kanji: '遊', sub: 'Arcade · Noodle Catch',
       body: 'A cabinet someone wheeled in and never wheeled out. Catch the toppings, dodge the bugs, and every fifth catch plates one of the projects. Press P any time you are inside.',

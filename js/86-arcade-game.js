@@ -18,7 +18,7 @@ ARCADE.game = (function () {
     mode: 'idle', raf: 0, last: 0, clock: 0,
     items: [], bowlX: LW / 2, bowlTX: LW / 2,
     score: 0, combo: 0, bestCombo: 0, lives: 3, catches: 0,
-    tally: {}, tLeft: 45, plate: 0, plateIdx: 0, spawn: 0.7, shake: 0,
+    tally: {}, tLeft: 45, plate: 0, plateIdx: 0, spawn: 0.7, shake: 0, stats: null,
     hold: { l: false, r: false },
   };
 
@@ -127,10 +127,11 @@ ARCADE.game = (function () {
     if (G.score > ARCADE.best) { ARCADE.best = G.score; ARCADE.saveBest(G.score); }
     ARCADE.setHud('Round over');
     render();
-    ARCADE.cards.results(ctx2(), {
+    G.stats = {
       score: G.score, best: ARCADE.best, tally: G.tally,
       bestCombo: G.bestCombo, lives: G.lives, types: TYPES,
-    });
+    };
+    ARCADE.cards.results(ctx2(), G.stats);
     ARCADE.showActions();
     halt();
   }
@@ -212,8 +213,8 @@ ARCADE.game = (function () {
       c.fillStyle = '#f5d98a'; c.font = 'bold 13px Georgia, serif';
       c.fillText('combo x' + Math.min(5, 1 + Math.floor(G.combo / 3)), LW / 2, 50);
     }
-    c.textAlign = 'right'; c.font = '17px Georgia, serif'; c.fillStyle = '#e8922a';
-    c.fillText('🍜'.repeat(Math.max(0, G.lives)), LW - 16, 32);
+    c.textAlign = 'right'; c.font = '15px Georgia, serif'; c.fillStyle = '#e8922a';
+    c.fillText('🍜'.repeat(Math.max(0, G.lives)), LW - 16, 40);
   }
 
   // ── API used by 85-arcade.js ────────────────────────────────────────────
@@ -224,6 +225,8 @@ ARCADE.game = (function () {
     isRunning: function () { return G.mode === 'play'; },
     aim: function (x) { if (G.mode === 'play') G.bowlTX = clamp(x, 54, LW - 54); },
     hold: function (dir, down) { if (dir < 0) G.hold.l = !!down; else G.hold.r = !!down; },
+    // The loop is stopped once a round is over, so a resize has to repaint the results itself.
+    repaint: function () { if (G.mode === 'over' && G.stats) ARCADE.cards.results(ctx2(), G.stats); },
     suspend: function () { halt(); },
     wake: function () { if (G.mode === 'title' || G.mode === 'play') spin(); },
     types: TYPES,

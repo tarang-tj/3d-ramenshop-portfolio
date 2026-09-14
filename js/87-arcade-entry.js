@@ -24,6 +24,9 @@ RAMEN.on('interact', function (d) {
 
 // P opens the cabinet, but only from inside the shop and only when nothing else has the screen.
 // The gate fails closed: if the shop state cannot be read, the key does nothing.
+// Capture phase on purpose: js/54-extras.js dismisses an open fortune from a bubble-phase
+// listener without stopping propagation, so by the bubble phase the omikuji class is already
+// gone and the guard below would read a stale screen.
 document.addEventListener('keydown', function (e) {
   if (e.key !== 'p' && e.key !== 'P') return;
   if (ARCADE.isOpenFlag) return;
@@ -32,7 +35,7 @@ document.addEventListener('keydown', function (e) {
   if (typeof transitioning !== 'undefined' && transitioning) return;
   if (ARCADE.screenBusy()) return;
   ARCADE.open();
-});
+}, true);
 
 (function chip() {
   const host = document.getElementById('inside-ui');

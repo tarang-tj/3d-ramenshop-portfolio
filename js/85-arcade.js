@@ -150,7 +150,7 @@ ARCADE.open = function () {
     const r = ARCADE.canvas.getBoundingClientRect();
     ARCADE.game.aim((e.touches[0].clientX - r.left) / ARCADE.scale);
   };
-  ARCADE._onResize = function () { ARCADE.resize(); };
+  ARCADE._onResize = function () { ARCADE.resize(); ARCADE.game.repaint(); };
   ARCADE._onVis = function () {
     if (!ARCADE.isOpenFlag) return;
     if (document.hidden) ARCADE.game.suspend(); else ARCADE.game.wake();
