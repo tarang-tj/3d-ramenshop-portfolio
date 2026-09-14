@@ -62,7 +62,7 @@ def main():
     for f in files:
         txt = visible_text(f)
         corpus += "\n" + txt
-        prose = f.endswith((".html", ".md")) or os.path.basename(f).startswith("70-")
+        prose = f.endswith((".html", ".md")) or re.match(r"7\d-content", os.path.basename(f)) is not None
         for pat, why in BANNED:
             if "—" in pat and not prose:
                 continue  # em-dash rule applies to visitor-facing prose, not engine code comments

@@ -39,7 +39,7 @@ panels.experience=`<div class="panel-header"><div class="panel-kanji">経歴</di
 </div>
 
 <div class="exp-entry">
-  <div class="exp-role">Product Analyst Intern, then IT Business Analyst Intern</div>
+  <div class="exp-role">IT Business Analyst Intern (2021 to 2022), then Product Analyst Intern (2022 to 2024)</div>
   <div class="exp-company">JMT Worldwide LLC</div>
   <div class="exp-date">Aug 2021 to Sep 2024</div>
   <ul class="exp-bullets">
