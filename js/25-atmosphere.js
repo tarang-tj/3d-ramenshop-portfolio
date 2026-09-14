@@ -12,8 +12,10 @@
   try { _reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(_){}
 
   // ── Ground fog ───────────────────────────────────────────────────────────
-  // Three wide planes lying low over the street. A soft radial canvas texture keeps the edges
-  // invisible, and each layer drifts at its own rate so the bank never looks like flat cards.
+  // Upright haze cards standing between the camera and the shopfront, not planes lying on the
+  // street. The flat version cost three to seven times more per frame: a plane the camera looks
+  // across almost edge-on rasterises the whole screen at a grazing angle, which is the worst case
+  // for texture sampling. Upright cards cover a small, predictable area and read the same.
   // Normal blending, not additive: fog should soften the street, not light it.
   var fogLayers = [];
   try {
@@ -35,9 +37,9 @@
     }
     var fogTex = new THREE.CanvasTexture(fc);
     var LAYERS = [
-      { y: 0.50, w: 96,  h: 46, op: 0.11,  sp: 0.30, z: 18 },
-      { y: 1.45, w: 118, h: 54, op: 0.075, sp: -0.21, z: 8 },
-      { y: 2.70, w: 140, h: 62, op: 0.045, sp: 0.13, z: -6 }
+      { y: 2.6, w: 86,  h: 9,  op: 0.20, sp: 0.32, z: 26 },
+      { y: 3.4, w: 104, h: 11, op: 0.13, sp: -0.22, z: 12 },
+      { y: 4.0, w: 120, h: 13, op: 0.08, sp: 0.14, z: -4 }
     ];
     for(var i = 0; i < LAYERS.length; i++){
       var L = LAYERS[i];
@@ -45,7 +47,6 @@
         new THREE.PlaneGeometry(L.w, L.h),
         new THREE.MeshBasicMaterial({ map: fogTex, transparent: true, opacity: L.op, depthWrite: false })
       );
-      mesh.rotation.x = -Math.PI / 2;
       mesh.position.set(0, L.y, L.z);
       mesh.renderOrder = 1;
       mesh.userData = { speed: L.sp, baseX: 0, baseOp: L.op, phase: Math.random() * Math.PI * 2 };
