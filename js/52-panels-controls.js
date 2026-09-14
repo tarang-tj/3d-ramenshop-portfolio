@@ -3,6 +3,7 @@
 // with every other js/*.js file. Load order is the numeric prefix.
 
 function openPanel(s, fromMenu=false){
+  RAMEN.emit('panel', {panel:s, fromMenu});
   _panelFromMenu = fromMenu;
   _lastFocusedBeforeOverlay = document.activeElement;
   MSG.visible=false; // hide stand while reading full panel
@@ -139,15 +140,16 @@ function handleClick(e){
   m2d.x=(e.clientX/innerWidth)*2-1; m2d.y=-(e.clientY/innerHeight)*2+1;
   ray.setFromCamera(m2d,camera);
   if(!inside){
-    if(ray.intersectObject(doorZone).length>0) enterShop();
+    if(ray.intersectObject(doorZone).length>0){ RAMEN.emit('interact', {type:'door'}); enterShop(); }
   } else {
-    if(ray.intersectObjects([menuZone,menuCard],true).length>0){openMenu();return;}
+    if(ray.intersectObjects([menuZone,menuCard],true).length>0){RAMEN.emit('interact', {type:'menu'});openMenu();return;}
     const lh=ray.intersectObjects(intLanterns,true);
-    if(lh.length>0){let o=lh[0].object;while(o&&!o.userData.panel)o=o.parent;if(o&&o.userData.panel){openPanel(o.userData.panel);return;}}
+    if(lh.length>0){let o=lh[0].object;while(o&&!o.userData.panel)o=o.parent;if(o&&o.userData.panel){RAMEN.emit('interact', {type:'lantern', panel:o.userData.panel});openPanel(o.userData.panel);return;}}
     // Interact zones
     const ih=ray.intersectObjects(interactZones,true);
     if(ih.length>0){
       const d=ih[0].object.userData;
+      RAMEN.emit('interact', d);
       if(d.type==='seat'){ takeSeat(d.seatIdx); return; }
       if(d.type==='bowl'){ inspectBowl(d.bowlIdx, d); return; }
       if(d.type==='cat'){

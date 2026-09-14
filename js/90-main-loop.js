@@ -78,6 +78,8 @@ function animate(){
     .addScaledVector(_upV, Math.sin(pitch)*14);
   camera.position.copy(_breathV);
   camera.lookAt(_oLookV);
+  if(RAMEN.cameraOverride){ try { RAMEN.cameraOverride(camera, dt, t); } catch(_){} }
+  RAMEN.emit('frame', dt, t);
 
   // Name + HUD parallax — use cached refs
   if(!inside){
@@ -325,6 +327,7 @@ function animate(){
   try { renderScene(); } catch(_) {}
 }
 animate();
+RAMEN.ready = true;
 
 setTimeout(()=>{
   const l=document.getElementById('loader'); l.classList.add('hidden');

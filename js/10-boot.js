@@ -149,6 +149,7 @@ function buildComposer(){
       _bloomStrengthTarget, BLOOM_RADIUS, BLOOM_THRESHOLD
     );
     composer.addPass(bloomPass);
+    RAMEN.emit('composer', { composer, bloomPass });
     composer.setSize(innerWidth, innerHeight);      // picks up renderer's effective DPR
     bloomPass.setSize(innerWidth/2, innerHeight/2); // re-force half-res after setSize
   } catch(err){

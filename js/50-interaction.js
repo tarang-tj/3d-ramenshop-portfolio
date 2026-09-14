@@ -89,6 +89,7 @@ function enterShop(){
     setTimeout(()=>playSlurp(), 320);
     fadeEl.classList.remove('active');
     transitioning = false;
+    RAMEN.emit('enter');
     // Highlight nav buttons sequentially to draw recruiter attention
     const navBtns = document.querySelectorAll('.inside-nav-btn');
     navBtns.forEach((btn, i) => {
@@ -137,6 +138,7 @@ function exitShop(){
     setRainVolume(0.09,1.0); setIndoorVolume(0,0.5);
     fadeEl.classList.remove('active');
     transitioning=false;
+    RAMEN.emit('exit');
   },470);
   // Safety net: force-clear transitioning if something goes wrong
   setTimeout(()=>{ transitioning=false; },1500);
