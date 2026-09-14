@@ -1,0 +1,15 @@
+{
+  "name": "3d-ramenshop-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Hand-built Three.js ramen shop portfolio. No build step, no frameworks.",
+  "scripts": {
+    "check:syntax": "node scripts/check_syntax.mjs",
+    "check:claims": "python3 scripts/check_claims.py",
+    "verify:boot": "node scripts/verify_boot.mjs",
+    "gate": "npm run check:syntax && npm run check:claims && npm run verify:boot"
+  },
+  "repository": { "type": "git", "url": "https://github.com/tarang-tj/3d-ramenshop-portfolio.git" },
+  "license": "MIT",
+  "devDependencies": { "playwright": "1.63.0" }
+}
