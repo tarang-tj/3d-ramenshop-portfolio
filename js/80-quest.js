@@ -35,7 +35,14 @@
   var st = { stamps: [], panels: [], startedAt: null, completedAt: null, onboarded: false };
   var timers = [];
 
-  function later(fn, ms) { var h = setTimeout(fn, ms); timers.push(h); return h; }
+  function later(fn, ms) {
+    var h = setTimeout(function () {
+      var i = timers.indexOf(h); if (i >= 0) timers.splice(i, 1);
+      fn();
+    }, ms);
+    timers.push(h);
+    return h;
+  }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
 
   function load() {
@@ -94,7 +101,7 @@
     clearTimers();
     // Mutated in place: 81 and 82 hold a reference to this object.
     st.stamps.length = 0; st.panels.length = 0;
-    st.startedAt = null; st.completedAt = null;
+    st.startedAt = null; st.completedAt = null; st.onboarded = false;
     try { localStorage.removeItem(KEY); } catch (e) { /* nothing to do */ }
     if (QUEST.finale && QUEST.finale.stop) { try { QUEST.finale.stop(); } catch (e) { /* optional */ } }
     if (QUEST.ui && QUEST.ui.render) { try { QUEST.ui.render(); } catch (e) { /* optional */ } }

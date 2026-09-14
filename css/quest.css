@@ -4,7 +4,7 @@
 
   /* ─── Stamp card: a paper slip clipped to the counter, bottom-left ─── */
   #quest-card {
-    position: fixed; left: 1.8rem; bottom: 8.6rem; z-index: 46;
+    position: fixed; left: 1.8rem; bottom: 9.9rem; z-index: 46;
     display: none; width: 16.5rem; max-width: calc(100vw - 3rem);
     font-family: 'Noto Serif JP', Georgia, serif; pointer-events: none;
   }
@@ -89,7 +89,7 @@
 
   .quest-foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .7rem; padding-top: .5rem; border-top: 1px solid rgba(139,26,26,.15); }
   .quest-key { font-size: .46rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(138,106,58,.75); }
-  .quest-reset { min-height: 28px; padding: .2rem .45rem; background: transparent; border: 1px solid rgba(139,26,26,.3); color: #8b1a1a; font: inherit; font-size: .46rem; letter-spacing: .18em; text-transform: uppercase; cursor: none; }
+  .quest-reset { min-height: 44px; padding: .2rem .45rem; background: transparent; border: 1px solid rgba(139,26,26,.3); color: #8b1a1a; font: inherit; font-size: .46rem; letter-spacing: .18em; text-transform: uppercase; cursor: none; }
   .quest-reset:hover, .quest-reset:focus-visible { background: #8b1a1a; color: #faf5e8; outline: none; }
 
   /* Toast links live inside a pointer-events:none stack, so they opt back in. */
@@ -158,6 +158,7 @@
   .quest-cert-seal:nth-child(even) { transform: rotate(5deg); }
   .quest-cert-note { font: .7rem/1.65 Georgia, serif; color: #5a4a3a; }
   .quest-cert-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .45rem; margin: 1.1rem 0 .9rem; }
+  .quest-cert-btn.primary { flex-basis: 100%; }
   .quest-cert-btn {
     min-height: 44px; padding: .4rem .8rem; background: transparent; border: 1px solid rgba(139,26,26,.4);
     color: #8b1a1a; font: inherit; font-size: .52rem; letter-spacing: .18em; text-transform: uppercase; cursor: none;

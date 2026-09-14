@@ -15,9 +15,16 @@
   var points = null, fwPos = null, fwCol = null, fwBase = null, fwVel = null, fwLife = null, fwActive = 0;
   var burstTimer = 0, fireUntil = 0, running = false, elapsed = 0;
   var overlay = null, confetti = null, timers = [];
-  var armed = false, celebrated = false, exitHook = null;
+  var pending = false, lastFocus = null, walkUntil = 0;
 
-  function later(fn, ms) { var h = setTimeout(fn, ms); timers.push(h); return h; }
+  function later(fn, ms) {
+    var h = setTimeout(function () {
+      var i = timers.indexOf(h); if (i >= 0) timers.splice(i, 1);
+      fn();
+    }, ms);
+    timers.push(h);
+    return h;
+  }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
 
   function ensurePoints() {
@@ -158,20 +165,22 @@
         '<div class="quest-cert-seals">' + seals + '</div>' +
         '<p class="quest-cert-note">Thanks for eating the whole menu. The kitchen is open if you want to talk about any of it.</p>' +
         '<div class="quest-cert-actions">' +
-          '<button type="button" class="quest-cert-btn primary" id="quest-cert-hello">Say hello</button>' +
+          (reduced ? '' : '<button type="button" class="quest-cert-btn primary" id="quest-cert-walk">Step outside for the fireworks</button>') +
+          '<button type="button" class="quest-cert-btn" id="quest-cert-hello">Say hello</button>' +
           '<button type="button" class="quest-cert-btn" id="quest-cert-copy">Copy link</button>' +
           '<button type="button" class="quest-cert-btn" id="quest-cert-close">Close</button>' +
         '</div>' +
-        '<div class="quest-cert-foot" id="quest-cert-foot">Close this and the shop steps out for fireworks. Press V out there for drone mode.</div>' +
+        '<div class="quest-cert-foot" id="quest-cert-foot">Out in the alley, press V for drone mode. WASD to fly, drag to look.</div>' +
       '</div>';
     document.body.appendChild(overlay);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) dismiss(); });
     overlay.querySelector('#quest-cert-hello').addEventListener('click', function () {
-      // A visitor heading for the contact panel does not want to be walked outside first.
-      armed = false; clearTimers(); removeOverlay();
+      dismiss();
       if (typeof openPanel === 'function') openPanel('contact');
     });
     overlay.querySelector('#quest-cert-close').addEventListener('click', dismiss);
+    var walk = overlay.querySelector('#quest-cert-walk');
+    if (walk) walk.addEventListener('click', function () { dismiss(); stepOutside(); });
     overlay.querySelector('#quest-cert-copy').addEventListener('click', function () {
       var btn = this;
       var done = function () { btn.textContent = 'Link copied'; later(function () { btn.textContent = 'Copy link'; }, 2000); };
@@ -179,62 +188,62 @@
         navigator.clipboard.writeText(location.href).then(done, function () { btn.textContent = location.href; });
       } catch (e) { btn.textContent = location.href; }
     });
-    var hello = overlay.querySelector('#quest-cert-hello');
-    if (hello) { try { hello.focus(); } catch (e) { /* focus is best effort */ } }
+    lastFocus = document.activeElement;
+    var first = overlay.querySelector('.quest-cert-btn');
+    if (first) { try { first.focus(); } catch (e) { /* focus is best effort */ } }
     Q.droneUnlocked = true;
     if (typeof srAnnounce === 'function') {
       srAnnounce('Stamp rally complete. Regular Customer certificate earned ' + duration() + '. Drone mode unlocked, press V.');
     }
   }
 
-  function removeOverlay() { if (overlay) { overlay.remove(); overlay = null; } }
-  // Closing the certificate is the cue for the celebration, so the visitor is looking at the sky
-  // rather than at a card when the fireworks go up.
-  function dismiss() {
-    removeOverlay();
-    if (armed) { armed = false; clearTimers(); celebrate(); }
+  function removeOverlay() {
+    if (!overlay) return;
+    overlay.remove(); overlay = null;
+    if (lastFocus && lastFocus.isConnected) { try { lastFocus.focus(); } catch (e) { /* best effort */ } }
+    lastFocus = null;
   }
+  // Closing the certificate closes the certificate. Nothing else. The walk outside is opt in.
+  function dismiss() { removeOverlay(); }
   function isOpen() { return !!overlay; }
 
-  // Fireworks live over the city, and the city is only visible from the alley. If the visitor is
-  // still at the counter, step outside first and launch once the exit transition has landed.
-  function celebrate() {
-    if (celebrated || reduced) return;
-    celebrated = true;
-    var launched = false;
-    var launch = function () {
-      if (launched) return;
-      launched = true;
-      startFireworks(); startConfetti();
-    };
-    if (typeof inside !== 'undefined' && inside && typeof exitShop === 'function') {
-      var onExit = function () { RAMEN.off('exit', onExit); exitHook = null; later(launch, 260); };
-      exitHook = onExit;
-      RAMEN.on('exit', onExit);
-      exitShop();
-      later(launch, 1800); // exitShop refuses while a transition is running; do not lose the finale
-    } else {
-      launch();
-    }
+  // The visitor asked to go outside. exitShop refuses while another transition is in flight, so
+  // keep asking on the frame hook for up to three seconds, then let it go.
+  function stepOutside() {
+    if (typeof inside === 'undefined' || typeof exitShop !== 'function') return;
+    if (!inside) { return; }
+    exitShop();
+    walkUntil = (typeof performance !== 'undefined' ? performance.now() : Date.now()) + 3000;
   }
+  RAMEN.on('frame', function () {
+    if (!walkUntil) return;
+    var now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+    if (typeof inside === 'undefined' || !inside || now > walkUntil) { walkUntil = 0; return; }
+    exitShop();
+  });
+
+  // Fireworks live over the city, and the city is only visible from the alley. One handler,
+  // registered once, fires the celebration the first time the finished visitor is outside.
+  RAMEN.on('exit', function () {
+    if (!pending || reduced) return;
+    if (typeof inside !== 'undefined' && inside) return;
+    pending = false;
+    later(function () { startFireworks(); startConfetti(); }, 260);
+  });
 
   function play() {
-    celebrated = false;
-    armed = true;
+    pending = !reduced;
     later(certificate, reduced ? 60 : 520);
-    later(function () { if (armed) dismiss(); }, reduced ? 4000 : 6000);
   }
 
   function stop() {
-    armed = false; celebrated = false;
-    if (exitHook) { RAMEN.off('exit', exitHook); exitHook = null; }
+    pending = false; walkUntil = 0;
     clearTimers(); stopFireworks(); stopConfetti(); removeOverlay();
     if (Q.drone && Q.drone.off) Q.drone.off();
     Q.droneUnlocked = false;
   }
 
-
-  Q.finale = { play: play, stop: stop, dismiss: dismiss, isOpen: isOpen };
+  Q.finale = { play: play, stop: stop, dismiss: dismiss, isOpen: isOpen, stepOutside: stepOutside, pending: function () { return pending; } };
 
   // A visitor who already finished the rally in an earlier visit keeps drone mode.
   Q.droneUnlocked = Q.droneUnlocked || Q.isComplete();
