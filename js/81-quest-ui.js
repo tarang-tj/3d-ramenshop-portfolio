@@ -161,15 +161,12 @@
   function onExit() { setOpen(false); }
 
   document.addEventListener('keydown', function (e) {
-    if (['INPUT', 'TEXTAREA', 'SELECT'].indexOf(document.activeElement && document.activeElement.tagName) >= 0) return;
-    var busy = ['panel-overlay', 'menu-overlay', 'kb-overlay'].some(function (id) {
-      var el = document.getElementById(id); return el && el.classList.contains('active');
-    });
-    if ((e.key === 'g' || e.key === 'G') && !busy) { e.preventDefault(); toggle(); return; }
+    if ((e.key === 'g' || e.key === 'G') && !Q.busy()) { e.preventDefault(); toggle(); return; }
     if (e.key === 'Escape') {
-      // Only swallow Escape when this layer actually had something open.
+      // Only swallow Escape when this layer actually had something open. A panel, menu or dialog
+      // belongs to the layer that opened it, so leave those alone.
       if (Q.finale && Q.finale.isOpen && Q.finale.isOpen()) { e.preventDefault(); Q.finale.dismiss(); return; }
-      if (open) { e.preventDefault(); setOpen(false); }
+      if (open && !Q.busy()) { e.preventDefault(); setOpen(false); }
     }
   });
 

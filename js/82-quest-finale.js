@@ -15,6 +15,7 @@
   var points = null, fwPos = null, fwCol = null, fwBase = null, fwVel = null, fwLife = null, fwActive = 0;
   var burstTimer = 0, fireUntil = 0, running = false, elapsed = 0;
   var overlay = null, confetti = null, timers = [];
+  var armed = false, celebrated = false, exitHook = null;
 
   function later(fn, ms) { var h = setTimeout(fn, ms); timers.push(h); return h; }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
@@ -139,7 +140,7 @@
   }
 
   function certificate() {
-    dismiss();
+    removeOverlay();
     overlay = document.createElement('div');
     overlay.id = 'quest-finale';
     overlay.className = 'quest-finale';
@@ -161,12 +162,13 @@
           '<button type="button" class="quest-cert-btn" id="quest-cert-copy">Copy link</button>' +
           '<button type="button" class="quest-cert-btn" id="quest-cert-close">Close</button>' +
         '</div>' +
-        '<div class="quest-cert-foot" id="quest-cert-foot">Press V for drone mode. WASD to fly, drag to look.</div>' +
+        '<div class="quest-cert-foot" id="quest-cert-foot">Close this and the shop steps out for fireworks. Press V out there for drone mode.</div>' +
       '</div>';
     document.body.appendChild(overlay);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) dismiss(); });
     overlay.querySelector('#quest-cert-hello').addEventListener('click', function () {
-      dismiss();
+      // A visitor heading for the contact panel does not want to be walked outside first.
+      armed = false; clearTimers(); removeOverlay();
       if (typeof openPanel === 'function') openPanel('contact');
     });
     overlay.querySelector('#quest-cert-close').addEventListener('click', dismiss);
@@ -185,16 +187,48 @@
     }
   }
 
-  function dismiss() { if (overlay) { overlay.remove(); overlay = null; } }
+  function removeOverlay() { if (overlay) { overlay.remove(); overlay = null; } }
+  // Closing the certificate is the cue for the celebration, so the visitor is looking at the sky
+  // rather than at a card when the fireworks go up.
+  function dismiss() {
+    removeOverlay();
+    if (armed) { armed = false; clearTimers(); celebrate(); }
+  }
   function isOpen() { return !!overlay; }
 
+  // Fireworks live over the city, and the city is only visible from the alley. If the visitor is
+  // still at the counter, step outside first and launch once the exit transition has landed.
+  function celebrate() {
+    if (celebrated || reduced) return;
+    celebrated = true;
+    var launched = false;
+    var launch = function () {
+      if (launched) return;
+      launched = true;
+      startFireworks(); startConfetti();
+    };
+    if (typeof inside !== 'undefined' && inside && typeof exitShop === 'function') {
+      var onExit = function () { RAMEN.off('exit', onExit); exitHook = null; later(launch, 260); };
+      exitHook = onExit;
+      RAMEN.on('exit', onExit);
+      exitShop();
+      later(launch, 1800); // exitShop refuses while a transition is running; do not lose the finale
+    } else {
+      launch();
+    }
+  }
+
   function play() {
-    if (!reduced) { startFireworks(); startConfetti(); }
+    celebrated = false;
+    armed = true;
     later(certificate, reduced ? 60 : 520);
+    later(function () { if (armed) dismiss(); }, reduced ? 4000 : 6000);
   }
 
   function stop() {
-    clearTimers(); stopFireworks(); stopConfetti(); dismiss();
+    armed = false; celebrated = false;
+    if (exitHook) { RAMEN.off('exit', exitHook); exitHook = null; }
+    clearTimers(); stopFireworks(); stopConfetti(); removeOverlay();
     if (Q.drone && Q.drone.off) Q.drone.off();
     Q.droneUnlocked = false;
   }

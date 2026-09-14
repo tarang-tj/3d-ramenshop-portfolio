@@ -110,6 +110,16 @@
   body.in-shop .quest-pill { opacity: 0; }
   .quest-pill.is-full { border-color: rgba(240,192,96,.6); color: #f5d070; }
 
+  /* ─── Drone mode hint, cleared the moment the camera is handed back ─── */
+  .quest-drone-hint {
+    position: fixed; left: 50%; bottom: 1.4rem; transform: translateX(-50%); z-index: 47;
+    max-width: calc(100vw - 2rem); padding: .45rem .8rem; text-align: center;
+    border: 1px solid rgba(232,146,42,.34); background: rgba(8,4,1,.72);
+    color: rgba(240,192,96,.85); font: .48rem/1.4 'Noto Serif JP', Georgia, serif;
+    letter-spacing: .16em; text-transform: uppercase; pointer-events: none;
+    backdrop-filter: blur(3px);
+  }
+
   /* ─── Kanji confetti ─── */
   .quest-confetti { position: fixed; inset: 0; z-index: 71; pointer-events: none; overflow: hidden; }
   .quest-confetti span {

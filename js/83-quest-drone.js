@@ -15,6 +15,7 @@
   function setDrone(on) {
     if (typeof THREE === 'undefined' || typeof camera === 'undefined') return;
     if (on) {
+      if (droneOn) return;
       if (!RAMEN.lockCamera('drone')) {
         if (typeof showToast === 'function') showToast('待', 'Another view owns the camera right now.', 'Drone mode');
         return;
@@ -26,17 +27,37 @@
       droneOn = true;
       document.body.classList.add('quest-drone');
       RAMEN.cameraOverride = droneFrame;
+      bindControls();
+      showHint();
       if (typeof showToast === 'function') showToast('飛', 'Drone mode on. WASD or arrows to fly, drag to look.', 'Press V to land');
       if (typeof srAnnounce === 'function') srAnnounce('Drone mode on. Use W A S D to fly and drag to look. Press V to land.');
     } else {
-      droneOn = false;
+      var was = droneOn;
+      droneOn = false; dragging2 = false; keys = {};
+      unbindControls();
+      hideHint();
       document.body.classList.remove('quest-drone');
-      RAMEN.cameraOverride = null;
+      // Always hand the camera back, even if this teardown was forced from outside.
+      if (RAMEN.cameraOverride === droneFrame) RAMEN.cameraOverride = null;
       RAMEN.unlockCamera('drone');
-      keys = {};
-      if (typeof srAnnounce === 'function') srAnnounce('Drone mode off.');
+      if (was && typeof srAnnounce === 'function') srAnnounce('Drone mode off.');
     }
   }
+
+  // The shop owns the camera again the moment the visitor leaves the counter or opens a case study.
+  RAMEN.on('exit', function () { setDrone(false); });
+  RAMEN.on('panel', function () { setDrone(false); });
+
+  var hintEl = null;
+  function showHint() {
+    if (hintEl) return;
+    hintEl = document.createElement('div');
+    hintEl.className = 'quest-drone-hint';
+    hintEl.setAttribute('aria-hidden', 'true');
+    hintEl.textContent = 'Drone mode · WASD or arrows to fly · Q and E for height · drag to look · V to land';
+    document.body.appendChild(hintEl);
+  }
+  function hideHint() { if (hintEl) { hintEl.remove(); hintEl = null; } }
 
   function droneFrame(cam, dt) {
     if (!droneOn || !dPos) return;
@@ -56,41 +77,71 @@
   }
 
   var KEYMAP = { w: 'f', s: 'b', a: 'l', d: 'r', q: 'dn', e: 'up', arrowup: 'f', arrowdown: 'b', arrowleft: 'l', arrowright: 'r' };
-  document.addEventListener('keydown', function (ev) {
-    if (['INPUT', 'TEXTAREA', 'SELECT'].indexOf(document.activeElement && document.activeElement.tagName) >= 0) return;
-    if (ev.key === 'v' || ev.key === 'V') {
-      if (!Q.droneUnlocked && !droneOn) return;
-      ev.preventDefault(); setDrone(!droneOn); return;
-    }
+
+  function onMoveDown(ev) {
     if (!droneOn) return;
     var k = KEYMAP[String(ev.key).toLowerCase()];
     if (k) { keys[k] = true; ev.preventDefault(); }
     if (ev.key === 'Shift') keys.shift = true;
     if (ev.key === 'Escape') { ev.preventDefault(); setDrone(false); }
-  });
-  document.addEventListener('keyup', function (ev) {
+  }
+  function onMoveUp(ev) {
     var k = KEYMAP[String(ev.key).toLowerCase()];
     if (k) keys[k] = false;
     if (ev.key === 'Shift') keys.shift = false;
-  });
-  document.addEventListener('mousedown', function (e) { if (droneOn) { dragging2 = true; lastPt.x = e.clientX; lastPt.y = e.clientY; } });
-  document.addEventListener('mouseup', function () { dragging2 = false; });
-  document.addEventListener('mousemove', function (e) {
+  }
+  function onDown(e) { if (!droneOn) return; dragging2 = true; lastPt.x = e.clientX; lastPt.y = e.clientY; }
+  function onUp() { dragging2 = false; }
+  function onMove(e) {
     if (!droneOn || !dragging2) return;
     dYaw -= (e.clientX - lastPt.x) * 0.0032;
     dPitch = Math.max(-1.3, Math.min(1.3, dPitch - (e.clientY - lastPt.y) * 0.0032));
     lastPt.x = e.clientX; lastPt.y = e.clientY;
-  });
-  document.addEventListener('touchstart', function (e) {
+  }
+  function onTouchStart(e) {
     if (!droneOn || !e.touches.length) return;
     dragging2 = true; lastPt.x = e.touches[0].clientX; lastPt.y = e.touches[0].clientY;
-  }, { passive: true });
-  document.addEventListener('touchend', function () { dragging2 = false; });
-  document.addEventListener('touchmove', function (e) {
+  }
+  function onTouchMove(e) {
     if (!droneOn || !dragging2 || !e.touches.length) return;
     dYaw -= (e.touches[0].clientX - lastPt.x) * 0.005;
     dPitch = Math.max(-1.3, Math.min(1.3, dPitch - (e.touches[0].clientY - lastPt.y) * 0.005));
     lastPt.x = e.touches[0].clientX; lastPt.y = e.touches[0].clientY;
-  }, { passive: true });
+  }
+  var bound = false;
+  function bindControls() {
+    if (bound) return;
+    bound = true;
+    document.addEventListener('keydown', onMoveDown);
+    document.addEventListener('keyup', onMoveUp);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchend', onUp);
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
+  }
+  function unbindControls() {
+    if (!bound) return;
+    bound = false;
+    document.removeEventListener('keydown', onMoveDown);
+    document.removeEventListener('keyup', onMoveUp);
+    document.removeEventListener('mousedown', onDown);
+    document.removeEventListener('mouseup', onUp);
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('touchstart', onTouchStart);
+    document.removeEventListener('touchend', onUp);
+    document.removeEventListener('touchmove', onTouchMove);
+  }
+
+  // V is the only key this layer listens for when it is not flying, and it defers to any
+  // open panel, menu, dialog or the certificate exactly like G does.
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'v' && ev.key !== 'V') return;
+    if (!droneOn && (!Q.droneUnlocked || Q.busy())) return; // landing is always allowed
+    ev.preventDefault();
+    setDrone(!droneOn);
+  });
+
   Q.drone = { on: function () { setDrone(true); }, off: function () { setDrone(false); }, isOn: function () { return droneOn; } };
 })();

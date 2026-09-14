@@ -112,8 +112,22 @@
     }, 450);
   }
 
+  // One busy test for every quest key. A reading surface, a dialog or the certificate all mean
+  // the quest layer keeps its hands off the keyboard.
+  function busy() {
+    var ids = ['panel-overlay', 'menu-overlay', 'kb-overlay', 'omikuji-overlay'];
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (el && el.classList.contains('active')) return true;
+    }
+    if (document.getElementById('quest-finale')) return true;
+    var tag = document.activeElement && document.activeElement.tagName;
+    return ['INPUT', 'TEXTAREA', 'SELECT'].indexOf(tag) >= 0;
+  }
+
   var QUEST = {
     KEY: KEY,
+    busy: busy,
     DEFS: DEFS,
     BY_ID: BY_ID,
     COURSE_IDS: COURSE_IDS,
