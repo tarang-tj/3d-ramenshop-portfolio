@@ -153,6 +153,29 @@
     ].join('\n')
   };
 
+  // A ShaderMaterial that fails to compile does not throw: three logs the GLSL error and renders
+  // the mesh with a dead program. try/catch around the constructor therefore proves nothing. This
+  // compiles the material for real against a throwaway scene, swallows the log while it does, and
+  // reports link status, so callers can fall back to a working material before anything is drawn.
+  // Published on the hook bus so js/24-shaders.js uses the same check.
+  RAMEN.compilesOk = function(mesh){
+    try {
+      if(typeof renderer === 'undefined' || !renderer || !mesh) return true;
+      var probe = new THREE.Scene();
+      probe.add(mesh);
+      var prev = console.error, failed = false;
+      console.error = function(){ failed = true; };
+      try { renderer.compile(probe, camera); } catch(e){ failed = true; }
+      console.error = prev;
+      probe.remove(mesh);
+      if(failed) return false;
+      var gl = renderer.getContext();
+      var prog = mesh.material && mesh.material.program;
+      if(prog && prog.program && !gl.getProgramParameter(prog.program, gl.LINK_STATUS)) return false;
+      return true;
+    } catch(e){ return true; }   // if the probe itself cannot run, do not block the material
+  };
+
   var pass = null;
   var enabled = true;
   var intensity = 1.0;
@@ -190,6 +213,12 @@
       shader.uniforms.uShadow.value = new THREE.Vector3();
       shader.uniforms.uHighlight.value = new THREE.Vector3();
       var p = new THREE.ShaderPass(shader);
+      // Validate before the pass is ever in the chain. A dead grade program renders to the canvas,
+      // so a failure here would black the whole page out rather than merely dropping an effect.
+      if(!RAMEN.compilesOk(new THREE.Mesh(new THREE.PlaneGeometry(1, 1), p.material))){
+        try { console.warn('[fx] grade shader did not compile, rendering ungraded'); } catch(_){}
+        return;
+      }
       comp.addPass(p);
       pass = p;
       pass.enabled = enabled;

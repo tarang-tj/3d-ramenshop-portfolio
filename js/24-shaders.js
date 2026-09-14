@@ -88,9 +88,10 @@
   ].join('\n');
 
   // x, z, radius. Kept off the doorway approach so they never sit under the camera on entry.
+  // Four, not a carpet of them. Each one is an additive transparent decal and the cost is pure
+  // overdraw, which is what actually hurts on a weak GPU.
   var PUDDLE_SPOTS = [
-    [-9.5, 9.5, 4.2], [7.5, 11.0, 5.0], [-15.0, 5.5, 3.4],
-    [13.5, 5.0, 3.8], [1.5, 15.5, 5.4], [-4.0, 20.0, 4.6]
+    [-9.5, 9.5, 4.4], [7.5, 11.0, 5.2], [-15.0, 5.5, 3.6], [1.5, 16.0, 5.6]
   ];
   var puddles = [];
   try {
@@ -118,6 +119,10 @@
         side: THREE.DoubleSide
       });
       var m = new THREE.Mesh(new THREE.PlaneGeometry(s[2] * 2, s[2] * 1.5), mat);
+      // All six share the one shader, so one real compile check covers the set.
+      if(i === 0 && typeof RAMEN.compilesOk === 'function' && !RAMEN.compilesOk(m)){
+        throw new Error('puddle shader did not compile');
+      }
       m.rotation.x = -Math.PI / 2;
       m.position.set(s[0], 0.035 + i * 0.002, s[1]);   // tiny y stagger avoids z-fighting
       m.renderOrder = 2;
@@ -176,6 +181,9 @@
         transparent: true,
         depthWrite: false
       });
+      if(typeof RAMEN.compilesOk === 'function' && !RAMEN.compilesOk(new THREE.Mesh(signMesh.geometry, signMat))){
+        throw new Error('neon sign shader did not compile');
+      }
       signMesh.material = signMat;
     } catch(err){
       try { console.warn('[shaders] neon sign material failed, keeping the plain sign:', err && err.message); } catch(_){}
@@ -251,7 +259,10 @@
         blending: THREE.AdditiveBlending,
         side: THREE.DoubleSide
       });
-      var mesh = new THREE.Mesh(new THREE.ConeGeometry(radius, height, 20, 1, true), mat);
+      var mesh = new THREE.Mesh(new THREE.ConeGeometry(radius, height, 14, 1, true), mat);
+      if(typeof RAMEN.compilesOk === 'function' && !RAMEN.compilesOk(mesh)){
+        throw new Error('light cone shader did not compile');
+      }
       mesh.position.set(x, y, z);
       if(tiltX) mesh.rotation.x = tiltX;
       mesh.renderOrder = 3;

@@ -37,9 +37,8 @@
     }
     var fogTex = new THREE.CanvasTexture(fc);
     var LAYERS = [
-      { y: 2.6, w: 86,  h: 9,  op: 0.20, sp: 0.32, z: 26 },
-      { y: 3.4, w: 104, h: 11, op: 0.13, sp: -0.22, z: 12 },
-      { y: 4.0, w: 120, h: 13, op: 0.08, sp: 0.14, z: -4 }
+      { y: 2.6, w: 86,  h: 9,  op: 0.22, sp: 0.32, z: 26 },
+      { y: 3.6, w: 112, h: 12, op: 0.12, sp: -0.22, z: 6 }
     ];
     for(var i = 0; i < LAYERS.length; i++){
       var L = LAYERS[i];
