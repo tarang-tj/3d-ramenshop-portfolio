@@ -1,1 +1,107 @@
-/* Lane-owned stylesheet: arcade layer. */
+/* Noodle Catch: the CRT cabinet overlay and the little arcade chip in the inside nav. */
+
+#arcade-overlay {
+  position: fixed; inset: 0; z-index: 10050;
+  display: none; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 50% 42%, #17100a 0%, #070402 62%, #000 100%);
+  cursor: auto; padding: 1.2rem;
+  font-family: 'Noto Serif JP', Georgia, serif;
+}
+#arcade-overlay.arc-live { display: flex; }
+#arcade-overlay * { cursor: auto; }
+body.arcade-open #cursor, body.arcade-open #cursor-ring, body.arcade-open #trail-container,
+body.arcade-open #hover-label { display: none; }
+/* The ambient film layers are fully covered by the cabinet, and they cost real frames. */
+body.arcade-open #grain-layer, body.arcade-open #scanlines, body.arcade-open #vignette { display: none; }
+
+.arc-cab {
+  display: flex; flex-direction: column; gap: 0.7rem; align-items: center;
+  max-width: 96vw;
+}
+.arc-head {
+  color: #f0c060; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+}
+.arc-head .arc-mark { color: #e8922a; font-size: 0.95rem; letter-spacing: 0; }
+.arc-head .arc-sub { color: #8a6a3a; letter-spacing: 0.12em; margin-left: 0.4rem; }
+
+.arc-screen {
+  position: relative; height: min(68vh, 620px); aspect-ratio: 4 / 3; max-width: 94vw;
+  border-radius: 22px / 18px; overflow: hidden;
+  background: #080502;
+  border: 10px solid #1d1209;
+  box-shadow: 0 0 0 2px #3a2510, 0 0 46px rgba(232, 146, 42, 0.16), inset 0 0 60px rgba(0, 0, 0, 0.8);
+}
+.arc-screen canvas {
+  display: block !important; position: relative !important;
+  top: auto !important; left: auto !important;
+  width: 100% !important; height: 100% !important; z-index: 0 !important;
+}
+.arc-scan {
+  position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);
+}
+.arc-vig {
+  position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 58%, rgba(0,0,0,0.45) 100%);
+  box-shadow: inset 0 0 70px rgba(240, 192, 96, 0.07);
+}
+
+.arc-card {
+  position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.55rem; text-align: center;
+  background: rgba(6, 3, 1, 0.72); padding: 1.2rem;
+}
+.arc-card.arc-gone { display: none; }
+.arc-card-kanji { color: #f0c060; font-size: 1.9rem; letter-spacing: 0.16em; }
+.arc-card-name { color: #e8922a; font-size: 0.78rem; letter-spacing: 0.44em; }
+.arc-card-line { color: #c9b18a; font-size: 0.68rem; max-width: 24rem; line-height: 1.9; }
+.arc-card-hint, .arc-card-best { color: #8a6a3a; font-size: 0.58rem; letter-spacing: 0.16em; }
+.arc-card-best { color: #a98a52; }
+
+.arc-coin {
+  margin-top: 0.4rem; background: none; border: 1px solid #e8922a88; color: #f0c060;
+  font: inherit; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 0.55rem 1.4rem; animation: arcCoin 1.15s steps(2, end) infinite;
+  transition: background 0.2s, border-color 0.2s;
+}
+.arc-coin:hover, .arc-coin:focus-visible { background: rgba(232, 146, 42, 0.16); border-color: #f0c060; outline: none; }
+@keyframes arcCoin { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.32; } }
+
+.arc-actions {
+  position: absolute; left: 0; right: 0; bottom: 1.1rem; z-index: 3;
+  display: none; gap: 0.7rem; justify-content: center;
+}
+.arc-actions.arc-on { display: flex; }
+.arc-btn {
+  background: rgba(8, 4, 1, 0.9); border: 1px solid #e8922a77; color: #f0c060;
+  font: inherit; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.55rem 1.1rem; transition: background 0.2s, border-color 0.2s;
+}
+.arc-btn:hover, .arc-btn:focus-visible { background: rgba(232, 146, 42, 0.18); border-color: #f0c060; outline: none; }
+
+.arc-foot {
+  display: flex; align-items: center; gap: 1.6rem;
+  color: #8a6a3a; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+}
+.arc-quit { background: none; border: 0; color: #8a6a3a; font: inherit; letter-spacing: 0.2em; text-transform: uppercase; }
+.arc-quit:hover { color: #e8922a; }
+
+#arcade-chip {
+  display: none; position: fixed; top: 1.15rem; right: 1.5rem; z-index: 40;
+  align-items: center; gap: 0.35rem; pointer-events: all;
+  background: rgba(8, 4, 1, 0.7); border: 1px solid rgba(232, 146, 42, 0.3); border-radius: 99px;
+  color: rgba(240, 211, 163, 0.78); font: inherit; font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.55rem 0.95rem; cursor: none; transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+body.in-shop #arcade-chip { display: inline-flex; }
+body.arcade-open #arcade-chip { display: none; }
+#arcade-chip span { font-size: 0.8rem; letter-spacing: 0; color: #f0c060; }
+#arcade-chip:hover { border-color: rgba(232, 146, 42, 0.62); background: rgba(232, 146, 42, 0.14); color: #f0d3a3; }
+
+#arcade-overlay.arc-calm .arc-coin { animation: none; }
+@media (prefers-reduced-motion: reduce) { .arc-coin { animation: none; } }
+@media (max-width: 620px) {
+  .arc-screen { height: auto; width: 94vw; }
+  .arc-foot { gap: 0.9rem; }
+}
