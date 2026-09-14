@@ -105,3 +105,8 @@ body.arcade-open #arcade-chip { display: none; }
   .arc-screen { height: auto; width: 94vw; }
   .arc-foot { gap: 0.9rem; }
 }
+/* Narrow screens: the inside nav pill spans the top, so the chip moves down to the right edge
+   above the Step Outside button instead of covering the Contact tab. */
+@media (max-width: 720px) {
+  #arcade-chip { top: auto; bottom: 5.4rem; right: 1rem; padding: 0.6rem 0.9rem; min-height: 44px; }
+}
