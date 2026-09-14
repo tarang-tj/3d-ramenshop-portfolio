@@ -82,7 +82,7 @@
     '',
     '  float smear = 0.22 + 0.55 * bandB;',
     '  vec3 col = refl * smear * (0.35 + fres * 1.5) + refl * rings * 0.55;',
-    '  float a = uOpacity * mask * (0.25 + fres * 0.8 + rings * 0.35);',
+    '  float a = uOpacity * mask * (0.42 + fres * 0.9 + rings * 0.5);',
     '  gl_FragColor = vec4(col, a);',   // additive blending multiplies by alpha for us
     '}'
   ].join('\n');
@@ -100,7 +100,7 @@
       var mat = new THREE.ShaderMaterial({
         uniforms: {
           uTime:      { value: Math.random() * 10 },
-          uOpacity:   { value: 0.20 + Math.random() * 0.10 },
+          uOpacity:   { value: 0.28 + Math.random() * 0.12 },
           uRingSpeed: { value: 0.34 + Math.random() * 0.18 },
           uNeonA:     { value: NEON_AMBER.clone() },
           uNeonB:     { value: NEON_TEAL.clone() },
