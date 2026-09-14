@@ -1,1 +1,184 @@
-/* Lane-owned stylesheet: quest layer. */
+/* Lane-owned stylesheet: quest layer.
+   Stamp rally card, hanko seals, kanji confetti and the Regular Customer certificate.
+   Palette follows the shop: paper #faf5e8, hanko red #8b1a1a, lantern gold #f0c060, accent #e8922a. */
+
+  /* ─── Stamp card: a paper slip clipped to the counter, bottom-left ─── */
+  #quest-card {
+    position: fixed; left: 1.8rem; bottom: 8.6rem; z-index: 46;
+    display: none; width: 16.5rem; max-width: calc(100vw - 3rem);
+    font-family: 'Noto Serif JP', Georgia, serif; pointer-events: none;
+  }
+  body.in-shop #quest-card { display: block; }
+  body.quest-drone #quest-card { display: none; }
+
+  .quest-tab {
+    pointer-events: all; display: flex; align-items: center; gap: .55rem;
+    min-height: 44px; padding: .5rem .85rem; cursor: none;
+    background: linear-gradient(180deg, #faf5e8, #ecdfc4);
+    border: 1px solid #8b1a1a; border-bottom: 2px solid #8b1a1a;
+    color: #4a3a2a; font: inherit; font-size: .62rem; letter-spacing: .22em;
+    box-shadow: 0 10px 26px rgba(0,0,0,.55);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .quest-tab:hover, .quest-tab:focus-visible { transform: translateY(-2px); outline: none; box-shadow: 0 14px 30px rgba(0,0,0,.6); }
+  .quest-tab-jp { color: #8b1a1a; }
+  .quest-count { margin-left: auto; padding: .1rem .4rem; background: #8b1a1a; color: #faf5e8; font-size: .58rem; letter-spacing: .1em; }
+  #quest-card.is-complete .quest-count { background: #b8860b; }
+  #quest-card.nudge .quest-tab { animation: questNudge .6s ease 2; }
+  @keyframes questNudge { 50% { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(139,26,26,.45); } }
+
+  .quest-body {
+    pointer-events: all; position: relative; margin-top: -1px;
+    padding: .95rem .9rem .8rem; background: #faf5e8; border: 1px solid #8b1a1a;
+    box-shadow: 0 18px 46px rgba(0,0,0,.7);
+    max-height: min(26rem, 58vh); overflow-y: auto;
+  }
+  .quest-body::before { content: ''; position: absolute; inset: 6px; border: 1px solid rgba(200,160,96,.35); pointer-events: none; }
+  #quest-card.shake .quest-body { animation: questShake .34s ease; }
+  @keyframes questShake {
+    20% { transform: translate(-2px, 1px) rotate(-.25deg); }
+    50% { transform: translate(2px, -1px) rotate(.2deg); }
+    80% { transform: translate(-1px, 0) rotate(0); }
+  }
+
+  .quest-head { display: flex; align-items: baseline; gap: .5rem; border-bottom: 1px solid rgba(139,26,26,.22); padding-bottom: .45rem; }
+  .quest-head-jp { color: #8b1a1a; font-size: .88rem; letter-spacing: .12em; }
+  .quest-head-en { color: #8a6a3a; font-size: .5rem; letter-spacing: .26em; text-transform: uppercase; }
+  .quest-lede { margin: .5rem 0 .7rem; color: #5a4a3a; font: .64rem/1.6 Georgia, serif; }
+
+  .quest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
+  .quest-bonus { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; margin-top: .6rem; padding-top: .55rem; border-top: 1px dashed rgba(139,26,26,.22); }
+
+  .quest-slot {
+    position: relative; display: flex; flex-direction: column; align-items: center; gap: .22rem;
+    min-height: 44px; padding: .3rem .1rem .32rem; cursor: none;
+    background: transparent; border: 0; font: inherit; color: #8a6a3a;
+  }
+  .quest-slot:focus-visible { outline: 1px solid #8b1a1a; outline-offset: 1px; }
+  .quest-slot-num {
+    display: flex; align-items: center; justify-content: center;
+    width: 2.15rem; height: 2.15rem; border-radius: 50%;
+    border: 1px dashed rgba(139,26,26,.3); color: rgba(139,26,26,.32); font-size: .82rem;
+  }
+  .quest-slot-name { font-size: .44rem; letter-spacing: .06em; color: rgba(90,74,58,.62); line-height: 1.25; text-align: center; }
+  .quest-slot.stamped .quest-slot-name { color: #5a4a3a; }
+
+  /* The hanko seal itself: ink ring, grainy fill, always a little crooked. */
+  .quest-hanko {
+    position: absolute; top: .3rem; left: 50%; margin-left: -1.075rem;
+    display: flex; align-items: center; justify-content: center;
+    width: 2.15rem; height: 2.15rem; border-radius: 50%;
+    border: 2px solid #8b1a1a; color: #8b1a1a; font-size: .95rem; line-height: 1;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(139,26,26,.2), transparent 58%),
+      radial-gradient(circle at 70% 74%, rgba(139,26,26,.16), transparent 52%),
+      radial-gradient(circle at 50% 50%, rgba(139,26,26,.08), rgba(139,26,26,.02) 70%);
+    box-shadow: inset 0 0 6px rgba(139,26,26,.22);
+    opacity: 0; transform: scale(2.3) rotate(-16deg); pointer-events: none;
+  }
+  .quest-slot.stamped .quest-hanko { opacity: .92; transform: scale(1) rotate(-7deg); }
+  .quest-slot.stamped .quest-slot-num { opacity: 0; }
+  .quest-slot.stamped.thunk .quest-hanko { animation: questThunk .34s cubic-bezier(.2,1.4,.4,1) forwards; }
+  @keyframes questThunk {
+    0%   { opacity: 0; transform: scale(2.3) rotate(-18deg); }
+    62%  { opacity: 1; transform: scale(.88) rotate(-5deg); }
+    100% { opacity: .92; transform: scale(1) rotate(-7deg); }
+  }
+  .quest-slot.is-bonus .quest-hanko, .quest-slot.is-bonus .quest-slot-num { width: 1.8rem; height: 1.8rem; font-size: .78rem; }
+  .quest-slot.is-bonus .quest-hanko { margin-left: -.9rem; border-color: #8a6a3a; color: #8a6a3a; }
+
+  .quest-foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .7rem; padding-top: .5rem; border-top: 1px solid rgba(139,26,26,.15); }
+  .quest-key { font-size: .46rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(138,106,58,.75); }
+  .quest-reset { min-height: 28px; padding: .2rem .45rem; background: transparent; border: 1px solid rgba(139,26,26,.3); color: #8b1a1a; font: inherit; font-size: .46rem; letter-spacing: .18em; text-transform: uppercase; cursor: none; }
+  .quest-reset:hover, .quest-reset:focus-visible { background: #8b1a1a; color: #faf5e8; outline: none; }
+
+  /* Toast links live inside a pointer-events:none stack, so they opt back in. */
+  .quest-toast-link {
+    pointer-events: all; display: inline-block; margin-top: .35rem; padding: .18rem .42rem;
+    background: transparent; border: 1px solid rgba(232,146,42,.5); color: #f0c060;
+    font: inherit; font-size: .5rem; letter-spacing: .16em; text-transform: uppercase; cursor: none;
+  }
+  .quest-toast-link:hover, .quest-toast-link:focus-visible { background: #e8922a; color: #180c03; outline: none; }
+
+  /* ─── Progress pill, shown outside the shop beside the chapter rail ─── */
+  .quest-pill {
+    position: fixed; right: 1.8rem; bottom: 5.4rem; z-index: 16; pointer-events: none;
+    padding: .3rem .55rem; border: 1px solid rgba(232,146,42,.32); background: rgba(8,4,1,.6);
+    color: rgba(240,192,96,.78); font: .48rem/1 'Noto Serif JP', Georgia, serif; letter-spacing: .2em;
+    backdrop-filter: blur(3px);
+  }
+  body.in-shop .quest-pill { opacity: 0; }
+  .quest-pill.is-full { border-color: rgba(240,192,96,.6); color: #f5d070; }
+
+  /* ─── Drone mode hint, cleared the moment the camera is handed back ─── */
+  .quest-drone-hint {
+    position: fixed; left: 50%; bottom: 1.4rem; transform: translateX(-50%); z-index: 47;
+    max-width: calc(100vw - 2rem); padding: .45rem .8rem; text-align: center;
+    border: 1px solid rgba(232,146,42,.34); background: rgba(8,4,1,.72);
+    color: rgba(240,192,96,.85); font: .48rem/1.4 'Noto Serif JP', Georgia, serif;
+    letter-spacing: .16em; text-transform: uppercase; pointer-events: none;
+    backdrop-filter: blur(3px);
+  }
+
+  /* ─── Kanji confetti ─── */
+  .quest-confetti { position: fixed; inset: 0; z-index: 71; pointer-events: none; overflow: hidden; }
+  .quest-confetti span {
+    position: absolute; top: -8%; color: rgba(240,192,96,.8);
+    font-family: 'Noto Serif JP', Georgia, serif; text-shadow: 0 0 12px rgba(232,146,42,.5);
+    animation-name: questDrift; animation-timing-function: linear; animation-fill-mode: both;
+  }
+  @keyframes questDrift {
+    0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+    12%  { opacity: .95; }
+    100% { opacity: 0; transform: translateY(112vh) rotate(220deg); }
+  }
+
+  /* ─── Regular Customer certificate ─── */
+  .quest-finale {
+    position: fixed; inset: 0; z-index: 73; display: flex; align-items: center; justify-content: center;
+    background: rgba(4,2,1,.84); backdrop-filter: blur(3px); pointer-events: all; cursor: none;
+  }
+  .quest-cert {
+    position: relative; width: 90%; max-width: 24rem; padding: 2rem 1.7rem 1.5rem;
+    text-align: center; background: #faf5e8; border: 2px solid #8b1a1a;
+    box-shadow: 0 30px 76px rgba(0,0,0,.9);
+    font-family: 'Noto Serif JP', Georgia, serif;
+  }
+  .quest-cert::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(200,160,96,.4); pointer-events: none; }
+  .quest-cert-head { font-size: .55rem; color: #8b1a1a; letter-spacing: .3em; text-transform: uppercase; }
+  .quest-cert-kanji { margin: .5rem 0 .35rem; font-size: 3rem; line-height: 1; color: #8b1a1a; }
+  .quest-cert-line { font-size: .8rem; color: #4a3a2a; letter-spacing: .05em; }
+  .quest-cert-seals { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; margin: 1rem 0 .9rem; }
+  .quest-cert-seal {
+    display: flex; align-items: center; justify-content: center; width: 2rem; height: 2rem;
+    border: 2px solid #8b1a1a; border-radius: 50%; color: #8b1a1a; font-size: .85rem;
+    background: radial-gradient(circle at 34% 30%, rgba(139,26,26,.18), transparent 60%);
+    transform: rotate(-6deg);
+  }
+  .quest-cert-seal:nth-child(even) { transform: rotate(5deg); }
+  .quest-cert-note { font: .7rem/1.65 Georgia, serif; color: #5a4a3a; }
+  .quest-cert-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .45rem; margin: 1.1rem 0 .9rem; }
+  .quest-cert-btn {
+    min-height: 44px; padding: .4rem .8rem; background: transparent; border: 1px solid rgba(139,26,26,.4);
+    color: #8b1a1a; font: inherit; font-size: .52rem; letter-spacing: .18em; text-transform: uppercase; cursor: none;
+    transition: .2s ease;
+  }
+  .quest-cert-btn:hover, .quest-cert-btn:focus-visible { background: #8b1a1a; color: #faf5e8; outline: none; }
+  .quest-cert-btn.primary { background: #8b1a1a; color: #faf5e8; }
+  .quest-cert-btn.primary:hover, .quest-cert-btn.primary:focus-visible { background: #a52222; }
+  .quest-cert-foot { padding-top: .8rem; border-top: 1px solid rgba(139,26,26,.15); font-size: .48rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(138,106,58,.8); }
+
+  @media (max-width: 760px) {
+    #quest-card { left: 1rem; bottom: 1.1rem; width: calc(100vw - 2rem); }
+    .quest-tab, .quest-slot, .quest-reset, .quest-cert-btn, .quest-toast-link { cursor: pointer; }
+    .quest-finale { cursor: auto; }
+    .quest-pill { right: 1rem; bottom: 1rem; }
+    .quest-body { max-height: 52vh; }
+  }
+  @media (max-width: 400px) {
+    .quest-slot-name { font-size: .4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .quest-hanko, .quest-slot.stamped.thunk .quest-hanko, #quest-card.shake .quest-body,
+    #quest-card.nudge .quest-tab, .quest-confetti span { animation: none !important; }
+  }
