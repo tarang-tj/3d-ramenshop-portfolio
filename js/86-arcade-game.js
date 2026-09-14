@@ -37,11 +37,16 @@ ARCADE.game = (function () {
   function loop(ts) {
     const dt = G.last ? Math.min(0.05, (ts - G.last) / 1000) : 0.016;
     G.last = ts; G.clock += dt;
-    if (G.mode === 'title') attract(dt);
-    else if (G.mode === 'play') { step(dt); if (G.mode === 'play') render(); }
+    try {
+      if (G.mode === 'title') attract(dt);
+      else if (G.mode === 'play') { step(dt); if (G.mode === 'play') render(); }
+    } catch (e) {
+      G.mode = 'idle';   // one bad frame ends the round instead of wedging the loop
+    }
     G.raf = (G.mode === 'title' || G.mode === 'play') ? requestAnimationFrame(loop) : 0;
   }
-  function spin() { if (!G.raf) { G.last = 0; G.raf = requestAnimationFrame(loop); } }
+  // Always cancel and reschedule: a stale id must never leave the round unable to start.
+  function spin() { if (G.raf) cancelAnimationFrame(G.raf); G.last = 0; G.raf = requestAnimationFrame(loop); }
   function halt() { if (G.raf) cancelAnimationFrame(G.raf); G.raf = 0; }
 
   // ── attract screen behind the title card ────────────────────────────────

@@ -127,6 +127,7 @@ ARCADE.open = function () {
 
   ARCADE._onKey = function (e) {
     if (!ARCADE.isOpenFlag) return;
+    if (typeof ARCADE.typing === 'function' && ARCADE.typing(e)) return;
     e.stopPropagation();
     if (e.key === 'Escape') { e.preventDefault(); ARCADE.close(); return; }
     if (e.key === 'Enter' || e.key === ' ') {
@@ -162,9 +163,6 @@ ARCADE.open = function () {
   window.addEventListener('resize', ARCADE._onResize);
   document.addEventListener('visibilitychange', ARCADE._onVis);
 
-  // Park the 3D loop while the cabinet is up. It is fully covered, and the game wants the frames.
-  try { if (typeof _pageHidden !== 'undefined') _pageHidden = true; } catch (e) {}
-
   ARCADE.game.enterTitle();
   const coin = ARCADE.el.querySelector('#arc-coin');
   if (coin) setTimeout(function () { try { coin.focus(); } catch (e) {} }, 60);
@@ -174,21 +172,27 @@ ARCADE.open = function () {
 ARCADE.close = function () {
   if (!ARCADE.isOpenFlag) return;
   ARCADE.isOpenFlag = false;
-  ARCADE.game.stop();
-  document.removeEventListener('keydown', ARCADE._onKey, true);
-  document.removeEventListener('keyup', ARCADE._onKey, true);
-  ARCADE.canvas.removeEventListener('mousemove', ARCADE._onMove);
-  ARCADE.canvas.removeEventListener('touchstart', ARCADE._onTouch);
-  ARCADE.canvas.removeEventListener('touchmove', ARCADE._onTouch);
-  window.removeEventListener('resize', ARCADE._onResize);
-  document.removeEventListener('visibilitychange', ARCADE._onVis);
+  ARCADE.teardown();
+};
+
+// Every exit path goes through here, and every step is isolated: one throw must never
+// strand a listener or leave the overlay up.
+ARCADE.teardown = function () {
+  const step = function (fn) { try { fn(); } catch (e) {} };
+  step(function () { ARCADE.game.stop(); });
+  step(function () {
+    document.removeEventListener('keydown', ARCADE._onKey, true);
+    document.removeEventListener('keyup', ARCADE._onKey, true);
+    window.removeEventListener('resize', ARCADE._onResize);
+    document.removeEventListener('visibilitychange', ARCADE._onVis);
+  });
+  step(function () {
+    ARCADE.canvas.removeEventListener('mousemove', ARCADE._onMove);
+    ARCADE.canvas.removeEventListener('touchstart', ARCADE._onTouch);
+    ARCADE.canvas.removeEventListener('touchmove', ARCADE._onTouch);
+  });
   ARCADE._onKey = ARCADE._onMove = ARCADE._onTouch = ARCADE._onResize = ARCADE._onVis = null;
-  ARCADE.el.classList.remove('arc-live');
-  document.body.classList.remove('arcade-open');
-  try {
-    if (typeof lastTime !== 'undefined') lastTime = performance.now();
-    if (typeof _pageHidden !== 'undefined') _pageHidden = document.hidden;
-  } catch (e) {}
+  step(function () { ARCADE.el.classList.remove('arc-live'); document.body.classList.remove('arcade-open'); });
 };
 
 ARCADE.startRound = function () {
@@ -196,39 +200,6 @@ ARCADE.startRound = function () {
   ARCADE.hideTitle();
   ARCADE.game.start();
 };
-
-// ── Entry points ───────────────────────────────────────────────────────────
-RAMEN.on('interact', function (d) {
-  if (!d || !d.arcade) return;
-  // handleClick shows the fact card right after this hook returns, so clear it on the way in.
-  setTimeout(function () {
-    if (typeof hideInteractCard === 'function') hideInteractCard();
-    ARCADE.open();
-  }, 120);
-});
-
-document.addEventListener('keydown', function (e) {
-  if (e.key !== 'p' && e.key !== 'P') return;
-  if (ARCADE.isOpenFlag) return;
-  if (['INPUT', 'TEXTAREA', 'SELECT'].indexOf(document.activeElement && document.activeElement.tagName) >= 0) return;
-  const busy = ['panel-overlay', 'menu-overlay', 'kb-overlay'].some(function (id) {
-    const el = document.getElementById(id); return el && el.classList.contains('active');
-  });
-  if (busy) return;
-  if (typeof inside !== 'undefined' && !inside) return;
-  ARCADE.open();
-});
-
-(function chip() {
-  const host = document.getElementById('inside-ui');
-  if (!host) return;
-  const b = document.createElement('button');
-  b.id = 'arcade-chip'; b.type = 'button';
-  b.setAttribute('aria-label', 'Play Noodle Catch');
-  b.innerHTML = '<span aria-hidden="true">遊</span> Arcade';
-  b.addEventListener('click', function () { ARCADE.open(); });
-  host.appendChild(b);
-})();
 
 // ── Test API ───────────────────────────────────────────────────────────────
 RAMEN.arcade = {
