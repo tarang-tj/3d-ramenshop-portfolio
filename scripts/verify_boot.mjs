@@ -46,10 +46,10 @@ page.on('requestfailed', r => failedReqs.push(r.url() + ' ' + (r.failure()?.erro
 page.on('response', r => { if (r.status() >= 400) failedReqs.push(r.url() + ' HTTP ' + r.status()); });
 
 // Headless Chrome renders through SwiftShader here, so scene construction and shader compilation can
-// take 20-40 s. Wait on the document's own state, not Playwright's lifecycle event, with a wide timeout.
+// take 20-100 s under load. Wait on the document's own state, not Playwright's lifecycle event, with a wide timeout.
 const tNav = Date.now();
 await page.goto(base, { waitUntil: 'commit' });
-await page.waitForFunction(() => document.readyState === 'complete', null, { timeout: 90000 }).catch(() => fail('document never reached readyState complete within 90 s'));
+await page.waitForFunction(() => document.readyState === 'complete', null, { timeout: 150000 }).catch(() => fail('document never reached readyState complete within 150 s'));
 console.log(`      document complete after ${((Date.now() - tNav) / 1000).toFixed(1)} s`);
 await page.waitForFunction(() => !document.getElementById('loader') || document.getElementById('loader').classList.contains('hidden'), null, { timeout: 15000 }).catch(() => fail('loader never hid'));
 await page.waitForTimeout(800);

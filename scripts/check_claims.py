@@ -55,7 +55,7 @@ def visible_text(path):
     return s
 
 def main():
-    files = [os.path.join(ROOT, "index.html")] + sorted(glob.glob(os.path.join(ROOT, "js", "*.js"))) + [os.path.join(ROOT, "README.md")]
+    files = [os.path.join(ROOT, "index.html")] + sorted(glob.glob(os.path.join(ROOT, "js", "*.js"))) + sorted(glob.glob(os.path.join(ROOT, "css", "*.css"))) + [os.path.join(ROOT, "README.md")]
     files = [f for f in files if os.path.exists(f)]
     fails = []
     corpus = ""
