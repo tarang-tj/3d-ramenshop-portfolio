@@ -3,7 +3,7 @@
 
 Every sentence on the site must be backed by the claims ledger at
 ~/Desktop/Resume/2026-tailored/facts.md. This script bans the phrases that
-ledger (and its check.py) has refuted, enforces the canonical GPA, and requires
+ledger (and its check.py) has refuted, bans any printed GPA, and requires
 the identity strings. It scans index.html plus css/ and js/ text.
 """
 import glob, os, re, sys
@@ -37,8 +37,11 @@ BANNED = [
     (r"chapter of the year", "Collegiate Member of the Year is an individual honor"),
     (r"Microsoft Copilot AI Evaluator", "not the role title; use Microsoft Copilot Student Ambassador"),
     (r"—", "no em dashes in new copy (writing rule)"),
+    # 2026-10-06 print rules (facts.md): no GPA anywhere, SyllabusAI is free, one AutoAppli address.
+    (r"\bGPA\b:?\s*[0-9]\.[0-9]", "no GPA is printed on any public surface (TJ 2026-10-06)"),
+    (r"Polar billing", "SyllabusAI is a free ed-tech tool, no longer sold"),
+    (r"auto-appli\.vercel\.app", "AutoAppli's address is autoappli.com"),
 ]
-GPA_CANON = "3.7"
 REQUIRED = [
     (r"Tarang", "name"), (r"tarangjammalamadaka9@gmail\.com", "email"),
     (r"linkedin\.com/in/tarang-tj", "LinkedIn"), (r"github\.com/tarang-tj", "GitHub"),
@@ -70,9 +73,6 @@ def main():
                 line = txt.count("\n", 0, m.start()) + 1
                 fails.append(f"{os.path.relpath(f, ROOT)}: banned {m.group(0)!r} - {why}")
                 break
-        for g in set(re.findall(r"GPA:?\s*([0-9]\.[0-9]{1,2})", txt)):
-            if g != GPA_CANON:
-                fails.append(f"{os.path.relpath(f, ROOT)}: GPA {g} disagrees with canonical {GPA_CANON}")
     for pat, label in REQUIRED:
         if not re.search(pat, corpus, re.I):
             fails.append(f"missing {label} ({pat})")

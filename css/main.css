@@ -1068,6 +1068,7 @@
   .story-actions { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .9rem; pointer-events: all; }
   .story-action { appearance: none; background: transparent; border: 1px solid rgba(232,146,42,.45); color: #f1ce8b; padding: .48rem .65rem; font: inherit; font-size: .48rem; letter-spacing: .16em; text-transform: uppercase; cursor: none; transition: .22s ease; }
   .story-action:hover, .story-action:focus-visible { background: #e8922a; color: #180c03; transform: translateY(-2px); outline: none; box-shadow: 0 7px 18px rgba(232,146,42,.24); }
+  .story-card p.story-proof { margin-top: .5rem; color: rgba(245,227,190,.9); }
   .chapter-rail { position: absolute; right: 1.8rem; bottom: 1.7rem; display: flex; flex-direction: column; align-items: flex-end; gap: .38rem; }
   .chapter-rail button { pointer-events: all; display: flex; align-items: center; gap: .55rem; border: 0; background: transparent; color: rgba(236,207,153,.48); font: inherit; font-size: .48rem; letter-spacing: .23em; text-transform: uppercase; cursor: none; transition: .2s ease; }
   .chapter-rail button::after { content: ''; width: 2.5rem; height: 1px; background: rgba(232,146,42,.3); transition: .2s ease; }

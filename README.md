@@ -84,8 +84,8 @@ It runs three checks in order:
 ## Projects showcased
 
 1. **[ragproof](https://github.com/tarang-tj/ragproof)**: open-source RAG evaluation harness. BM25, dense, and hybrid retrieval, with a Hugging Face embedding model and a cross-encoder reranker. On BEIR scifact, dense bge-small scores NDCG@10 0.720 against 0.560 for BM25. 54 tests, Docker, green CI
-2. **[SyllabusAI](https://syllabusai.net)**: upload a syllabus, get every deadline in your calendar. Parser wedge exporting to Google, Apple, Outlook, and .ics, plus an AI study companion on Claude across six surfaces, per-user cost ceilings, and Polar billing. React, Express, Supabase, 1,055 tests
-3. **[AutoAppli](https://auto-appli.vercel.app)**: AI job-application platform. Kanban with pipeline-health widgets, a match scorer that explains itself per dimension, 11 ATS sources, 357 live-validated boards, and a Chrome extension over five of them. Next.js, FastAPI, Supabase, Claude API
+2. **[SyllabusAI](https://syllabusai.net)**: upload a syllabus, get every deadline in your calendar. Parser wedge exporting to Google, Apple, Outlook, and .ics, plus an AI study companion on Claude across six surfaces, and per-user cost ceilings. Free to use. React, Express, Supabase, 1,055 tests
+3. **[AutoAppli](https://autoappli.com)**: AI job-application platform. Kanban with pipeline-health widgets, a match scorer that explains itself per dimension, 11 ATS sources, 357 live-validated boards, and a Chrome extension over five of them. Next.js, FastAPI, Supabase, Claude API
 4. **Pokemon TCG AI Battle Challenge**: 245 of 6,807 final, top 3.60%. A gradient-boosted policy trained by imitation learning and self-play, with four changes rejected as measured nulls and an 11-point gain traced to an evaluation artifact
 5. **Message Notification Router**: 14th of 1,983 in the HackerRank Orchestrate hackathon. 110 multimodal messages, eval harness written first, 30 of 30 on action labels, 110-row adversarial audit
 6. **[Model Sentinel](https://github.com/tarang-tj/model-sentinel)**: production ML guardian over DataHub lineage. Deterministic detectors write findings back as lineage tags. In-memory fixture and live-graph adapters, gated by ruff, pytest, and a CI demo scan. Apache-2.0
@@ -98,7 +98,7 @@ Extra courses: **[ShelterBrief](https://github.com/tarang-tj/civic-gemma)** (Gem
 
 **Tarang (TJ) Jammalamadaka**, applied AI and full-stack engineer.
 
-- University of Washington Bothell, B.A. Business Administration (Management Information Systems), minors in Data Analytics and Economics, expected June 2027, GPA 3.7, Dean's List 2024 and 2025
+- University of Washington Bothell, B.A. Business Administration (Management Information Systems), minors in Data Analytics and Economics, expected June 2027, Dean's List 2024, 2025 and 2026
 - Completed the Global Human Insights internship at The Coca-Cola Company (Ignite Program, Atlanta) in summer 2026
 - Founder of SyllabusAI, Treasurer of the UW Bothell Club Council, Adobe Student Ambassador, Microsoft Copilot Student Ambassador
 - Full-time from June 2027, part-time now. Applied AI and forward-deployed engineering

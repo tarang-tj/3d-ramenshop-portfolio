@@ -30,15 +30,22 @@ function _showWebGLFallback(errMsg){
     '<h1>TJ Jammalamadaka</h1>'+
     '<span class="sub">Applied AI &amp; Full-Stack Engineer \u00b7 UW Bothell MIS</span>'+
     '<p>The interactive 3D ramen shop couldn\u2019t start on this device \u2014 usually WebGL is disabled or the GPU is busy.</p>'+
-    '<p>Here are the direct links you\u2019re probably looking for:</p>'+
+    '<p>Here is the short version, with the direct links:</p>'+
+    '<p>UW Bothell MIS senior. In summer 2026 at The Coca-Cola Company I built an internal analysis tool where the model plans the query and code computes every number, backed by 179 regression tests and a 24-question routing eval at 92%.</p>'+
+    '<p><a href="https://github.com/tarang-tj/ragproof">ragproof</a>: open-source RAG evaluation harness, 54 tests, green CI.<br>'+
+    '<a href="https://syllabusai.net">SyllabusAI</a>: a free ed-tech tool that turns a syllabus into a calendar, with a study companion.<br>'+
+    '<a href="https://autoappli.com">AutoAppli</a>: a job-search workspace reading 11 ATS sources.<br>'+
+    '<a href="https://tarang-tj.github.io/tycho/">TYCHO</a>: a rover simulator on real Moon and Mars elevation data.<br>'+
+    'Kaggle Pokemon TCG AI Battle Challenge: 245th of 6,807.</p>'+
     '<div class="fb-links">'+
+      '<a href="Tarang_Jammalamadaka_Resume.pdf">Resume (PDF)</a>'+
       '<a href="https://github.com/tarang-tj">GitHub</a>'+
       '<a href="https://linkedin.com/in/tarang-tj">LinkedIn</a>'+
       '<a href="https://autoappli.com">AutoAppli \u2014 live</a>'+
       '<a href="https://syllabusai.net">SyllabusAI \u2014 live</a>'+
       '<a href="mailto:tarangjammalamadaka9@gmail.com">tarangjammalamadaka9@gmail.com</a>'+
     '</div>'+
-    '<p>UW Bothell \u00b7 GPA 3.7 \u00b7 Dean\u2019s List \u00b7 Graduating June 2027 \u00b7 Open to Applied-AI and forward-deployed engineering roles starting June 2027.</p>'+
+    '<p>UW Bothell \u00b7 Dean\u2019s List 2024, 2025, 2026 \u00b7 Graduating June 2027 \u00b7 Open to Applied-AI and forward-deployed engineering roles starting June 2027.</p>'+
     '<div class="fb-note">To see the interactive version: try another browser (Chrome / Firefox / Safari), or enable hardware acceleration in settings.'+ (errMsg ? '<br><br><span style="opacity:0.5">Error: '+errMsg+'</span>' : '') +'</div>'+
     '</div>';
 }

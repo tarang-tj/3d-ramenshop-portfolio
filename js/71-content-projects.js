@@ -22,7 +22,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="tool-pills"><span class="tool-pill tp-other">Claude API</span><span class="tool-pill tp-js">React</span><span class="tool-pill tp-js">Express</span><span class="tool-pill tp-sql">Supabase</span><span class="tool-pill tp-js">Vercel</span></div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">1,055</div><div class="proj-stat-label">Tests</div></div><div class="proj-stat"><div class="proj-stat-num">6</div><div class="proj-stat-label">Companion surfaces</div></div><div class="proj-stat"><div class="proj-stat-num">Live</div><div class="proj-stat-label">Since Mar 2026</div></div></div>
   <div class="project-impact">Upload a syllabus, get every deadline in your calendar.</div>
-  <div class="project-desc">The parser is the wedge: it exports to Google, Apple, Outlook and plain .ics. On top of it sits an AI study companion built on Claude across six surfaces, with per-user cost ceilings and Polar billing. React, Express and Supabase, plus LMS SEO pages. 1,055 tests.</div>
+  <div class="project-desc">The parser is the wedge: it exports to Google, Apple, Outlook and plain .ics. On top of it sits an AI study companion built on Claude across six surfaces, with per-user cost ceilings. It is free to use. React, Express and Supabase, plus LMS SEO pages. 1,055 tests.</div>
   <div class="proj-btn-row"><a class="proj-btn-live" href="https://syllabusai.net" target="_blank" rel="noopener noreferrer">↗ Live Site</a></div>
 </div>
 
@@ -33,7 +33,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">11</div><div class="proj-stat-label">ATS sources</div></div><div class="proj-stat"><div class="proj-stat-num">357</div><div class="proj-stat-label">Live-validated boards</div></div><div class="proj-stat"><div class="proj-stat-num">5</div><div class="proj-stat-label">Boards in the extension</div></div></div>
   <div class="project-impact">Track a job search on a board that tells you where the pipeline is leaking.</div>
   <div class="project-desc">Next.js, FastAPI, Supabase and the Claude API. A kanban board with pipeline-health widgets, and a match scorer that explains itself per dimension rather than printing one number. It reads 11 ATS sources and 357 live-validated boards, with a Chrome extension over five of them. Referral, allowance metering and provider-agnostic billing are built in.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://auto-appli.vercel.app" target="_blank" rel="noopener noreferrer">↗ Live Site</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://autoappli.com" target="_blank" rel="noopener noreferrer">↗ Live Site</a></div>
 </div>
 
 <div class="project-entry" id="project-ptcg" data-track="ai">
@@ -86,8 +86,17 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 
 <div class="case-brief"><b>Extra courses.</b> Smaller plates, same kitchen.</div>
 
-<div class="project-entry" id="project-civic-gemma" data-track="ai">
+<div class="project-entry" id="project-tycho" data-track="craft">
   <div class="project-num">No. 09</div>
+  <div class="project-name">TYCHO &middot; rover teleoperation simulator</div>
+  <div class="tool-pills"><span class="tool-pill tp-js">Vanilla JS</span><span class="tool-pill tp-other">NASA/USGS elevation data</span><span class="tool-pill tp-other">Monte Carlo</span></div>
+  <div class="project-impact">Drive a rover over real Moon and Mars terrain with the real signal delay.</div>
+  <div class="project-desc">A browser simulator built on real NASA and USGS elevation data for 7 Moon and Mars sites. Commands arrive after the real signal delay, a Monte Carlo dry run scores Mars plans before you commit to them, and delayed-telemetry bots must win every level.</div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/tycho/" target="_blank" rel="noopener noreferrer">↗ Live Site</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/tycho" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+</div>
+
+<div class="project-entry" id="project-civic-gemma" data-track="ai">
+  <div class="project-num">No. 10</div>
   <div class="project-name">ShelterBrief &middot; civic housing agent</div>
   <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-other">Gemma 4</span><span class="tool-pill tp-py">Streamlit</span><span class="tool-pill tp-other">CLI</span></div>
   <div class="project-impact">Every figure in the brief traces back to the tool call that produced it.</div>
@@ -96,7 +105,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-flow-control" data-track="data">
-  <div class="project-num">No. 10</div>
+  <div class="project-num">No. 11</div>
   <div class="project-name">Starship Flow Control &middot; BOM constraint radar</div>
   <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-js">Canvas 2D</span><span class="tool-pill tp-other">Deterministic</span></div>
   <div class="project-impact">Find the one part that is holding the build back.</div>
@@ -105,7 +114,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-claude-skill-audit" data-track="ai">
-  <div class="project-num">No. 11</div>
+  <div class="project-num">No. 12</div>
   <div class="project-name">claude-skill-audit &middot; AI tooling scanner</div>
   <div class="tool-pills"><span class="tool-pill tp-js">TypeScript</span><span class="tool-pill tp-other">Zero deps</span><span class="tool-pill tp-other">Security</span></div>
   <div class="project-impact">Know what your AI tooling would do before you install it.</div>
@@ -114,7 +123,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-ecommerce-sql" data-track="data">
-  <div class="project-num">No. 12</div>
+  <div class="project-num">No. 13</div>
   <div class="project-name">E-commerce revenue analysis</div>
   <div class="tool-pills"><span class="tool-pill tp-sql">SQL</span><span class="tool-pill tp-sql">PostgreSQL</span><span class="tool-pill tp-other">Window functions</span></div>
   <div class="project-impact">Loyal buyers are 22% of the base and 34% of the revenue.</div>
@@ -123,7 +132,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-wa-housing" data-track="data">
-  <div class="project-num">No. 13</div>
+  <div class="project-num">No. 14</div>
   <div class="project-name">Washington housing affordability study</div>
   <div class="tool-pills"><span class="tool-pill tp-r">R</span><span class="tool-pill tp-bi">Tableau</span></div>
   <div class="project-impact">Nine years of rent and homelessness data, put in front of a non-technical audience.</div>
@@ -132,7 +141,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-reach-battlesnake" data-track="ai">
-  <div class="project-num">No. 14</div>
+  <div class="project-num">No. 15</div>
   <div class="project-name">Reach &middot; real-time Battlesnake server</div>
   <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-other">A* pathfinding</span><span class="tool-pill tp-other">CoG 2026</span></div>
   <div class="project-impact">Every move decided inside a 500 ms budget.</div>
@@ -140,7 +149,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-jacobs-pharmacy" data-track="craft">
-  <div class="project-num">No. 15</div>
+  <div class="project-num">No. 16</div>
   <div class="project-name">Jacobs' Pharmacy &middot; 1886 in Python</div>
   <div class="tool-pills"><span class="tool-pill tp-other">Blender</span><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-other">Procedural</span></div>
   <div class="project-impact">The corner where Coca-Cola was first served, generated from code.</div>

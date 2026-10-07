@@ -23,7 +23,7 @@ panels.experience=`<div class="panel-header"><div class="panel-kanji">経歴</di
   <div class="exp-date">Mar 2026 to present</div>
   <ul class="exp-bullets">
     <li>Built the parser wedge that turns a syllabus into dated deadlines, exporting to Google, Apple, Outlook and plain .ics.</li>
-    <li>Shipped an AI study companion on Claude across six surfaces, with per-user cost ceilings and Polar billing behind it.</li>
+    <li>Shipped an AI study companion on Claude across six surfaces, with per-user cost ceilings. It is free to use.</li>
     <li>React, Express and Supabase, plus LMS SEO pages, held together by 1,055 tests.</li>
   </ul>
 </div>

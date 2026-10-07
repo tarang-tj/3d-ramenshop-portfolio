@@ -44,7 +44,7 @@ const panels={
 </div>
 
 <div class="skill-section-title" style="margin-top:1.2rem">Education</div>
-<div style="font-size:0.82rem;line-height:1.8">UW Bothell &middot; B.A. Business Administration (Management Information Systems)<br><span style="font-size:0.72rem;opacity:.75">Minors in Data Analytics and Economics &middot; Expected June 2027 &middot; GPA 3.7 &middot; Dean's List 2024, 2025</span></div>
+<div style="font-size:0.82rem;line-height:1.8">UW Bothell &middot; B.A. Business Administration (Management Information Systems)<br><span style="font-size:0.72rem;opacity:.75">Minors in Data Analytics and Economics &middot; Expected June 2027 &middot; Dean's List 2024, 2025, 2026</span></div>
 
 <div class="skill-section-title" style="margin-top:1.2rem">Awards</div>
 <div style="font-size:0.74rem;line-height:1.7;opacity:.85">First place, CED Finance Case Competition<br>Collegiate Member of the Year 2026, Delta Sigma Pi</div>
@@ -58,13 +58,14 @@ const panels={
 <div class="about-intro">I am TJ, a UW Bothell MIS senior who builds applied AI systems and then tries to break them. This summer at The Coca-Cola Company I built an internal analysis tool where the model plans the query and code computes every number. I run SyllabusAI and AutoAppli, and I keep ragproof honest.</div>
 <div class="contact-row"><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:tarangjammalamadaka9@gmail.com">tarangjammalamadaka9@gmail.com</a><button class="copy-btn" id="copy-email-btn" onclick="copyEmail()">Copy</button></div></div>
 <div class="contact-row"><div class="contact-label">LinkedIn</div><div class="contact-val"><a href="https://linkedin.com/in/tarang-tj/" target="_blank" rel="noopener noreferrer">linkedin.com/in/tarang-tj</a></div></div>
+<div class="contact-row"><div class="contact-label">Resume</div><div class="contact-val"><a href="Tarang_Jammalamadaka_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a></div></div>
 <div class="contact-row"><div class="contact-label">GitHub</div><div class="contact-val"><a href="https://github.com/tarang-tj" target="_blank" rel="noopener noreferrer">github.com/tarang-tj</a></div></div>
 <div class="contact-row"><div class="contact-label">Portfolio</div><div class="contact-val"><a href="https://tarang-tj.github.io" target="_blank" rel="noopener noreferrer">tarang-tj.github.io</a></div></div>
 <div class="contact-row"><div class="contact-label">SyllabusAI</div><div class="contact-val"><a href="https://syllabusai.net" target="_blank" rel="noopener noreferrer">syllabusai.net</a></div></div>
-<div class="contact-row"><div class="contact-label">AutoAppli</div><div class="contact-val"><a href="https://auto-appli.vercel.app" target="_blank" rel="noopener noreferrer">auto-appli.vercel.app</a></div></div>
+<div class="contact-row"><div class="contact-label">AutoAppli</div><div class="contact-val"><a href="https://autoappli.com" target="_blank" rel="noopener noreferrer">autoappli.com</a></div></div>
 <div class="contact-row"><div class="contact-label">Location</div><div class="contact-val">Seattle area</div></div>
 <hr class="contact-divider">
-<div class="contact-note">Tarang (TJ) Jammalamadaka &middot; UW Bothell, Management Information Systems &middot; GPA 3.7 &middot; Dean's List 2024, 2025 &middot; graduating June 2027.<br><br><em>"The model never computes a number. Code does, and the tests check it."</em></div>
+<div class="contact-note">Tarang (TJ) Jammalamadaka &middot; UW Bothell, Management Information Systems &middot; Dean's List 2024, 2025, 2026 &middot; graduating June 2027.<br><br><em>"The model never computes a number. Code does, and the tests check it."</em></div>
 <div class="contact-form">
   <div class="cf-row"><label class="cf-label" for="cf-name">Your Name</label><input class="cf-input" id="cf-name" type="text" placeholder="Jane Smith" autocomplete="name"></div>
   <div class="cf-row"><label class="cf-label" for="cf-email">Your Email</label><input class="cf-input" id="cf-email" type="email" placeholder="jane@company.com" autocomplete="email"></div>
