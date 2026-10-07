@@ -73,12 +73,30 @@ def main():
                 line = txt.count("\n", 0, m.start()) + 1
                 fails.append(f"{os.path.relpath(f, ROOT)}: banned {m.group(0)!r} - {why}")
                 break
+    # Published PDFs are public surfaces too. The 2026-10-06 resume PDF went out naming a
+    # data vendor because this gate never opened it. The phone number is allowed inside the
+    # resume PDF only (TJ 2026-10-06); every other ban applies.
+    pdfs = sorted(glob.glob(os.path.join(ROOT, "*.pdf")))
+    if pdfs:
+        try:
+            from pypdf import PdfReader
+        except ImportError:
+            fails.append("cannot scan PDFs: pypdf is not installed (pip install pypdf)")
+            pdfs = []
+    for f in pdfs:
+        txt = re.sub(r"\s+", " ", "".join(pg.extract_text() or "" for pg in PdfReader(f).pages))
+        for pat, why in BANNED:
+            if "408" in pat or "—" in pat:
+                continue
+            m = re.search(pat, txt, re.I)
+            if m:
+                fails.append(f"{os.path.relpath(f, ROOT)}: banned {m.group(0)!r} - {why}")
     for pat, label in REQUIRED:
         if not re.search(pat, corpus, re.I):
             fails.append(f"missing {label} ({pat})")
     if fails:
         print("FAIL claims gate"); [print("   " + x) for x in fails]; return 1
-    print(f"pass claims gate ({len(files)} files)"); return 0
+    print(f"pass claims gate ({len(files)} files, {len(pdfs)} PDFs)"); return 0
 
 if __name__ == "__main__":
     sys.exit(main())

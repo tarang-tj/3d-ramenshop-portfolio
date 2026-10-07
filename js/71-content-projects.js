@@ -90,8 +90,8 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="project-num">No. 09</div>
   <div class="project-name">TYCHO &middot; rover teleoperation simulator</div>
   <div class="tool-pills"><span class="tool-pill tp-js">Vanilla JS</span><span class="tool-pill tp-other">NASA/USGS elevation data</span><span class="tool-pill tp-other">Monte Carlo</span></div>
-  <div class="project-impact">Drive a rover over real Moon and Mars terrain with the real signal delay.</div>
-  <div class="project-desc">A browser simulator built on real NASA and USGS elevation data for 7 Moon and Mars sites. Commands arrive after the real signal delay, a Monte Carlo dry run scores Mars plans before you commit to them, and delayed-telemetry bots must win every level.</div>
+  <div class="project-impact">Drive a rover over real Moon and Mars terrain, through the signal delay.</div>
+  <div class="project-desc">A browser simulator built on real NASA and USGS elevation data for 7 Moon and Mars sites. Moon commands arrive after the real one-way signal delay, the Mars delay is compressed and labeled, a Monte Carlo dry run scores Mars plans before you commit to them, and delayed-telemetry bots must win every level.</div>
   <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/tycho/" target="_blank" rel="noopener noreferrer">↗ Live Site</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/tycho" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
