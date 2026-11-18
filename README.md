@@ -2,7 +2,7 @@
 
 > Step into a hand-built 3D ramen shop. Sit at the bar. Browse my work.
 
-**Live site:** [tarang-tj.github.io/3d-ramenshop-portfolio](https://tarang-tj.github.io/3d-ramenshop-portfolio/)
+**Live site:** [tarangj.com/3d-ramenshop-portfolio](https://tarangj.com/3d-ramenshop-portfolio/)
 
 ![The ramen shop at night, click the door to step inside](docs/ramenshop.png)
 

@@ -60,7 +60,7 @@ const panels={
 <div class="contact-row"><div class="contact-label">LinkedIn</div><div class="contact-val"><a href="https://linkedin.com/in/tarang-tj/" target="_blank" rel="noopener noreferrer">linkedin.com/in/tarang-tj</a></div></div>
 <div class="contact-row"><div class="contact-label">Resume</div><div class="contact-val"><a href="Tarang_Jammalamadaka_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a></div></div>
 <div class="contact-row"><div class="contact-label">GitHub</div><div class="contact-val"><a href="https://github.com/tarang-tj" target="_blank" rel="noopener noreferrer">github.com/tarang-tj</a></div></div>
-<div class="contact-row"><div class="contact-label">Portfolio</div><div class="contact-val"><a href="https://tarang-tj.github.io" target="_blank" rel="noopener noreferrer">tarang-tj.github.io</a></div></div>
+<div class="contact-row"><div class="contact-label">Portfolio</div><div class="contact-val"><a href="https://tarangj.com" target="_blank" rel="noopener noreferrer">tarangj.com</a></div></div>
 <div class="contact-row"><div class="contact-label">SyllabusAI</div><div class="contact-val"><a href="https://syllabusai.net" target="_blank" rel="noopener noreferrer">syllabusai.net</a></div></div>
 <div class="contact-row"><div class="contact-label">AutoAppli</div><div class="contact-val"><a href="https://autoappli.com" target="_blank" rel="noopener noreferrer">autoappli.com</a></div></div>
 <div class="contact-row"><div class="contact-label">Location</div><div class="contact-val">Seattle area</div></div>

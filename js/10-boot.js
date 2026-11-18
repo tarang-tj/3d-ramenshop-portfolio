@@ -35,7 +35,7 @@ function _showWebGLFallback(errMsg){
     '<p><a href="https://github.com/tarang-tj/ragproof">ragproof</a>: open-source RAG evaluation harness, 54 tests, green CI.<br>'+
     '<a href="https://syllabusai.net">SyllabusAI</a>: a free ed-tech tool that turns a syllabus into a calendar, with a study companion.<br>'+
     '<a href="https://autoappli.com">AutoAppli</a>: a job-search workspace reading 11 ATS sources.<br>'+
-    '<a href="https://tarang-tj.github.io/tycho/">TYCHO</a>: a rover simulator on real Moon and Mars elevation data.<br>'+
+    '<a href="https://tarangj.com/tycho/">TYCHO</a>: a rover simulator on real Moon and Mars elevation data.<br>'+
     'Kaggle Pokemon TCG AI Battle Challenge: 245th of 6,807.</p>'+
     '<div class="fb-links">'+
       '<a href="Tarang_Jammalamadaka_Resume.pdf">Resume (PDF)</a>'+

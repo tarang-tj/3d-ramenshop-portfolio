@@ -5,7 +5,7 @@
 panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div><div class="panel-title">Projects</div></div><div class="panel-content">
 <div class="case-brief"><b>The tasting menu.</b> Eight main courses, then the extras. Each card says what I built, what it measures, and where you can check it.</div>
 <div class="case-filters" aria-label="Filter projects by role"><button class="case-filter active" onclick="filterProjects('all',this)">All work</button><button class="case-filter" onclick="filterProjects('finance',this)">Finance</button><button class="case-filter" onclick="filterProjects('data',this)">Data</button><button class="case-filter" onclick="filterProjects('supply',this)">Supply chain</button><button class="case-filter" onclick="filterProjects('ai',this)">Applied AI</button><button class="case-filter" onclick="filterProjects('craft',this)">Creative code</button></div>
-<div class="case-brief">Hiring for one kind of role? The plain role view is at <a href="https://tarang-tj.github.io/portfolio/#finance" target="_blank" rel="noopener noreferrer">tarang-tj.github.io/portfolio</a>, with a tab each for finance, data, supply chain and AI.</div>
+<div class="case-brief">Hiring for one kind of role? The plain role view is at <a href="https://tarangj.com/portfolio/#finance" target="_blank" rel="noopener noreferrer">tarangj.com</a>, with a tab each for finance, data, supply chain and AI.</div>
 
 <div class="project-entry" id="project-ragproof" data-track="ai">
   <div class="project-num">No. 01</div>
@@ -72,7 +72,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">7</div><div class="proj-stat-label">FRED indicators</div></div><div class="proj-stat"><div class="proj-stat-num">Rolling</div><div class="proj-stat-label">Window regression</div></div><div class="proj-stat"><div class="proj-stat-num">NBER</div><div class="proj-stat-label">Recession shading</div></div></div>
   <div class="project-impact">Seven live macro indicators, with trend shifts flagged rather than eyeballed.</div>
   <div class="project-desc">Python and Streamlit pulling seven live FRED indicators. Rolling-window regression flags where a trend turns, and NBER recession shading gives the turns some context.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/economic-pulse-dashboard/" target="_blank" rel="noopener noreferrer">↗ Live Dashboard</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/economic-pulse-dashboard" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/economic-pulse-dashboard/" target="_blank" rel="noopener noreferrer">↗ Live Dashboard</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/economic-pulse-dashboard" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-ramen-portfolio" data-track="craft">
@@ -82,7 +82,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">32</div><div class="proj-stat-label">Hand-written files</div></div><div class="proj-stat"><div class="proj-stat-num">0</div><div class="proj-stat-label">Frameworks</div></div><div class="proj-stat"><div class="proj-stat-num">0</div><div class="proj-stat-label">Build steps</div></div></div>
   <div class="project-impact">You are standing in it right now.</div>
   <div class="project-desc">Three.js r128 and plain JavaScript, split across css/ and js/ files that the browser loads directly. Every mesh is written by hand. It is built to degrade: bloom falls back to a plain render if the CDN is blocked, the pixel ratio steps down a ladder under GPU pressure, a lost graphics context is rebuilt, and a text-only portfolio takes over if 3D cannot start at all. This wave added a stamp rally (press G for the card), the Noodle Catch arcade (P), and drone mode (V) once the rally is finished.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/3d-ramenshop-portfolio/" target="_blank" rel="noopener noreferrer">↗ Live Site</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/3d-ramenshop-portfolio" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/3d-ramenshop-portfolio/" target="_blank" rel="noopener noreferrer">↗ Live Site</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/3d-ramenshop-portfolio" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="case-brief"><b>Extra courses.</b> Smaller plates, same kitchen.</div>
@@ -94,7 +94,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">$499.4B</div><div class="proj-stat-label">DoD aerospace, FY2021 to 2025</div></div><div class="proj-stat"><div class="proj-stat-num">43%</div><div class="proj-stat-label">Lockheed share, rolled up</div></div><div class="proj-stat"><div class="proj-stat-num">87%</div><div class="proj-stat-label">DoD dollars not competed</div></div></div>
   <div class="project-impact">Supplier records understate concentration until they roll up to the parent company.</div>
   <div class="project-desc">Every NASA contract transaction plus DoD aerospace manufacturing (NAICS 3364) from USAspending, rolled up to parent companies. Lockheed Martin&rsquo;s share goes from 21% as listed to 43% rolled up, and the top five go from 45% to 82%.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/aero-supplier-spend/" target="_blank" rel="noopener noreferrer">↗ Live Findings</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/aero-supplier-spend" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/aero-supplier-spend/" target="_blank" rel="noopener noreferrer">↗ Live Findings</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/aero-supplier-spend" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-p2p-match-audit" data-track="supply finance">
@@ -104,7 +104,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">251,734</div><div class="proj-stat-label">PO items audited</div></div><div class="proj-stat"><div class="proj-stat-num">14</div><div class="proj-stat-label">Controls</div></div><div class="proj-stat"><div class="proj-stat-num">3,693</div><div class="proj-stat-label">Invoiced before the PO</div></div></div>
   <div class="project-impact">The controls an accounts payable team runs, on a real public log instead of a class dataset.</div>
   <div class="project-desc">Fourteen purchase-to-pay controls on the BPI Challenge 2019 log. 1.47% of items had an invoice dated before the PO, and 2,526 had one person both record and clear the same invoice. The audit also runs in the browser.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/p2p-match-audit/" target="_blank" rel="noopener noreferrer">↗ Run the Audit</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/p2p-match-audit" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/p2p-match-audit/" target="_blank" rel="noopener noreferrer">↗ Run the Audit</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/p2p-match-audit" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-bullwhip-audit" data-track="supply data">
@@ -114,7 +114,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">44</div><div class="proj-stat-label">Industries</div></div><div class="proj-stat"><div class="proj-stat-num">216</div><div class="proj-stat-label">Model specs</div></div><div class="proj-stat"><div class="proj-stat-num">82%</div><div class="proj-stat-label">Retail cells, seasonality removed</div></div></div>
   <div class="project-impact">Checking whether a famous supply chain result survives a change of method.</div>
   <div class="project-desc">A replication of Cachon, Randall and Schmidt (2007) on US Census data through 2025. With seasonality kept, no retail industry amplifies demand. Remove seasonality and 82% of retail cells appear to, so the method can manufacture the effect.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/bullwhip-audit/" target="_blank" rel="noopener noreferrer">↗ Memo and Charts</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/bullwhip-audit" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/bullwhip-audit/" target="_blank" rel="noopener noreferrer">↗ Memo and Charts</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/bullwhip-audit" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-first-flight" data-track="supply data craft">
@@ -124,7 +124,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">624</div><div class="proj-stat-label">737 first flights seen</div></div><div class="proj-stat"><div class="proj-stat-num">774</div><div class="proj-stat-label">737 deliveries reported</div></div><div class="proj-stat"><div class="proj-stat-num">647</div><div class="proj-stat-label">Days scanned</div></div></div>
   <div class="project-impact">Can you see a factory&rsquo;s output from public flight data?</div>
   <div class="project-desc">A 3D Puget Sound where every new Boeing jet&rsquo;s first flight replays from public flight-tracking history, with a ledger that compares the sky count with Boeing&rsquo;s reported deliveries.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/first-flight/" target="_blank" rel="noopener noreferrer">↗ Explore It</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/first-flight" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/first-flight/" target="_blank" rel="noopener noreferrer">↗ Explore It</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/first-flight" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-overhead" data-track="supply craft">
@@ -134,7 +134,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">16,896</div><div class="proj-stat-label">Active satellites at last check</div></div><div class="proj-stat"><div class="proj-stat-num">2</div><div class="proj-stat-label">Local factories</div></div></div>
   <div class="project-impact">Amazon Leo and Starlink shown as a production line, from factory to retirement.</div>
   <div class="project-desc">Every active satellite over you, with each constellation traced through factory, launch, orbit raising, on station and retired. Both factories are a short drive from campus.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/overhead/" target="_blank" rel="noopener noreferrer">↗ Look Up</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/overhead" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/overhead/" target="_blank" rel="noopener noreferrer">↗ Look Up</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/overhead" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-team-cartier" data-track="finance">
@@ -144,7 +144,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">25+</div><div class="proj-stat-label">Expense categories</div></div><div class="proj-stat"><div class="proj-stat-num">FY2024</div><div class="proj-stat-label">Wholesale P&amp;L</div></div></div>
   <div class="project-impact">Where the plan and the year parted ways, channel by channel.</div>
   <div class="project-desc">Team project on a FY2024 wholesale-distribution P&amp;L: forecast vs actual by channel, budget variance and working capital. I built the P&amp;L waterfall and broke out the expense categories. Figures are the case dataset.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/team-cartier-dashboard/" target="_blank" rel="noopener noreferrer">↗ Dashboard</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/team-cartier-dashboard/" target="_blank" rel="noopener noreferrer">↗ Dashboard</a></div>
 </div>
 
 <div class="project-entry" id="project-tycho" data-track="craft">
@@ -153,7 +153,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="tool-pills"><span class="tool-pill tp-js">Vanilla JS</span><span class="tool-pill tp-other">NASA/USGS elevation data</span><span class="tool-pill tp-other">Monte Carlo</span></div>
   <div class="project-impact">Drive a rover over real Moon and Mars terrain, through the signal delay.</div>
   <div class="project-desc">A browser simulator built on real NASA and USGS elevation data for 7 Moon and Mars sites. Moon commands arrive after the real one-way signal delay, the Mars delay is compressed and labeled, a Monte Carlo dry run scores Mars plans before you commit to them, and delayed-telemetry bots must win every level.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/tycho/" target="_blank" rel="noopener noreferrer">↗ Live Site</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/tycho" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/tycho/" target="_blank" rel="noopener noreferrer">↗ Live Site</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/tycho" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-civic-gemma" data-track="ai">
@@ -198,7 +198,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="tool-pills"><span class="tool-pill tp-r">R</span><span class="tool-pill tp-bi">Tableau</span></div>
   <div class="project-impact">Nine years of rent and homelessness data, put in front of a non-technical audience.</div>
   <div class="project-desc">Nine years of rental index, income, vacancy and homelessness data, cleaned and modeled in R. The output is an interactive Tableau dashboard plus a written report.</div>
-  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/wa-housing-homelessness/" target="_blank" rel="noopener noreferrer">↗ Live Visualization</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/wa-housing-homelessness" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarangj.com/wa-housing-homelessness/" target="_blank" rel="noopener noreferrer">↗ Live Visualization</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/wa-housing-homelessness" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-reach-battlesnake" data-track="ai">
