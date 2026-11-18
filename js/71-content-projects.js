@@ -4,7 +4,8 @@
 // Card ids are stable deep-link targets (project-<slug>) for the quest and arcade layers.
 panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div><div class="panel-title">Projects</div></div><div class="panel-content">
 <div class="case-brief"><b>The tasting menu.</b> Eight main courses, then the extras. Each card says what I built, what it measures, and where you can check it.</div>
-<div class="case-filters" aria-label="Filter projects"><button class="case-filter active" onclick="filterProjects('all',this)">All work</button><button class="case-filter" onclick="filterProjects('ai',this)">Applied AI</button><button class="case-filter" onclick="filterProjects('data',this)">Data systems</button><button class="case-filter" onclick="filterProjects('craft',this)">Creative code</button></div>
+<div class="case-filters" aria-label="Filter projects by role"><button class="case-filter active" onclick="filterProjects('all',this)">All work</button><button class="case-filter" onclick="filterProjects('finance',this)">Finance</button><button class="case-filter" onclick="filterProjects('data',this)">Data</button><button class="case-filter" onclick="filterProjects('supply',this)">Supply chain</button><button class="case-filter" onclick="filterProjects('ai',this)">Applied AI</button><button class="case-filter" onclick="filterProjects('craft',this)">Creative code</button></div>
+<div class="case-brief">Hiring for one kind of role? The plain role view is at <a href="https://tarang-tj.github.io/portfolio/#finance" target="_blank" rel="noopener noreferrer">tarang-tj.github.io/portfolio</a>, with a tab each for finance, data, supply chain and AI.</div>
 
 <div class="project-entry" id="project-ragproof" data-track="ai">
   <div class="project-num">No. 01</div>
@@ -64,7 +65,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-btn-row"><a class="proj-btn-gh" href="https://github.com/tarang-tj/model-sentinel" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
-<div class="project-entry" id="project-economic-pulse" data-track="data">
+<div class="project-entry" id="project-economic-pulse" data-track="data finance">
   <div class="project-num">No. 07</div>
   <div class="project-name">Economic Pulse Dashboard</div>
   <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-py">Streamlit</span><span class="tool-pill tp-other">FRED API</span><span class="tool-pill tp-other">Regression</span></div>
@@ -86,8 +87,68 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 
 <div class="case-brief"><b>Extra courses.</b> Smaller plates, same kitchen.</div>
 
-<div class="project-entry" id="project-tycho" data-track="craft">
+<div class="project-entry" id="project-aero-supplier-spend" data-track="supply finance data">
   <div class="project-num">No. 09</div>
+  <div class="project-name">Aerospace supplier spend &middot; who really gets the dollars</div>
+  <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-sql">DuckDB</span><span class="tool-pill tp-sql">SQL</span><span class="tool-pill tp-other">USAspending API</span></div>
+  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">$499.4B</div><div class="proj-stat-label">DoD aerospace, FY2021 to 2025</div></div><div class="proj-stat"><div class="proj-stat-num">43%</div><div class="proj-stat-label">Lockheed share, rolled up</div></div><div class="proj-stat"><div class="proj-stat-num">87%</div><div class="proj-stat-label">DoD dollars not competed</div></div></div>
+  <div class="project-impact">Supplier records understate concentration until they roll up to the parent company.</div>
+  <div class="project-desc">Every NASA contract transaction plus DoD aerospace manufacturing (NAICS 3364) from USAspending, rolled up to parent companies. Lockheed Martin&rsquo;s share goes from 21% as listed to 43% rolled up, and the top five go from 45% to 82%.</div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/aero-supplier-spend/" target="_blank" rel="noopener noreferrer">↗ Live Findings</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/aero-supplier-spend" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+</div>
+
+<div class="project-entry" id="project-p2p-match-audit" data-track="supply finance">
+  <div class="project-num">No. 10</div>
+  <div class="project-name">Three-way match audit &middot; a real ERP purchase-to-pay log</div>
+  <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-py">pandas</span><span class="tool-pill tp-other">Process mining</span><span class="tool-pill tp-other">Audit controls</span></div>
+  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">251,734</div><div class="proj-stat-label">PO items audited</div></div><div class="proj-stat"><div class="proj-stat-num">14</div><div class="proj-stat-label">Controls</div></div><div class="proj-stat"><div class="proj-stat-num">3,693</div><div class="proj-stat-label">Invoiced before the PO</div></div></div>
+  <div class="project-impact">The controls an accounts payable team runs, on a real public log instead of a class dataset.</div>
+  <div class="project-desc">Fourteen purchase-to-pay controls on the BPI Challenge 2019 log. 1.47% of items had an invoice dated before the PO, and 2,526 had one person both record and clear the same invoice. The audit also runs in the browser.</div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/p2p-match-audit/" target="_blank" rel="noopener noreferrer">↗ Run the Audit</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/p2p-match-audit" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+</div>
+
+<div class="project-entry" id="project-bullwhip-audit" data-track="supply data">
+  <div class="project-num">No. 11</div>
+  <div class="project-name">Bullwhip effect &middot; a replication on Census data</div>
+  <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-other">Census data</span><span class="tool-pill tp-other">Bootstrap tests</span></div>
+  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">44</div><div class="proj-stat-label">Industries</div></div><div class="proj-stat"><div class="proj-stat-num">216</div><div class="proj-stat-label">Model specs</div></div><div class="proj-stat"><div class="proj-stat-num">82%</div><div class="proj-stat-label">Retail cells, seasonality removed</div></div></div>
+  <div class="project-impact">Checking whether a famous supply chain result survives a change of method.</div>
+  <div class="project-desc">A replication of Cachon, Randall and Schmidt (2007) on US Census data through 2025. With seasonality kept, no retail industry amplifies demand. Remove seasonality and 82% of retail cells appear to, so the method can manufacture the effect.</div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/bullwhip-audit/" target="_blank" rel="noopener noreferrer">↗ Memo and Charts</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/bullwhip-audit" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+</div>
+
+<div class="project-entry" id="project-first-flight" data-track="supply data craft">
+  <div class="project-num">No. 12</div>
+  <div class="project-name">First Flight &middot; Boeing&rsquo;s production rate from the sky</div>
+  <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-js">three.js</span><span class="tool-pill tp-other">ADS-B data</span></div>
+  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">624</div><div class="proj-stat-label">737 first flights seen</div></div><div class="proj-stat"><div class="proj-stat-num">774</div><div class="proj-stat-label">737 deliveries reported</div></div><div class="proj-stat"><div class="proj-stat-num">647</div><div class="proj-stat-label">Days scanned</div></div></div>
+  <div class="project-impact">Can you see a factory&rsquo;s output from public flight data?</div>
+  <div class="project-desc">A 3D Puget Sound where every new Boeing jet&rsquo;s first flight replays from public flight-tracking history, with a ledger that compares the sky count with Boeing&rsquo;s reported deliveries.</div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/first-flight/" target="_blank" rel="noopener noreferrer">↗ Explore It</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/first-flight" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+</div>
+
+<div class="project-entry" id="project-overhead" data-track="supply craft">
+  <div class="project-num">No. 13</div>
+  <div class="project-name">Overhead &middot; satellites as a supply chain</div>
+  <div class="tool-pills"><span class="tool-pill tp-js">JavaScript</span><span class="tool-pill tp-js">three.js</span><span class="tool-pill tp-other">CelesTrak data</span></div>
+  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">16,896</div><div class="proj-stat-label">Active satellites at last check</div></div><div class="proj-stat"><div class="proj-stat-num">2</div><div class="proj-stat-label">Local factories</div></div></div>
+  <div class="project-impact">Amazon Leo and Starlink shown as a production line, from factory to retirement.</div>
+  <div class="project-desc">Every active satellite over you, with each constellation traced through factory, launch, orbit raising, on station and retired. Both factories are a short drive from campus.</div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/overhead/" target="_blank" rel="noopener noreferrer">↗ Look Up</a><a class="proj-btn-gh" href="https://github.com/tarang-tj/overhead" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
+</div>
+
+<div class="project-entry" id="project-team-cartier" data-track="finance">
+  <div class="project-num">No. 14</div>
+  <div class="project-name">Forecast vs actual P&amp;L &middot; Team Cartier</div>
+  <div class="tool-pills"><span class="tool-pill tp-other">Excel</span><span class="tool-pill tp-js">Chart.js</span><span class="tool-pill tp-other">Variance analysis</span></div>
+  <div class="proj-stats"><div class="proj-stat"><div class="proj-stat-num">25+</div><div class="proj-stat-label">Expense categories</div></div><div class="proj-stat"><div class="proj-stat-num">FY2024</div><div class="proj-stat-label">Wholesale P&amp;L</div></div></div>
+  <div class="project-impact">Where the plan and the year parted ways, channel by channel.</div>
+  <div class="project-desc">Team project on a FY2024 wholesale-distribution P&amp;L: forecast vs actual by channel, budget variance and working capital. I built the P&amp;L waterfall and broke out the expense categories. Figures are the case dataset.</div>
+  <div class="proj-btn-row"><a class="proj-btn-live" href="https://tarang-tj.github.io/team-cartier-dashboard/" target="_blank" rel="noopener noreferrer">↗ Dashboard</a></div>
+</div>
+
+<div class="project-entry" id="project-tycho" data-track="craft">
+  <div class="project-num">No. 15</div>
   <div class="project-name">TYCHO &middot; rover teleoperation simulator</div>
   <div class="tool-pills"><span class="tool-pill tp-js">Vanilla JS</span><span class="tool-pill tp-other">NASA/USGS elevation data</span><span class="tool-pill tp-other">Monte Carlo</span></div>
   <div class="project-impact">Drive a rover over real Moon and Mars terrain, through the signal delay.</div>
@@ -96,7 +157,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-civic-gemma" data-track="ai">
-  <div class="project-num">No. 10</div>
+  <div class="project-num">No. 16</div>
   <div class="project-name">ShelterBrief &middot; civic housing agent</div>
   <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-other">Gemma 4</span><span class="tool-pill tp-py">Streamlit</span><span class="tool-pill tp-other">CLI</span></div>
   <div class="project-impact">Every figure in the brief traces back to the tool call that produced it.</div>
@@ -104,8 +165,8 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
   <div class="proj-btn-row"><a class="proj-btn-gh" href="https://github.com/tarang-tj/civic-gemma" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
-<div class="project-entry" id="project-flow-control" data-track="data">
-  <div class="project-num">No. 11</div>
+<div class="project-entry" id="project-flow-control" data-track="supply data">
+  <div class="project-num">No. 17</div>
   <div class="project-name">Starship Flow Control &middot; BOM constraint radar</div>
   <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-js">Canvas 2D</span><span class="tool-pill tp-other">Deterministic</span></div>
   <div class="project-impact">Find the one part that is holding the build back.</div>
@@ -114,7 +175,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-claude-skill-audit" data-track="ai">
-  <div class="project-num">No. 12</div>
+  <div class="project-num">No. 18</div>
   <div class="project-name">claude-skill-audit &middot; AI tooling scanner</div>
   <div class="tool-pills"><span class="tool-pill tp-js">TypeScript</span><span class="tool-pill tp-other">Zero deps</span><span class="tool-pill tp-other">Security</span></div>
   <div class="project-impact">Know what your AI tooling would do before you install it.</div>
@@ -123,16 +184,16 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-ecommerce-sql" data-track="data">
-  <div class="project-num">No. 13</div>
+  <div class="project-num">No. 19</div>
   <div class="project-name">E-commerce revenue analysis</div>
   <div class="tool-pills"><span class="tool-pill tp-sql">SQL</span><span class="tool-pill tp-sql">PostgreSQL</span><span class="tool-pill tp-other">Window functions</span></div>
-  <div class="project-impact">Loyal buyers are 22% of the base and 34% of the revenue.</div>
-  <div class="project-desc">620 orders and $112K across 18 months on a six-table schema. Cohort and window-function queries separate the loyal segment from the rest, and show that November and December carry 29.5% of the year.</div>
+  <div class="project-impact">Customers with four or more orders are a third of buyers and 54.4% of revenue.</div>
+  <div class="project-desc">620 orders and $112K across 18 months on a six-table schema. Cohort and window-function queries separate the loyal segment from the rest, and split buyers by how often they come back. One-time buyers are 19% of buyers and 7.5% of revenue.</div>
   <div class="proj-btn-row"><a class="proj-btn-gh" href="https://github.com/tarang-tj/ecommerce-sql" target="_blank" rel="noopener noreferrer">⌥ GitHub</a></div>
 </div>
 
 <div class="project-entry" id="project-wa-housing" data-track="data">
-  <div class="project-num">No. 14</div>
+  <div class="project-num">No. 20</div>
   <div class="project-name">Washington housing affordability study</div>
   <div class="tool-pills"><span class="tool-pill tp-r">R</span><span class="tool-pill tp-bi">Tableau</span></div>
   <div class="project-impact">Nine years of rent and homelessness data, put in front of a non-technical audience.</div>
@@ -141,7 +202,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-reach-battlesnake" data-track="ai">
-  <div class="project-num">No. 15</div>
+  <div class="project-num">No. 21</div>
   <div class="project-name">Reach &middot; real-time Battlesnake server</div>
   <div class="tool-pills"><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-other">A* pathfinding</span><span class="tool-pill tp-other">CoG 2026</span></div>
   <div class="project-impact">Every move decided inside a 500 ms budget.</div>
@@ -149,7 +210,7 @@ panels.projects=`<div class="panel-header"><div class="panel-kanji">作品</div>
 </div>
 
 <div class="project-entry" id="project-jacobs-pharmacy" data-track="craft">
-  <div class="project-num">No. 16</div>
+  <div class="project-num">No. 22</div>
   <div class="project-name">Jacobs' Pharmacy &middot; 1886 in Python</div>
   <div class="tool-pills"><span class="tool-pill tp-other">Blender</span><span class="tool-pill tp-py">Python</span><span class="tool-pill tp-other">Procedural</span></div>
   <div class="project-impact">The corner where Coca-Cola was first served, generated from code.</div>

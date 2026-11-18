@@ -47,7 +47,7 @@ const panels={
 <div style="font-size:0.82rem;line-height:1.8">UW Bothell &middot; B.A. Business Administration (Management Information Systems)<br><span style="font-size:0.72rem;opacity:.75">Minors in Data Analytics and Economics &middot; Expected June 2027 &middot; Dean's List 2024, 2025, 2026</span></div>
 
 <div class="skill-section-title" style="margin-top:1.2rem">Awards</div>
-<div style="font-size:0.74rem;line-height:1.7;opacity:.85">First place, CED Finance Case Competition<br>Collegiate Member of the Year 2026, Delta Sigma Pi</div>
+<div style="font-size:0.74rem;line-height:1.7;opacity:.85">Second place, CED Finance Case Competition<br>Collegiate Member of the Year 2026, Delta Sigma Pi</div>
 
 <div class="skill-section-title" style="margin-top:1.2rem">Certifications</div>
 <div class="cert-entry"><div class="cert-icon">📊</div><div><div class="cert-name">Power BI</div><div class="cert-issuer">Microsoft Certified</div></div></div>

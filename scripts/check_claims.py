@@ -39,6 +39,9 @@ BANNED = [
     (r"—", "no em dashes in new copy (writing rule)"),
     # 2026-10-06 print rules (facts.md): no GPA anywhere, SyllabusAI is free, one AutoAppli address.
     (r"\bGPA\b:?\s*[0-9]\.[0-9]", "no GPA is printed on any public surface (TJ 2026-10-06)"),
+    (r"(?i)(first|1st) place[^<]{0,40}CED|CED[^<]{0,60}((first|1st) place|winner)", "CED Finance Case Competition was second place"),
+    (r"\b22% of the base|29\.5% of the year", "e-commerce figures that did not reproduce on the Oct 24 rerun"),
+    (r"\bSAP\b|\bpatent", "banned terms (SAP, patent)"),
     (r"Polar billing", "SyllabusAI is a free ed-tech tool, no longer sold"),
     (r"auto-appli\.vercel\.app", "AutoAppli's address is autoappli.com"),
 ]

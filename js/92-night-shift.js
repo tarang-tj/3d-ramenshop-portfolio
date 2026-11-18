@@ -17,14 +17,15 @@ function startNightShift(panel){
 window.startNightShift=startNightShift;
 function filterProjects(track, trigger){
   document.querySelectorAll('.project-entry[data-track]').forEach((card, index)=>{
-    const show = track === 'all' || card.dataset.track === track;
+    const show = track === 'all' || card.dataset.track.split(' ').includes(track);
     card.classList.toggle('is-filtered', !show);
     if(show){
       card.animate([{opacity:0, transform:'translateY(7px)'},{opacity:1, transform:'translateY(0)'}], {duration:260, delay:index*28, easing:'cubic-bezier(.22,1,.36,1)'});
     }
   });
   document.querySelectorAll('.case-filter').forEach(button=>button.classList.toggle('active', button===trigger));
-  srAnnounce(track === 'all' ? 'Showing all projects' : 'Showing ' + track + ' projects');
+  const names = {finance:'finance', data:'data', supply:'supply chain', ai:'applied AI', craft:'creative code'};
+  srAnnounce(track === 'all' ? 'Showing all projects' : 'Showing ' + (names[track] || track) + ' projects');
 }
 window.filterProjects=filterProjects;
 

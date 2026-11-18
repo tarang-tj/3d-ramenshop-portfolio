@@ -1110,6 +1110,7 @@
   .panel-title, .panel-content { color: #f8e8c5; }
   .case-brief { margin: 0 0 1.2rem; padding: .75rem .9rem; border-left: 2px solid #e8922a; background: rgba(232,146,42,.07); color: rgba(248,232,197,.76); font: .77rem/1.55 Georgia, serif; }
   .case-brief b { color: #f5d070; font-weight: normal; }
+  .case-brief a { color: #f0c060; text-decoration: underline; text-underline-offset: 2px; }
   .case-filters { display: flex; flex-wrap: wrap; gap: .38rem; margin: 0 0 1.1rem; }
   .case-filter { border: 1px solid rgba(240,192,96,.22); background: transparent; color: rgba(245,218,170,.72); padding: .35rem .5rem; font: .48rem 'Noto Serif JP', Georgia, serif; letter-spacing: .13em; text-transform: uppercase; cursor: none; transition: .2s ease; }
   .case-filter:hover, .case-filter:focus-visible, .case-filter.active { background: #e8922a; border-color: #e8922a; color: #1b0c03; outline: none; }
